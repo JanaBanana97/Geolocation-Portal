@@ -1,0 +1,16 @@
+eclipse.preferences.version=1
+encoding//src/ws/Benutzer.java=UTF-8
+encoding//src/ws/BenutzerServicePortBindingStub.java=UTF-8
+encoding//src/ws/BenutzerServiceService.java=UTF-8
+encoding//src/ws/BenutzerServiceServiceLocator.java=UTF-8
+encoding//src/ws/IBenutzerService.java=UTF-8
+encoding//src/ws/IKategorienService.java=UTF-8
+encoding//src/ws/ILokationenService.java=UTF-8
+encoding//src/ws/Kategorien.java=UTF-8
+encoding//src/ws/KategorienServicePortBindingStub.java=UTF-8
+encoding//src/ws/KategorienServiceService.java=UTF-8
+encoding//src/ws/KategorienServiceServiceLocator.java=UTF-8
+encoding//src/ws/Lokation.java=UTF-8
+encoding//src/ws/LokationenServicePortBindingStub.java=UTF-8
+encoding//src/ws/LokationenServiceService.java=UTF-8
+encoding//src/ws/LokationenServiceServiceLocator.java=UTF-8
