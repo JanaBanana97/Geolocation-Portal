@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>GeolocationServiceClient</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>org.eclipse.jdt.core.javabuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>org.eclipse.jem.workbench.JavaEMFNature</nature>
+		<nature>org.eclipse.jdt.core.javanature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>angular.soap.js</name>
+			<type>1</type>
+			<locationURI>PARENT-6-PROJECT_LOC/Downloads/angular-soap-master/angular-soap-master/angular.soap.js</locationURI>
+		</link>
+		<link>
+			<name>soapclient.js</name>
+			<type>1</type>
+			<locationURI>PARENT-6-PROJECT_LOC/Downloads/angular-soap-master/angular-soap-master/soapclient.js</locationURI>
+		</link>
+	</linkedResources>
+</projectDescription>

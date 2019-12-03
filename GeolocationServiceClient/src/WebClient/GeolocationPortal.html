@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Geolocation-Portal</title>
+
+	<script src="soapclient.js"></script>
+	<script src="angular.soap.js"></script>
+	
+    <script type="text/javascript">
+    
+    angular.module('GeolocationPortal', ['angularSoap']);
+    .factory("testService", ['$soap',function($soap){
+    	//var base_url = "http://localhost:4791/ws/GeolocationService?wsdl";
+   		var base_url = "http://localhost:4791/ws/GeolocationService.asmx";
+
+    	return {
+    		getKategorien: function(){
+    			return $soap.post(base_url,"getKategorien");
+    		}
+    	}
+    }])
+
+    .controller('MainCtrl', function($scope, testService) {
+
+      testService.getKategorien().then(function(kategorien){
+    	for(i=0;i<kategorien.length;i++){
+    		console.log(kategorien[i].KategorienId);
+    		console.log(kategorien[i].Bezeichnung);
+    	}
+      });
+      
+    })
+    
+    
+    </script>
+</head>
+<body>
+    <form name="Demo" action="" method="post">
+        <div>
+            <input type="button" value="Soap" onclick="soap();" />
+        </div>
+    </form>
+</body>
+<body>
+
+</body>
+</html>
