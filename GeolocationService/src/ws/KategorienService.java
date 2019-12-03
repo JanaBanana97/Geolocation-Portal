@@ -27,9 +27,10 @@ public class KategorienService implements IKategorienService {
 			Class.forName("com.mysql.jdbc.Driver"); 
 			
 			//verbinden
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/GeoLocationProject?serverTimezone=UTC", "root", "");
+			//connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/GeoLocationProject?serverTimezone=UTC", "root", "");
+			connection = DriverManager.getConnection("jdbc:mysql://sql7.freesqldatabase.com:3306/sql7314195", "sql7314195", "nriJqjZlcz");
 			statement = connection.createStatement();
-			resultSet = statement.executeQuery("select * from kategorien");
+			resultSet = statement.executeQuery("select * from Kategorien");
 			
 			returnList = new ArrayList<Kategorien>();
 			while(resultSet.next()) {

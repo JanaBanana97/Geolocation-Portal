@@ -29,9 +29,10 @@ public class BenutzerService implements IBenutzerService {
 			Class.forName("com.mysql.jdbc.Driver"); 
 			
 			//verbinden
-			connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/GeoLocationProject?serverTimezone=UTC", "root", "");
+			//connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/GeoLocationProject?serverTimezone=UTC", "root", "");
+			connection = DriverManager.getConnection("jdbc:mysql://sql7.freesqldatabase.com:3306/sql7314195", "sql7314195", "nriJqjZlcz");
 			statement = connection.createStatement();
-			resultSet = statement.executeQuery("select * from benutzer");
+			resultSet = statement.executeQuery("select * from Benutzer");
 			
 			returnList = new ArrayList<Benutzer>();
 			while(resultSet.next()) {
