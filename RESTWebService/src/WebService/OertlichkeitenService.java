@@ -40,6 +40,7 @@ public class OertlichkeitenService {
 					+ "FROM Oertlichkeiten, Kategorien "
 					+ "WHERE Oertlichkeiten.kategorienId = Kategorien.kategorienId AND "
 					+ "Kategorien.bezeichnung = '" + kategorie + "' ");
+			
 			while(rs.next()){
 				Oertlichkeiten o = new Oertlichkeiten();
 				o.oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
