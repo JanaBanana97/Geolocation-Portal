@@ -9,8 +9,9 @@ public class Gesundheit {
 	public String typ;
 	public String beschreibung;
 	public int oertlichkeitenId;
+	public Oertlichkeiten oertlichkeit;
 
 	public Gesundheit() {
-		
+		oertlichkeit = new Oertlichkeiten();
 	}
 }

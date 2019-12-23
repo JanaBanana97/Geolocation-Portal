@@ -10,9 +10,9 @@ public class Parkplaetze {
 	public String kosten;
 	public String beschreibung;
 	public int oertlichkeitenId;
+	public Oertlichkeiten oertlichkeit;
 	
 	public Parkplaetze() {
-		
-		
+		oertlichkeit = new Oertlichkeiten();
 	}
 }
