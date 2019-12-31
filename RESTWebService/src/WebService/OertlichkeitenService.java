@@ -23,8 +23,12 @@ public class OertlichkeitenService {
 	Connection connection;
 	Statement statement;
 	
-	public OertlichkeitenService() throws SQLException{
-		connection = DriverManager.getConnection("jdbc:mysql://sql7.freesqldatabase.com:3306/sql7314195",	"sql7314195", "nriJqjZlcz");
+	public OertlichkeitenService() throws SQLException, ClassNotFoundException{
+		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		String connectionURL = "jdbc:sqlserver://geoportalmosbach.database.windows.net:1433;" +  
+				   "databaseName=geoportalmosbach;user=geoportalmosbach;password=Trew1234;";
+		connection = DriverManager.getConnection(connectionURL);
+		//connection = DriverManager.getConnection("jdbc:mysql://sql7.freesqldatabase.com:3306/sql7314195",	"sql7314195", "nriJqjZlcz");
 		statement = connection.createStatement();	
 	}
 	
@@ -43,15 +47,15 @@ public class OertlichkeitenService {
 			
 			while(rs.next()){
 				Oertlichkeiten o = new Oertlichkeiten();
-				o.oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
-				o.bezeichnung = rs.getString("Oertlichkeiten.bezeichnung");
-				o.longitude = rs.getString("Oertlichkeiten.longitude");
-				o.latitude = rs.getString("Oertlichkeiten.latitude");
-				o.strasse = rs.getString("Oertlichkeiten.strasse");
-				o.hausnummer = rs.getString("Oertlichkeiten.hausnummer");
-				o.postleitzahl = rs.getInt("Oertlichkeiten.postleitzahl");
-				o.ort = rs.getString("Oertlichkeiten.ort");
-				o.kategorienId = rs.getInt("Oertlichkeiten.kategorienId");
+				o.oertlichkeitenId = rs.getInt("oertlichkeitenId");
+				o.bezeichnung = rs.getString("bezeichnung");
+				o.longitude = rs.getString("longitude");
+				o.latitude = rs.getString("latitude");
+				o.strasse = rs.getString("strasse");
+				o.hausnummer = rs.getString("hausnummer");
+				o.postleitzahl = rs.getInt("postleitzahl");
+				o.ort = rs.getString("ort");
+				o.kategorienId = rs.getInt("kategorienId");
 				returnList.add(o);
 			}
 		}
@@ -74,21 +78,20 @@ public class OertlichkeitenService {
 					+ " FROM Oertlichkeiten, Kategorien, " + kategorie 
 					+ " WHERE Oertlichkeiten.kategorienId = Kategorien.kategorienId AND "
 					+ " Oertlichkeiten.oertlichkeitenId = " + kategorie + ".oertlichkeitenId AND "
-					+ kategorie + ".oertlichkeitenId AND "
 					+ kategorie  + ".typ = '" + typ + "' AND "
 					+ " Kategorien.bezeichnung = '" + kategorie + "' ");
 			
 			while(rs.next()){
 				Oertlichkeiten o = new Oertlichkeiten();
-				o.oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
-				o.bezeichnung = rs.getString("Oertlichkeiten.bezeichnung");
-				o.longitude = rs.getString("Oertlichkeiten.longitude");
-				o.latitude = rs.getString("Oertlichkeiten.latitude");
-				o.strasse = rs.getString("Oertlichkeiten.strasse");
-				o.hausnummer = rs.getString("Oertlichkeiten.hausnummer");
-				o.postleitzahl = rs.getInt("Oertlichkeiten.postleitzahl");
-				o.ort = rs.getString("Oertlichkeiten.ort");
-				o.kategorienId = rs.getInt("Oertlichkeiten.kategorienId");
+				o.oertlichkeitenId = rs.getInt("oertlichkeitenId");
+				o.bezeichnung = rs.getString("bezeichnung");
+				o.longitude = rs.getString("longitude");
+				o.latitude = rs.getString("latitude");
+				o.strasse = rs.getString("strasse");
+				o.hausnummer = rs.getString("hausnummer");
+				o.postleitzahl = rs.getInt("postleitzahl");
+				o.ort = rs.getString("ort");
+				o.kategorienId = rs.getInt("kategorienId");
 				returnList.add(o);
 			}
 		}

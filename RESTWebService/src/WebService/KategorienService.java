@@ -21,8 +21,13 @@ public class KategorienService {
 	Connection connection;
 	Statement statement;
 	
-	public KategorienService() throws SQLException{
-		connection = DriverManager.getConnection("jdbc:mysql://sql7.freesqldatabase.com:3306/sql7314195",	"sql7314195", "nriJqjZlcz");
+	public KategorienService() throws SQLException, ClassNotFoundException{
+		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		String connectionURL = "jdbc:sqlserver://geoportalmosbach.database.windows.net:1433;" +  
+				   "databaseName=geoportalmosbach;user=geoportalmosbach;password=Trew1234;";
+		connection = DriverManager.getConnection(connectionURL);
+		
+		//connection = DriverManager.getConnection("jdbc:mysql://sql7.freesqldatabase.com:3306/sql7314195",	"sql7314195", "nriJqjZlcz");
 		statement = connection.createStatement();
 	}
 		

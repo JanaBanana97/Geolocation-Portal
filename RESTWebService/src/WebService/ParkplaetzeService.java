@@ -21,8 +21,12 @@ public class ParkplaetzeService {
 	Connection connection;
 	Statement statement;
 	
-	public ParkplaetzeService() throws SQLException{
-		connection = DriverManager.getConnection("jdbc:mysql://sql7.freesqldatabase.com:3306/sql7314195",	"sql7314195", "nriJqjZlcz");
+	public ParkplaetzeService() throws SQLException, ClassNotFoundException{
+		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		String connectionURL = "jdbc:sqlserver://geoportalmosbach.database.windows.net:1433;" +  
+				   "databaseName=geoportalmosbach;user=geoportalmosbach;password=Trew1234;";
+		connection = DriverManager.getConnection(connectionURL);
+		//connection = DriverManager.getConnection("jdbc:mysql://sql7.freesqldatabase.com:3306/sql7314195",	"sql7314195", "nriJqjZlcz");
 		statement = connection.createStatement();	
 	}
 	
@@ -41,20 +45,20 @@ public class ParkplaetzeService {
 					+ "Oertlichkeiten.oertlichkeitenId = " + oertlichkeitenId);
 			
 			while(rs.next()){
-				parkplatz.parkplaetzeId = rs.getInt("Parkplaetze.parkplaetzeId");
-				parkplatz.oeffnungszeiten = rs.getString("Parkplaetze.oeffnungszeiten");
-				parkplatz.kosten = rs.getString("Parkplaetze.kosten");
-				parkplatz.beschreibung = rs.getString("Parkplaetze.beschreibung");
-				parkplatz.oertlichkeitenId = rs.getInt("Parkplaetze.oertlichkeitenId");
-				parkplatz.oertlichkeit.oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
-				parkplatz.oertlichkeit.bezeichnung = rs.getString("Oertlichkeiten.bezeichnung");
-				parkplatz.oertlichkeit.longitude = rs.getString("Oertlichkeiten.longitude");
-				parkplatz.oertlichkeit.latitude = rs.getString("Oertlichkeiten.latitude");
-				parkplatz.oertlichkeit.strasse = rs.getString("Oertlichkeiten.strasse");
-				parkplatz.oertlichkeit.hausnummer = rs.getString("Oertlichkeiten.hausnummer");
-				parkplatz.oertlichkeit.postleitzahl = rs.getInt("Oertlichkeiten.postleitzahl");
-				parkplatz.oertlichkeit.ort = rs.getString("Oertlichkeiten.ort");
-				parkplatz.oertlichkeit.kategorienId = rs.getInt("Oertlichkeiten.kategorienId");
+				parkplatz.parkplaetzeId = rs.getInt("parkplaetzeId");
+				parkplatz.oeffnungszeiten = rs.getString("oeffnungszeiten");
+				parkplatz.kosten = rs.getString("kosten");
+				parkplatz.beschreibung = rs.getString("beschreibung");
+				parkplatz.oertlichkeitenId = rs.getInt("oertlichkeitenId");
+				parkplatz.oertlichkeit.oertlichkeitenId = rs.getInt("oertlichkeitenId");
+				parkplatz.oertlichkeit.bezeichnung = rs.getString("bezeichnung");
+				parkplatz.oertlichkeit.longitude = rs.getString("longitude");
+				parkplatz.oertlichkeit.latitude = rs.getString("latitude");
+				parkplatz.oertlichkeit.strasse = rs.getString("strasse");
+				parkplatz.oertlichkeit.hausnummer = rs.getString("hausnummer");
+				parkplatz.oertlichkeit.postleitzahl = rs.getInt("postleitzahl");
+				parkplatz.oertlichkeit.ort = rs.getString("ort");
+				parkplatz.oertlichkeit.kategorienId = rs.getInt("kategorienId");
 			}
 		}
 		catch(Exception e){

@@ -21,8 +21,13 @@ public class GesundheitService {
 	Connection connection;
 	Statement statement;
 	
-	public GesundheitService() throws SQLException{
-		connection = DriverManager.getConnection("jdbc:mysql://sql7.freesqldatabase.com:3306/sql7314195",	"sql7314195", "nriJqjZlcz");
+	public GesundheitService() throws SQLException, ClassNotFoundException{
+		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
+		String connectionURL = "jdbc:sqlserver://geoportalmosbach.database.windows.net:1433;" +  
+				   "databaseName=geoportalmosbach;user=geoportalmosbach;password=Trew1234;";
+		connection = DriverManager.getConnection(connectionURL);
+		
+		//connection = DriverManager.getConnection("jdbc:mysql://sql7.freesqldatabase.com:3306/sql7314195",	"sql7314195", "nriJqjZlcz");
 		statement = connection.createStatement();	
 	}
 	
@@ -41,19 +46,19 @@ public class GesundheitService {
 					+ "Oertlichkeiten.oertlichkeitenId = " + oertlichkeitenId);
 			
 			while(rs.next()){
-				gesundheit.gesundheitsId = rs.getInt("Gesundheit.gesundheitId");
-				gesundheit.typ = rs.getString("Gesundheit.typ");
-				gesundheit.beschreibung = rs.getString("Gesundheit.beschreibung");
-				gesundheit.oertlichkeitenId = rs.getInt("Gesundheit.oertlichkeitenId");
-				gesundheit.oertlichkeit.oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
-				gesundheit.oertlichkeit.bezeichnung = rs.getString("Oertlichkeiten.bezeichnung");
-				gesundheit.oertlichkeit.longitude = rs.getString("Oertlichkeiten.longitude");
-				gesundheit.oertlichkeit.latitude = rs.getString("Oertlichkeiten.latitude");
-				gesundheit.oertlichkeit.strasse = rs.getString("Oertlichkeiten.strasse");
-				gesundheit.oertlichkeit.hausnummer = rs.getString("Oertlichkeiten.hausnummer");
-				gesundheit.oertlichkeit.postleitzahl = rs.getInt("Oertlichkeiten.postleitzahl");
-				gesundheit.oertlichkeit.ort = rs.getString("Oertlichkeiten.ort");
-				gesundheit.oertlichkeit.kategorienId = rs.getInt("Oertlichkeiten.kategorienId");
+				gesundheit.gesundheitsId = rs.getInt("gesundheitId");
+				gesundheit.typ = rs.getString("typ");
+				gesundheit.beschreibung = rs.getString("beschreibung");
+				gesundheit.oertlichkeitenId = rs.getInt("oertlichkeitenId");
+				gesundheit.oertlichkeit.oertlichkeitenId = rs.getInt("oertlichkeitenId");
+				gesundheit.oertlichkeit.bezeichnung = rs.getString("bezeichnung");
+				gesundheit.oertlichkeit.longitude = rs.getString("longitude");
+				gesundheit.oertlichkeit.latitude = rs.getString("latitude");
+				gesundheit.oertlichkeit.strasse = rs.getString("strasse");
+				gesundheit.oertlichkeit.hausnummer = rs.getString("hausnummer");
+				gesundheit.oertlichkeit.postleitzahl = rs.getInt("postleitzahl");
+				gesundheit.oertlichkeit.ort = rs.getString("ort");
+				gesundheit.oertlichkeit.kategorienId = rs.getInt("kategorienId");
 			}
 		}
 		catch(Exception e){
