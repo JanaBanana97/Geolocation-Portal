@@ -13,3 +13,11 @@ div.card {
 .table {
   margin-top: 10px
 }
+
+.ui-table .ui-table-tbody > tr > td.ui-editing-cell {
+  padding: 0.571em 0.857em;
+}
+
+body .ui-table .ui-sortable-column.ui-state-highlight {
+  background-color: #ffe399;
+}

@@ -1,0 +1,29 @@
+<div class='main-nav'>
+  <div class='navbar navbar-inverse'>
+
+      <ul class='nav navbar-nav'>
+        <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
+            <span class='glyphicon glyphicon-home'></span> Gesamtübersicht
+        </li>
+          <a (click)='collapse()'>
+            <span class='glyphicon glyphicon-th-list'></span> Bildung
+          </a>
+
+        <li [routerLinkActive]='["link-active"]'>
+          <a [routerLink]='["/configuration"]' (click)='collapse()'>
+            <span class='glyphicon glyphicon-th-list'></span> Gesundheit
+          </a>
+        </li>
+        <li [routerLinkActive]='["link-active"]'>
+          <a [routerLink]='["/drillpackagedetector"]' (click)='collapse()'>
+            <span class='glyphicon glyphicon-th-list'></span> Politik
+          </a>
+        </li>
+        <li [routerLinkActive]='["link-active"]'>
+          <a [routerLink]='["/millcost"]' (click)='collapse()'>
+            <span class='glyphicon glyphicon-th-list'></span> Mängelmelder
+          </a>
+        </li>
+      </ul>
+
+</div>

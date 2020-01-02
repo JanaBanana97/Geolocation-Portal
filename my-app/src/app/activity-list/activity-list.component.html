@@ -1,0 +1,30 @@
+<div class="row row-runs">
+  <h2 class="heading">Mosbach</h2>
+  <hr />
+  <div class="summary">
+    There are
+    <p class="totals">{{ totalActivities }}</p>
+    categories
+  </div>
+  <hr />
+  <table class="table table-hover">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Comments</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let activity of activities">
+        <td>
+          <a [routerLink] ="['/run', activity.id]"> <!--Statt der weiterleitung muss hier die map sich ändern-->
+            {{ activity.name }}
+          </a>
+        </td>
+        <td>{{ activity.comments }}</td>
+        
+      </tr>
+    </tbody>
+  </table>
+</div>
