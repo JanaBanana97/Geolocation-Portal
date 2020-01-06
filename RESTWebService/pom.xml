@@ -36,5 +36,12 @@
   		<artifactId>mssql-jdbc</artifactId>
   		<version>6.1.0.jre7</version>
   	</dependency>
+  	<dependency>
+    	<groupId>org.postgresql</groupId>
+    	<artifactId>postgresql</artifactId>
+    	<version>42.1.4.jre7</version>
+    	<type>tar.gz</type>
+    	<classifier>dist</classifier>
+  	</dependency> 
   </dependencies>
 </project>

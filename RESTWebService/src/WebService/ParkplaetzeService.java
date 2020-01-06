@@ -13,6 +13,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
+import Customizing.Customizing;
 import entities.Parkplaetze;
 
 @Path("ParkplaetzeService")
@@ -22,10 +23,8 @@ public class ParkplaetzeService {
 	Statement statement;
 	
 	public ParkplaetzeService() throws SQLException, ClassNotFoundException{
-		Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-		String connectionURL = "jdbc:sqlserver://geoportalmosbach.database.windows.net:1433;" +  
-				   "databaseName=geoportalmosbach;user=geoportalmosbach;password=Trew1234;";
-		connection = DriverManager.getConnection(connectionURL);
+		Class.forName("org.postgresql.Driver");
+		connection = DriverManager.getConnection(Customizing.URL, Customizing.USER, Customizing.PASSWORD);
 		//connection = DriverManager.getConnection("jdbc:mysql://sql7.freesqldatabase.com:3306/sql7314195",	"sql7314195", "nriJqjZlcz");
 		statement = connection.createStatement();	
 	}
