@@ -25,8 +25,8 @@ public class BenutzerService {
 	Statement statement;
 	
 	public BenutzerService() throws SQLException, ClassNotFoundException{
-		Class.forName("org.postgresql.Driver");
-		connection = DriverManager.getConnection(DBCustomizing.URL, DBCustomizing.USER, DBCustomizing.PASSWORD);		
+		Class.forName("com.mysql.jdbc.Driver");
+		connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/test?serverTimezone=UTC", "root", "");		
 		//connection = DriverManager.getConnection("jdbc:mysql://sql7.freesqldatabase.com:3306/sql7314195",	"sql7314195", "nriJqjZlcz");
 		
 		statement = connection.createStatement();
