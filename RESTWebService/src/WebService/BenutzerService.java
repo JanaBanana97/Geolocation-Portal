@@ -15,7 +15,6 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
-import Customizing.DBCustomizing;
 import entities.Benutzer;
 
 @Path("BenutzerService")

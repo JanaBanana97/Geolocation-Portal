@@ -7,7 +7,7 @@ import com.sun.net.httpserver.HttpServer;
 
 public class StartServer {
 	
-	public static void main(String[] args) throws IllegalArgumentException, IOException {
+	public static void main(String[] args) throws IllegalArgumentException, IOException {		
 		HttpServer server = HttpServerFactory.create("http://localhost:6098/rest");
 		server.start();
 		System.out.println("Server gestartet...");

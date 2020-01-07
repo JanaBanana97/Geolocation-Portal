@@ -16,7 +16,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 import entities.Oertlichkeiten;
-import Customizing.DBCustomizing;
 
 @Path("OertlichkeitenService")
 public class OertlichkeitenService {
