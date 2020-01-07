@@ -1,11 +1,11 @@
 export class Oertlichkeiten {
-    OertlichkeitenId: Number;
-    Bezeichnung: string;
-    Longitude: Number;
-    Latitude: Number;
-    Strasse: string;
-    Hausnummer: string;
-    Postleitzahl: Number;
-    Ort: string;
-    KategorienId: Number;
+    oertlichkeitenid: Number;
+    bezeichnung: string;
+    longitude: Number;
+    latitude: Number;
+    strasse: string;
+    hausnummer: string;
+    postleitzahl: Number;
+    ort: string;
+    kategorienid: Number;
 }

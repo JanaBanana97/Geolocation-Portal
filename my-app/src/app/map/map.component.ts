@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MapService } from '../services/map.service';
-import { IActivity } from '../shared/activity.model';
+import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -13,9 +12,10 @@ export class MapComponent implements OnInit {
   latitude = 49.3527796;
   longitude = 9.1455235;
   mapType = 'roadmap';
+  address: string;
+  private geoCoder;
   selectedMarker;
   markers = [
-    // These are all just random coordinates from https://www.random.org/geographic-coordinates/
     { lat: 49.3504637, lng: 9.1602141, alpha: 1 },
     { lat: 49.3382232, lng: 9.122834, alpha: 1 },
     { lat: 49.3502419, lng: 9.1473992, alpha: 1 },
@@ -44,8 +44,4 @@ export class MapComponent implements OnInit {
       lng: event.longitude
     };
   }
-
-
-
-  
 }

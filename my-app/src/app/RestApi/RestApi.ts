@@ -9,12 +9,15 @@ import { Parkplaetze } from "../Models/Parkplaetze";
 import { Politik } from "../Models/Politik";
 import { Schulen } from "../Models/Schulen";
 import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
+
 
 const httpOptionsGet = {
     headers: new HttpHeaders({
         'Accept': 'text/json',
         observe: 'response'
     }),
+    params: new HttpParams(),
 }
 
 @Injectable({
@@ -22,6 +25,7 @@ const httpOptionsGet = {
 })
 export class RestApi{
     apiUrl: string;
+    
     constructor (private http: HttpClient) {
         this.apiUrl = "https://localhost:44383/api"
     }

@@ -9,22 +9,21 @@ import { FormsModule } from '@angular/forms';
 import { GMapModule } from 'primeng/gmap';
 import { MatTabsModule } from '@angular/material/tabs';
 import { TableModule } from 'primeng/table';
-import { SidebarModule } from 'ng-sidebar';
+import { ButtonModule } from 'primeng/button';
+import { DialogModule } from 'primeng/dialog';
+import { FileUploadModule } from 'primeng/fileupload';
+import { InputTextModule } from 'primeng/inputtext';
 
 import { AppComponent } from './app.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
 import { MapComponent } from './map/map.component';
 import { DataComponent } from './data/data.component';
-import { ActivityListComponent } from './activity-list/activity-list.component';
 
 import { AgmCoreModule } from '@agm/core';
 import { NavBarComponent } from './nav-bar/nav-bar.component';
 
-
-import { ActivityService } from './services/activity.service';
-import { MapService } from './services/map.service';
 import { appRoutes } from '../routes';
-
+import { RestApi } from './RestApi/RestApi';
 
 @NgModule({
   declarations: [
@@ -32,7 +31,6 @@ import { appRoutes } from '../routes';
     LandingpageComponent,
     MapComponent,
     DataComponent,
-    ActivityListComponent,
     NavBarComponent    
   ],
   imports: [
@@ -44,12 +42,19 @@ import { appRoutes } from '../routes';
     GMapModule,
     MatTabsModule,
     TableModule,
-    SidebarModule.forRoot(),
+    ButtonModule,
+    DialogModule,
+    FileUploadModule,
+    InputTextModule,
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDwL3gnt_96YgFTDLp9mW8LpYGGEaZowC8'}),
-      RouterModule.forRoot(appRoutes)    
+    RouterModule.forRoot([
+      {path: 'data', component: DataComponent},
+      {path: 'map', component: MapComponent},
+      {path: 'landingpage', component: LandingpageComponent}
+    ])    
   ],
-  providers: [ActivityService, MapService],
+  providers: [RestApi],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

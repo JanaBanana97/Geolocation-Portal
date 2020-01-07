@@ -1,7 +1,9 @@
-<div class='row'>    
+<div class='row'>   
     <div class='col-sm-2'>
       <app-nav-bar></app-nav-bar>
     </div>
+
+    
 
     <div class='col-sm-10 body-content'>
       <agm-map [latitude]='latitude' [longitude]='longitude' [zoom]="15"
@@ -20,34 +22,7 @@
     <p *ngIf="selectedMarker">
       Lat: {{ selectedMarker.lat }} Lng: {{ selectedMarker.lng }}
     </p>
-
-      <div class="row row-map">
-        <div class="col-md-9">
-            <h2 class="heading">Map</h2>
-            <hr/>
-          <div id="map"></div>
-        </div>
-        <div class="col-md-3 info-container">
-          <div id="run-info">
-            <h2 class="heading">Data</h2>
-            <hr/>
-            <div class="data-heading">Name der Kategorie:</div>
-            <p class="data-entry">{{ activityName }}</p>
-            <hr/>
-
-            <div class="data-heading">Anzahl der Einrichtungen:</div>
-            <p class="data-entry">{{ activityDate | date:"longDate" }} <p>
-            <hr/>
-
-            <div class="data-heading">Entfernung:</div>
-            <p class="data-entry">{{ activityDistance }} km</p>
-            <hr/>
-
-            <div class="data-heading">Kommentar:</div>
-            <p class="data-entry">{{ activityComments }}</p>
-            <hr/>
-        </div>
-      </div>
-    </div>
+    <h5>Address: {{address}}</h5>
+  <div>Latitude: {{latitude}}</div>
+  <div>Longitude: {{longitude}}</div>
   </div>
-</div>

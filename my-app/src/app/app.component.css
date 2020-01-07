@@ -7,6 +7,10 @@
     color: #007ACC
   }
   
+  .container-fluid {
+      padding-left: 0em;
+      padding-right: 0em;
+  }
   /* Spinner */
   .spinner {
     font-size:300%;

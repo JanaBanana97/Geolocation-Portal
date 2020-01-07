@@ -2,6 +2,7 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import "~bootstrap/dist/css/bootstrap.min.css";
 
+
 div.card-header {
  font-size: large;
 }
@@ -20,4 +21,9 @@ div.card {
 
 body .ui-table .ui-sortable-column.ui-state-highlight {
   background-color: #ffe399;
+}
+
+body .ui-button{
+  margin-right: 15px;
+  margin-bottom: 10px;
 }
