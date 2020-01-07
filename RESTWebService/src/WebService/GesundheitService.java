@@ -44,19 +44,19 @@ public class GesundheitService {
 					+ "Oertlichkeiten.oertlichkeitenId = " + oertlichkeitenId);
 			
 			while(rs.next()){
-				gesundheit.gesundheitsId = rs.getInt("gesundheitId");
-				gesundheit.typ = rs.getString("typ");
-				gesundheit.beschreibung = rs.getString("beschreibung");
-				gesundheit.oertlichkeitenId = rs.getInt("oertlichkeitenId");
-				gesundheit.oertlichkeit.oertlichkeitenId = rs.getInt("oertlichkeitenId");
-				gesundheit.oertlichkeit.bezeichnung = rs.getString("bezeichnung");
-				gesundheit.oertlichkeit.longitude = rs.getString("longitude");
-				gesundheit.oertlichkeit.latitude = rs.getString("latitude");
-				gesundheit.oertlichkeit.strasse = rs.getString("strasse");
-				gesundheit.oertlichkeit.hausnummer = rs.getString("hausnummer");
-				gesundheit.oertlichkeit.postleitzahl = rs.getInt("postleitzahl");
-				gesundheit.oertlichkeit.ort = rs.getString("ort");
-				gesundheit.oertlichkeit.kategorienId = rs.getInt("kategorienId");
+				gesundheit.gesundheitsId = rs.getInt("Gesundheit.gesundheitId");
+				gesundheit.typ = rs.getString("Gesundheit.typ");
+				gesundheit.beschreibung = rs.getString("Gesundheit.beschreibung");
+				gesundheit.oertlichkeitenId = rs.getInt("Gesundheit.oertlichkeitenId");
+				gesundheit.oertlichkeit.oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
+				gesundheit.oertlichkeit.bezeichnung = rs.getString("Oertlichkeiten.bezeichnung");
+				gesundheit.oertlichkeit.longitude = rs.getString("Oertlichkeiten.longitude");
+				gesundheit.oertlichkeit.latitude = rs.getString("Oertlichkeiten.latitude");
+				gesundheit.oertlichkeit.strasse = rs.getString("Oertlichkeiten.strasse");
+				gesundheit.oertlichkeit.hausnummer = rs.getString("Oertlichkeiten.hausnummer");
+				gesundheit.oertlichkeit.postleitzahl = rs.getInt("Oertlichkeiten.postleitzahl");
+				gesundheit.oertlichkeit.ort = rs.getString("Oertlichkeiten.ort");
+				gesundheit.oertlichkeit.kategorienId = rs.getInt("Oertlichkeiten.kategorienId");
 			}
 		}
 		catch(Exception e){

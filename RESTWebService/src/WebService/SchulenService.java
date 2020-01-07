@@ -44,19 +44,19 @@ public class SchulenService {
 					+ "Oertlichkeiten.oertlichkeitenId = " + oertlichkeitenId);
 			
 			while(rs.next()){
-				schule.schulenId = rs.getInt("schulenId");
-				schule.typ = rs.getString("typ");
-				schule.beschreibung = rs.getString("beschreibung");
-				schule.oertlichkeitenId = rs.getInt("oertlichkeitenId");
-				schule.oertlichkeit.oertlichkeitenId = rs.getInt("oertlichkeitenId");
-				schule.oertlichkeit.bezeichnung = rs.getString("bezeichnung");
-				schule.oertlichkeit.longitude = rs.getString("longitude");
-				schule.oertlichkeit.latitude = rs.getString("latitude");
-				schule.oertlichkeit.strasse = rs.getString("strasse");
-				schule.oertlichkeit.hausnummer = rs.getString("hausnummer");
-				schule.oertlichkeit.postleitzahl = rs.getInt("postleitzahl");
-				schule.oertlichkeit.ort = rs.getString("ort");
-				schule.oertlichkeit.kategorienId = rs.getInt("kategorienId");
+				schule.schulenId = rs.getInt("Schulen.schulenId");
+				schule.typ = rs.getString("Schulen.typ");
+				schule.beschreibung = rs.getString("Schulen.beschreibung");
+				schule.oertlichkeitenId = rs.getInt("Schulen.oertlichkeitenId");
+				schule.oertlichkeit.oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
+				schule.oertlichkeit.bezeichnung = rs.getString("Oertlichkeiten.bezeichnung");
+				schule.oertlichkeit.longitude = rs.getString("Oertlichkeiten.longitude");
+				schule.oertlichkeit.latitude = rs.getString("Oertlichkeiten.latitude");
+				schule.oertlichkeit.strasse = rs.getString("Oertlichkeiten.strasse");
+				schule.oertlichkeit.hausnummer = rs.getString("Oertlichkeiten.hausnummer");
+				schule.oertlichkeit.postleitzahl = rs.getInt("Oertlichkeiten.postleitzahl");
+				schule.oertlichkeit.ort = rs.getString("Oertlichkeiten.ort");
+				schule.oertlichkeit.kategorienId = rs.getInt("Oertlichkeiten.kategorienId");
 			}
 		}
 		catch(Exception e){

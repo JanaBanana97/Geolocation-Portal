@@ -46,15 +46,15 @@ public class OertlichkeitenService {
 			
 			while(rs.next()){
 				Oertlichkeiten o = new Oertlichkeiten();
-				o.oertlichkeitenId = rs.getInt("oertlichkeitenId");
-				o.bezeichnung = rs.getString("bezeichnung");
-				o.longitude = rs.getString("longitude");
-				o.latitude = rs.getString("latitude");
-				o.strasse = rs.getString("strasse");
-				o.hausnummer = rs.getString("hausnummer");
-				o.postleitzahl = rs.getInt("postleitzahl");
-				o.ort = rs.getString("ort");
-				o.kategorienId = rs.getInt("kategorienId");
+				o.oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
+				o.bezeichnung = rs.getString("Oertlichkeiten.bezeichnung");
+				o.longitude = rs.getString("Oertlichkeiten.longitude");
+				o.latitude = rs.getString("Oertlichkeiten.latitude");
+				o.strasse = rs.getString("Oertlichkeiten.strasse");
+				o.hausnummer = rs.getString("Oertlichkeiten.hausnummer");
+				o.postleitzahl = rs.getInt("Oertlichkeiten.postleitzahl");
+				o.ort = rs.getString("Oertlichkeiten.ort");
+				o.kategorienId = rs.getInt("Oertlichkeiten.kategorienId");
 				returnList.add(o);
 			}
 		}
