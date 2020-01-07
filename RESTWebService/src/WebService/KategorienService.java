@@ -13,7 +13,7 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import Customizing.Customizing;
+import Customizing.DBCustomizing;
 import entities.*;
 
 @Path("KategorienService")
@@ -24,7 +24,7 @@ public class KategorienService {
 	
 	public KategorienService() throws SQLException, ClassNotFoundException{
 		Class.forName("org.postgresql.Driver");
-		connection = DriverManager.getConnection(Customizing.URL, Customizing.USER, Customizing.PASSWORD);		
+		connection = DriverManager.getConnection(DBCustomizing.URL, DBCustomizing.USER, DBCustomizing.PASSWORD);		
 		//connection = DriverManager.getConnection("jdbc:mysql://sql7.freesqldatabase.com:3306/sql7314195",	"sql7314195", "nriJqjZlcz");
 		statement = connection.createStatement();
 	}
