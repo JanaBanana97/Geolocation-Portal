@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -65,5 +67,44 @@ public class SchulenService {
 			schule = null;
 		}
 		return schule;
+	}
+	
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Path("getAllSchulen")
+	public List<Schulen> getAllPolitik(){
+		System.out.println("getAllSchulen called...");
+		List<Schulen> returnList = new ArrayList<Schulen>();
+		try {
+			ResultSet rs = statement.executeQuery(
+					"SELECT * "
+					+ "FROM Oertlichkeiten, Schulen "
+					+ "WHERE Oertlichkeiten.oertlichkeitenId = Schulen.oertlichkeitenId ");
+			
+			while(rs.next()){
+				Schulen schulen = new Schulen();
+				schulen.schulenId = rs.getInt("Schulen.schulenId");
+				schulen.typ = rs.getString("Schulen.typ");
+				schulen.beschreibung = rs.getString("Schulen.beschreibung");
+				schulen.oertlichkeitenId = rs.getInt("Schulen.oertlichkeitenId");
+				schulen.oertlichkeit.oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
+				schulen.oertlichkeit.bezeichnung = rs.getString("Oertlichkeiten.bezeichnung");
+				schulen.oertlichkeit.longitude = rs.getString("Oertlichkeiten.longitude");
+				schulen.oertlichkeit.latitude = rs.getString("Oertlichkeiten.latitude");
+				schulen.oertlichkeit.strasse = rs.getString("Oertlichkeiten.strasse");
+				schulen.oertlichkeit.hausnummer = rs.getString("Oertlichkeiten.hausnummer");
+				schulen.oertlichkeit.postleitzahl = rs.getInt("Oertlichkeiten.postleitzahl");
+				schulen.oertlichkeit.ort = rs.getString("Oertlichkeiten.ort");
+				schulen.oertlichkeit.kategorienId = rs.getInt("Oertlichkeiten.kategorienId");
+				returnList.add(schulen);
+			}
+		}
+		catch(Exception e){
+			System.out.println(e.toString());
+			System.out.println(e.getMessage());
+			System.out.println(e.getCause());
+			returnList = null;
+		}
+		return returnList;
 	}
 }
