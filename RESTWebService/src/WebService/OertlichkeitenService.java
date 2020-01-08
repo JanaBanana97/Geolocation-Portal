@@ -33,8 +33,42 @@ public class OertlichkeitenService {
 	@GET
 	@Consumes({MediaType.TEXT_PLAIN})
 	@Produces({ MediaType.APPLICATION_JSON })
+	@Path("getAllOertlichkeiten")
+	public List<Oertlichkeiten> getAllOertlichkeiten(){
+		System.out.println("OertlichkeitenService.getAllOertlichkeiten... called.");
+		List<Oertlichkeiten> returnList = new ArrayList<Oertlichkeiten>();
+		try {
+			ResultSet rs = statement.executeQuery(
+					"SELECT * "
+					+ "FROM Oertlichkeiten ");
+			
+			while(rs.next()){
+				Oertlichkeiten o = new Oertlichkeiten();
+				o.oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
+				o.bezeichnung = rs.getString("Oertlichkeiten.bezeichnung");
+				o.longitude = rs.getString("Oertlichkeiten.longitude");
+				o.latitude = rs.getString("Oertlichkeiten.latitude");
+				o.strasse = rs.getString("Oertlichkeiten.strasse");
+				o.hausnummer = rs.getString("Oertlichkeiten.hausnummer");
+				o.postleitzahl = rs.getInt("Oertlichkeiten.postleitzahl");
+				o.ort = rs.getString("Oertlichkeiten.ort");
+				o.kategorienId = rs.getInt("Oertlichkeiten.kategorienId");
+				returnList.add(o);
+			}
+		}
+		catch(Exception e){
+			System.out.println(e.toString());
+			returnList = null;
+		}
+		return returnList;
+	}
+	
+	@GET
+	@Consumes({MediaType.TEXT_PLAIN})
+	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("getLocationByKategorie")
 	public List<Oertlichkeiten> getLocationByKategorie(@QueryParam("kategorie") String kategorie){
+		System.out.println("OertlichkeitenService.getLocationByKategorie... called.");
 		List<Oertlichkeiten> returnList = new ArrayList<Oertlichkeiten>();
 		try {
 			ResultSet rs = statement.executeQuery(
@@ -64,39 +98,41 @@ public class OertlichkeitenService {
 		return returnList;
 	}
 	
-	@GET
-	@Consumes({MediaType.TEXT_PLAIN})
-	@Produces({ MediaType.APPLICATION_JSON })
-	@Path("getLocationByKategorieAndTyp")
-	public List<Oertlichkeiten> getLocationByKategorieAndTyp(@QueryParam("kategorie") String kategorie, @QueryParam("typ") String typ){
-		List<Oertlichkeiten> returnList = new ArrayList<Oertlichkeiten>();
-		try {
-			ResultSet rs = statement.executeQuery(
-					"SELECT * "
-					+ " FROM Oertlichkeiten, Kategorien, " + kategorie 
-					+ " WHERE Oertlichkeiten.kategorienId = Kategorien.kategorienId AND "
-					+ " Oertlichkeiten.oertlichkeitenId = " + kategorie + ".oertlichkeitenId AND "
-					+ kategorie  + ".typ = '" + typ + "' AND "
-					+ " Kategorien.bezeichnung = '" + kategorie + "' ");
-			
-			while(rs.next()){
-				Oertlichkeiten o = new Oertlichkeiten();
-				o.oertlichkeitenId = rs.getInt("oertlichkeitenId");
-				o.bezeichnung = rs.getString("bezeichnung");
-				o.longitude = rs.getString("longitude");
-				o.latitude = rs.getString("latitude");
-				o.strasse = rs.getString("strasse");
-				o.hausnummer = rs.getString("hausnummer");
-				o.postleitzahl = rs.getInt("postleitzahl");
-				o.ort = rs.getString("ort");
-				o.kategorienId = rs.getInt("kategorienId");
-				returnList.add(o);
-			}
-		}
-		catch(Exception e){
-			System.out.println(e.toString());
-			returnList = null;
-		}
-		return returnList;
-	}
+//	@GET
+//	@Consumes({MediaType.TEXT_PLAIN})
+//	@Produces({ MediaType.APPLICATION_JSON })
+//	@Path("getLocationByKategorieAndTyp")
+//	public List<Oertlichkeiten> getLocationByKategorieAndTyp(@QueryParam("kategorie") String kategorie, @QueryParam("typ") String typ){
+//		System.out.println("OertlichkeitenService.getLocationByKategorieAndTyp... called.");
+//		List<Oertlichkeiten> returnList = new ArrayList<Oertlichkeiten>();
+//		try {
+//			ResultSet rs = statement.executeQuery(
+//					"SELECT * "
+//					+ " FROM Oertlichkeiten, Kategorien, " + kategorie 
+//					+ " WHERE Oertlichkeiten.kategorienId = Kategorien.kategorienId AND "
+//					+ " Oertlichkeiten.oertlichkeitenId = " + kategorie + ".oertlichkeitenId AND "
+//					+ kategorie  + ".typ = '" + typ + "' AND "
+//					+ " Kategorien.bezeichnung = '" + kategorie + "' ");
+//			
+//			while(rs.next()){
+//				Oertlichkeiten o = new Oertlichkeiten();
+//				o.oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
+//				o.bezeichnung = rs.getString("Oertlichkeiten.bezeichnung");
+//				o.longitude = rs.getString("Oertlichkeiten.longitude");
+//				o.latitude = rs.getString("Oertlichkeiten.latitude");
+//				o.strasse = rs.getString("Oertlichkeiten.strasse");
+//				o.hausnummer = rs.getString("Oertlichkeiten.hausnummer");
+//				o.postleitzahl = rs.getInt("Oertlichkeiten.postleitzahl");
+//				o.ort = rs.getString("Oertlichkeiten.ort");
+//				o.kategorienId = rs.getInt("Oertlichkeiten.kategorienId");
+//				returnList.add(o);
+//			}
+//		}
+//		catch(Exception e){
+//			System.out.println(e.toString());
+//			returnList = null;
+//		}
+//		return returnList;
+//	}
+	
 }

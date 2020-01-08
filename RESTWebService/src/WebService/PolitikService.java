@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
@@ -65,5 +67,44 @@ public class PolitikService {
 			politik = null;
 		}
 		return politik;
+	}
+	
+	@GET
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Path("getAllPolitik")
+	public List<Politik> getAllPolitik(){
+		System.out.println("getAllPolitik called...");
+		List<Politik> returnList = new ArrayList<Politik>();
+		try {
+			ResultSet rs = statement.executeQuery(
+					"SELECT * "
+					+ "FROM Oertlichkeiten, Politik "
+					+ "WHERE Oertlichkeiten.oertlichkeitenId = Politik.oertlichkeitenId ");
+			
+			while(rs.next()){
+				Politik politik = new Politik();
+				politik.politikId = rs.getInt("Politik.politikId");
+				politik.typ = rs.getString("Politik.typ");
+				politik.beschreibung = rs.getString("Politik.beschreibung");
+				politik.oertlichkeitenId = rs.getInt("Politik.oertlichkeitenId");
+				politik.oertlichkeit.oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
+				politik.oertlichkeit.bezeichnung = rs.getString("Oertlichkeiten.bezeichnung");
+				politik.oertlichkeit.longitude = rs.getString("Oertlichkeiten.longitude");
+				politik.oertlichkeit.latitude = rs.getString("Oertlichkeiten.latitude");
+				politik.oertlichkeit.strasse = rs.getString("Oertlichkeiten.strasse");
+				politik.oertlichkeit.hausnummer = rs.getString("Oertlichkeiten.hausnummer");
+				politik.oertlichkeit.postleitzahl = rs.getInt("Oertlichkeiten.postleitzahl");
+				politik.oertlichkeit.ort = rs.getString("Oertlichkeiten.ort");
+				politik.oertlichkeit.kategorienId = rs.getInt("Oertlichkeiten.kategorienId");
+				returnList.add(politik);
+			}
+		}
+		catch(Exception e){
+			System.out.println(e.toString());
+			System.out.println(e.getMessage());
+			System.out.println(e.getCause());
+			returnList = null;
+		}
+		return returnList;
 	}
 }
