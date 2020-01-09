@@ -13,7 +13,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import entities.Oertlichkeiten;
 
@@ -34,7 +36,7 @@ public class OertlichkeitenService {
 	@Consumes({MediaType.TEXT_PLAIN})
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("getAllOertlichkeiten")
-	public List<Oertlichkeiten> getAllOertlichkeiten(){
+	public Response getAllOertlichkeiten(){
 		System.out.println("OertlichkeitenService.getAllOertlichkeiten... called.");
 		List<Oertlichkeiten> returnList = new ArrayList<Oertlichkeiten>();
 		try {
@@ -60,7 +62,9 @@ public class OertlichkeitenService {
 			System.out.println(e.toString());
 			returnList = null;
 		}
-		return returnList;
+		GenericEntity<List<Oertlichkeiten>> myEntity = new GenericEntity<List<Oertlichkeiten>>(returnList) {};
+		return Response.ok(myEntity).build();
+		//return returnList;
 	}
 	
 	@GET
@@ -134,5 +138,5 @@ public class OertlichkeitenService {
 //		}
 //		return returnList;
 //	}
-	
+		
 }

@@ -60,6 +60,8 @@ public class BenutzerService {
 			System.out.println(e.toString());
 			returnList = null;
 		}
+		//GenericEntity<List<Benutzer>> myEntity = new GenericEntity<List<Benutzer>>(returnList) {};
+		
 		return returnList;
 	}
 	

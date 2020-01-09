@@ -10,10 +10,12 @@ import java.util.List;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import entities.Politik;
 
@@ -107,4 +109,34 @@ public class PolitikService {
 		}
 		return returnList;
 	}
+	
+	@PUT
+	@Consumes({MediaType.TEXT_PLAIN})
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Path("addPolitik")
+	public Response addPolitik(@QueryParam("bezeichnung") String bezeichnung, @QueryParam("longitude") String longitude, @QueryParam("latitude") String latitude,
+			@QueryParam("strasse") String strasse, @QueryParam("hausnummer") String hausnummer, @QueryParam("plz") int plz,
+			@QueryParam("ort") String ort, @QueryParam("kategorie") String Kategorie, @QueryParam("typ") String typ,
+			@QueryParam("beschreibung") String beschreibung){
+		System.out.println("PolitikService/addPolitik... called.");
+		try {
+			boolean erfolgreich1 = statement.execute("INSERT INTO Oertlichkeiten (bezeichnung, longitude, latitude, strasse, hausnummer, postleitzahl, ort, kategorienId) "
+					+ "VALUES ('" + bezeichnung + "', '" + longitude + "', '" + latitude + "', '" + strasse + "', "
+					+ "'+" + hausnummer + "', " + plz + ", '" + ort + "', 4");
+			
+			ResultSet rs = statement.executeQuery("SELECT * FROM Oertlichkeiten"
+					+ " WHERE longitude='" + longitude + "' AND latitude='" + latitude + " ");
+			
+			int oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
+			
+			boolean erfolgreich2 = statement.execute("INSERT INTO Politik (typ, beschreibung, oertlichkeitenId) "
+					+ "VALUES ('" + typ + "', '" + beschreibung + "', " + oertlichkeitenId + ") ");
+		}
+		catch(Exception e){
+			System.out.println(e.toString());
+			return Response.serverError().build();
+		}
+		return Response.ok().build();
+	}
+
 }
