@@ -14,6 +14,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -36,7 +37,7 @@ public class PolitikService {
 	@Consumes({MediaType.TEXT_PLAIN})
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("getPolitik")
-	public Politik getPolitik(@QueryParam("oertlichkeitenId") String oertlichkeitenId){
+	public Response getPolitik(@QueryParam("oertlichkeitenId") String oertlichkeitenId){
 		System.out.println("getPolitik called...");
 		Politik politik = new Politik();
 		try {
@@ -68,13 +69,15 @@ public class PolitikService {
 			System.out.println(e.getCause());
 			politik = null;
 		}
-		return politik;
+		GenericEntity<Politik> myEntity = new GenericEntity<Politik>(politik) {};
+		return Response.ok(myEntity).build();
+		//return politik;
 	}
 	
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("getAllPolitik")
-	public List<Politik> getAllPolitik(){
+	public Response getAllPolitik(){
 		System.out.println("getAllPolitik called...");
 		List<Politik> returnList = new ArrayList<Politik>();
 		try {
@@ -107,7 +110,9 @@ public class PolitikService {
 			System.out.println(e.getCause());
 			returnList = null;
 		}
-		return returnList;
+		GenericEntity<List<Politik>> myEntity = new GenericEntity<List<Politik>>(returnList) {};
+		return Response.ok(myEntity).build();
+		//return returnList;
 	}
 	
 	@PUT

@@ -14,6 +14,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -36,7 +37,7 @@ public class ParkplaetzeService {
 	@Consumes({MediaType.TEXT_PLAIN})
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("getParkplatz")
-	public Parkplaetze getParkplatz(@QueryParam("oertlichkeitenId") String oertlichkeitenId){
+	public Response getParkplatz(@QueryParam("oertlichkeitenId") String oertlichkeitenId){
 		System.out.println("getParkplatz called...");
 		Parkplaetze parkplatz = new Parkplaetze();
 		try {
@@ -69,13 +70,15 @@ public class ParkplaetzeService {
 			System.out.println(e.getCause());
 			parkplatz = null;
 		}
-		return parkplatz;
+		GenericEntity<Parkplaetze> myEntity = new GenericEntity<Parkplaetze>(parkplatz) {};
+		return Response.ok(myEntity).build();
+		//return parkplatz;
 	}
 	
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("getAllParkplaetze")
-	public List<Parkplaetze> getAllParkplaetze(){
+	public Response getAllParkplaetze(){
 		System.out.println("getAllParkplaetze called...");
 		List<Parkplaetze> returnList = new ArrayList<Parkplaetze>();
 		try {
@@ -109,7 +112,9 @@ public class ParkplaetzeService {
 			System.out.println(e.getCause());
 			returnList = null;
 		}
-		return returnList;
+		GenericEntity<List<Parkplaetze>> myEntity = new GenericEntity<List<Parkplaetze>>(returnList) {};
+		return Response.ok(myEntity).build();
+		//return returnList;
 	}
 	
 	@PUT

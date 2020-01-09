@@ -11,7 +11,9 @@ import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import entities.*;
 
@@ -31,7 +33,7 @@ public class KategorienService {
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("getAllKategorien")
-	public List<Kategorien> getAllKategorien() {
+	public Response getAllKategorien() {
 		System.out.println("KategorienService.getAllKategorien... called.");
 		List<Kategorien> returnList = new ArrayList<Kategorien>();
 		try {
@@ -48,6 +50,8 @@ public class KategorienService {
 			System.out.println();
 			returnList = null;
 		}
-		return returnList;
+		GenericEntity<List<Kategorien>> myEntity = new GenericEntity<List<Kategorien>>(returnList) {};
+		return Response.ok(myEntity).build();
+		//return returnList;
 	}
 }

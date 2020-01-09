@@ -15,6 +15,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -40,7 +41,7 @@ public class SchulenService {
 	@Consumes({MediaType.TEXT_PLAIN})
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("getSchule")
-	public Schulen getSchule (@QueryParam("oertlichkeitenId") String oertlichkeitenId){
+	public Response getSchule (@QueryParam("oertlichkeitenId") String oertlichkeitenId){
 		System.out.println("getSchule called...");
 		Schulen schule = new Schulen();
 		try {
@@ -72,13 +73,15 @@ public class SchulenService {
 			System.out.println(e.getCause());
 			schule = null;
 		}
-		return schule;
+		GenericEntity<Schulen> myEntity = new GenericEntity<Schulen>(schule){};
+		return Response.ok(myEntity).build();
+		//return schule;
 	}
 	
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("getAllSchulen")
-	public List<Schulen> getAllPolitik(){
+	public Response getAllPolitik(){
 		System.out.println("getAllSchulen called...");
 		List<Schulen> returnList = new ArrayList<Schulen>();
 		try {
@@ -111,7 +114,9 @@ public class SchulenService {
 			System.out.println(e.getCause());
 			returnList = null;
 		}
-		return returnList;
+		GenericEntity<List<Schulen>> myEntity = new GenericEntity<List<Schulen>>(returnList){};
+		return Response.ok(myEntity).build();
+		//return returnList;
 	}
 	
 	@PUT

@@ -14,6 +14,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -36,7 +37,7 @@ public class GesundheitService {
 	@Consumes({MediaType.TEXT_PLAIN})
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("getGesundheit")
-	public Gesundheit getGesundheit(@QueryParam("oertlichkeitenId") String oertlichkeitenId){
+	public Response getGesundheit(@QueryParam("oertlichkeitenId") String oertlichkeitenId){
 		System.out.println("getGesundheit called...");
 		Gesundheit gesundheit = new Gesundheit();
 		try {
@@ -68,13 +69,15 @@ public class GesundheitService {
 			System.out.println(e.getCause());
 			gesundheit = null;
 		}
-		return gesundheit;
+		//return gesundheit;
+		GenericEntity<Gesundheit> myEntity = new GenericEntity<Gesundheit>(gesundheit) {};
+		return Response.ok(myEntity).build();
 	}
 	
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("getAllGesundheit")
-	public List<Gesundheit> getAllGesundheit(){
+	public Response getAllGesundheit(){
 		System.out.println("getAllGesundheit called...");
 		List<Gesundheit> returnList = new ArrayList<Gesundheit>();
 		try {
@@ -107,7 +110,9 @@ public class GesundheitService {
 			System.out.println(e.getCause());
 			returnList = null;
 		}
-		return returnList;
+		GenericEntity<List<Gesundheit>> myEntity = new GenericEntity<List<Gesundheit>>(returnList) {};
+		return Response.ok(myEntity).build();
+		//return returnList;
 	}
 	
 	@PUT

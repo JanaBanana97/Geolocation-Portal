@@ -13,7 +13,9 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import entities.Benutzer;
 
@@ -34,7 +36,7 @@ public class BenutzerService {
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("getAllBenutzer")
-	public List<Benutzer> getAllBenutzer() {
+	public Response getAllBenutzer() {
 		System.out.println("BenutzerService.getAllBenutzer... called.");
 		List<Benutzer> returnList = new ArrayList<Benutzer>();
 		try {
@@ -60,16 +62,16 @@ public class BenutzerService {
 			System.out.println(e.toString());
 			returnList = null;
 		}
-		//GenericEntity<List<Benutzer>> myEntity = new GenericEntity<List<Benutzer>>(returnList) {};
-		
-		return returnList;
+		GenericEntity<List<Benutzer>> myEntity = new GenericEntity<List<Benutzer>>(returnList) {};
+		return Response.ok(myEntity).build();
+		//return returnList;
 	}
 	
 	@GET
 	@Produces({ MediaType.TEXT_PLAIN })
 	@Consumes({ MediaType.TEXT_PLAIN })
 	@Path("checkBenutzer")
-	public String checkBenutzer(@QueryParam("email") String email, @QueryParam("passwort") String passwort){
+	public Response checkBenutzer(@QueryParam("email") String email, @QueryParam("passwort") String passwort){
 		System.out.println("BenutzerService.getAllBenutzer... called.");
 		String returnValue = Boolean.FALSE.toString();
 		try {
@@ -87,6 +89,7 @@ public class BenutzerService {
 			System.out.println(e.toString());
 			returnValue = Boolean.TRUE.toString();
 		}
-		return returnValue;
+		GenericEntity<String> myEntity = new GenericEntity<String>(returnValue) {};
+		return Response.ok(myEntity).build();
 	}
 }

@@ -71,7 +71,7 @@ public class OertlichkeitenService {
 	@Consumes({MediaType.TEXT_PLAIN})
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("getLocationByKategorie")
-	public List<Oertlichkeiten> getLocationByKategorie(@QueryParam("kategorie") String kategorie){
+	public Response getLocationByKategorie(@QueryParam("kategorie") String kategorie){
 		System.out.println("OertlichkeitenService.getLocationByKategorie... called.");
 		List<Oertlichkeiten> returnList = new ArrayList<Oertlichkeiten>();
 		try {
@@ -99,7 +99,9 @@ public class OertlichkeitenService {
 			System.out.println(e.toString());
 			returnList = null;
 		}
-		return returnList;
+		GenericEntity<List<Oertlichkeiten>> myEntity = new GenericEntity<List<Oertlichkeiten>>(returnList) {};
+		return Response.ok(myEntity).build();
+		//return returnList;
 	}
 	
 //	@GET

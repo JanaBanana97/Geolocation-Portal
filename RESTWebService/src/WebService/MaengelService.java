@@ -15,6 +15,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
@@ -37,7 +38,7 @@ public class MaengelService {
 	@GET
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("getAllMaengel")
-	public List<Maengel> getAllMaengel (){
+	public Response getAllMaengel (){
 		System.out.println("getAllMaengel called...");
 		List<Maengel> returnList = new ArrayList<Maengel>();
 		try {
@@ -61,14 +62,16 @@ public class MaengelService {
 			System.out.println(e.getCause());
 			returnList = null;
 		}
-		return returnList;
+		GenericEntity<List<Maengel>> myEntitiy = new GenericEntity<List<Maengel>>(returnList) {};
+		return Response.ok(myEntitiy).build();
+		//return returnList;
 	}
 	
 	@GET
 	@Consumes({MediaType.TEXT_PLAIN})
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("addMangel")
-	public Maengel addMangel (@QueryParam("beschreibung") String beschreibung, @QueryParam("longitude") String longitude, 
+	public Response addMangel (@QueryParam("beschreibung") String beschreibung, @QueryParam("longitude") String longitude, 
 			@QueryParam("latitude") String latitude, @QueryParam("status") String status){
 		System.out.println("addMangel called...");
 		Maengel mangel = new Maengel();
@@ -94,6 +97,8 @@ public class MaengelService {
 			System.out.println(e.getCause());
 			mangel = null;
 		}
-		return mangel;
+		GenericEntity<Maengel> myEntity = new GenericEntity<Maengel>(mangel) {};
+		return Response.ok(myEntity).build();
+		//return mangel;
 	}
 }
