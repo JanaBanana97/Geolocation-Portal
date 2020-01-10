@@ -51,7 +51,7 @@ public class GesundheitService {
 					+ "Oertlichkeiten.oertlichkeitenId = " + oertlichkeitenId);
 			
 			while(rs.next()){
-				gesundheit.gesundheitsId = rs.getInt("Gesundheit.gesundheitId");
+				gesundheit.gesundheitId = rs.getInt("Gesundheit.gesundheitId");
 				gesundheit.typ = rs.getString("Gesundheit.typ");
 				gesundheit.beschreibung = rs.getString("Gesundheit.beschreibung");
 				gesundheit.oertlichkeitenId = rs.getInt("Gesundheit.oertlichkeitenId");
@@ -91,7 +91,7 @@ public class GesundheitService {
 			
 			while(rs.next()){
 				Gesundheit gesundheit = new Gesundheit();
-				gesundheit.gesundheitsId = rs.getInt("Gesundheit.gesundheitId");
+				gesundheit.gesundheitId = rs.getInt("Gesundheit.gesundheitId");
 				gesundheit.typ = rs.getString("Gesundheit.typ");
 				gesundheit.beschreibung = rs.getString("Gesundheit.beschreibung");
 				gesundheit.oertlichkeitenId = rs.getInt("Gesundheit.oertlichkeitenId");
