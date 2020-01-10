@@ -95,7 +95,6 @@ public class BenutzerService {
 			//returnValue = Boolean.TRUE.toString();
 			benutzer = null;
 		}
-		System.out.println("Hier...");
 		GenericEntity<Benutzer> myEntity = new GenericEntity<Benutzer>(benutzer) {};
 		return Response.ok(myEntity).build();
 	}
