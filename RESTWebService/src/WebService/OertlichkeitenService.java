@@ -103,42 +103,30 @@ public class OertlichkeitenService {
 		return Response.ok(myEntity).build();
 		//return returnList;
 	}
-	
-//	@GET
-//	@Consumes({MediaType.TEXT_PLAIN})
-//	@Produces({ MediaType.APPLICATION_JSON })
-//	@Path("getLocationByKategorieAndTyp")
-//	public List<Oertlichkeiten> getLocationByKategorieAndTyp(@QueryParam("kategorie") String kategorie, @QueryParam("typ") String typ){
-//		System.out.println("OertlichkeitenService.getLocationByKategorieAndTyp... called.");
-//		List<Oertlichkeiten> returnList = new ArrayList<Oertlichkeiten>();
-//		try {
-//			ResultSet rs = statement.executeQuery(
-//					"SELECT * "
-//					+ " FROM Oertlichkeiten, Kategorien, " + kategorie 
-//					+ " WHERE Oertlichkeiten.kategorienId = Kategorien.kategorienId AND "
-//					+ " Oertlichkeiten.oertlichkeitenId = " + kategorie + ".oertlichkeitenId AND "
-//					+ kategorie  + ".typ = '" + typ + "' AND "
-//					+ " Kategorien.bezeichnung = '" + kategorie + "' ");
-//			
-//			while(rs.next()){
-//				Oertlichkeiten o = new Oertlichkeiten();
-//				o.oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
-//				o.bezeichnung = rs.getString("Oertlichkeiten.bezeichnung");
-//				o.longitude = rs.getString("Oertlichkeiten.longitude");
-//				o.latitude = rs.getString("Oertlichkeiten.latitude");
-//				o.strasse = rs.getString("Oertlichkeiten.strasse");
-//				o.hausnummer = rs.getString("Oertlichkeiten.hausnummer");
-//				o.postleitzahl = rs.getInt("Oertlichkeiten.postleitzahl");
-//				o.ort = rs.getString("Oertlichkeiten.ort");
-//				o.kategorienId = rs.getInt("Oertlichkeiten.kategorienId");
-//				returnList.add(o);
-//			}
-//		}
-//		catch(Exception e){
-//			System.out.println(e.toString());
-//			returnList = null;
-//		}
-//		return returnList;
-//	}
+
+	@GET
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Path("addOertlichkeit")
+	public Response addOertlichkeit(Oertlichkeiten oertlichkeit){
+		System.out.println("OertlichkeitenService.addOertlichkeit... called.");
+		try {
+			boolean erfolgreich = statement.execute("INSERT INTO Oertlichkeiten "
+					+ "(bezeichnung, longitude, latitude, strasse, hausnummer, postleitzahl, ort, kategorienId) "
+					+ "VALUES ('" + oertlichkeit.bezeichnung + "', "
+							+ " " + oertlichkeit.longitude + ", "
+							+ " " + oertlichkeit.latitude + ", "
+							+ "' " + oertlichkeit.hausnummer + "', "
+							+ " " + oertlichkeit.postleitzahl + ", "
+							+ "' " + oertlichkeit.ort + "', "
+							+ " " + oertlichkeit.kategorienId + " ) ");
+		}
+		catch(Exception e){
+			System.out.println(e.toString());
+			oertlichkeit = null;
+		}
+		GenericEntity<Oertlichkeiten> myEntity = new GenericEntity<Oertlichkeiten>(oertlichkeit) {};
+		return Response.ok(myEntity).build();
+	}
 		
 }
