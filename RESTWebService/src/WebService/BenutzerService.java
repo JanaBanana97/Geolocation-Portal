@@ -71,15 +71,15 @@ public class BenutzerService {
 	@Produces({ MediaType.TEXT_PLAIN })
 	@Consumes({ MediaType.TEXT_PLAIN })
 	@Path("checkBenutzer")
-	public Response checkBenutzer(@QueryParam("email") String email, @QueryParam("passwort") String passwort){
+	public Response checkBenutzer(@QueryParam("username") String username, @QueryParam("passwort") String passwort){
 		System.out.println("BenutzerService.getAllBenutzer... called.");
 		String returnValue = Boolean.FALSE.toString();
 		try {
 			
-			returnValue = returnValue + email + passwort;
+			//returnValue = returnValue + username + passwort;
 			
 			ResultSet rs = statement.executeQuery("SELECT * FROM Benutzer "
-					+ " WHERE email='" + email + "' AND passwort='" + passwort + "'");
+					+ " WHERE user='" + username + "' AND passwort='" + passwort + "'");
 			
 			if (rs.isBeforeFirst() != false){
 				returnValue = Boolean.TRUE.toString();

@@ -122,27 +122,27 @@ public class SchulenService {
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("addSchule")
-	public Response addSchule(Oertlichkeiten o, Schulen s){
+	public Response addSchule(Schulen s){
 		System.out.println("SchulenService/addSchule... called.");
 		try {
-			if (o != null){
+			if (s.oertlichkeit != null){
 				String str = "INSERT INTO Oertlichkeiten (bezeichnung, longitude, latitude, strasse, hausnummer, postleitzahl, ort, kategorienId) "
 						+ " VALUES(?,?,?,?,?,?,?,?)";
 				PreparedStatement st = connection.prepareStatement(str, Statement.RETURN_GENERATED_KEYS);
-				st.setString(1, o.bezeichnung);
-				st.setDouble(2, o.longitude);
-				st.setDouble(3, o.longitude);
-				st.setString(4, o.strasse);
-				st.setString(5, o.hausnummer);
-				st.setInt(6, o.postleitzahl);
-				st.setString(7, o.ort);
-				st.setInt(8, o.kategorienId);
+				st.setString(1, s.oertlichkeit.bezeichnung);
+				st.setDouble(2, s.oertlichkeit.longitude);
+				st.setDouble(3, s.oertlichkeit.longitude);
+				st.setString(4, s.oertlichkeit.strasse);
+				st.setString(5, s.oertlichkeit.hausnummer);
+				st.setInt(6, s.oertlichkeit.postleitzahl);
+				st.setString(7, s.oertlichkeit.ort);
+				st.setInt(8, s.oertlichkeit.kategorienId);
 				st.execute();	
 			}
 			
 			if (s != null) {
 				ResultSet rs = statement.executeQuery("SELECT * FROM Oertlichkeiten"
-						+ " WHERE longitude='" + o.longitude + "' AND latitude='" + o.latitude + " ");
+						+ " WHERE longitude='" + s.oertlichkeit.longitude + "' AND latitude='" + s.oertlichkeit.latitude + " ");
 				int oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
 				
 				String str1 = "INSERT INTO Schulen (typ, beschreibung, oertlichkeitenId) "
@@ -165,22 +165,22 @@ public class SchulenService {
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("updateSchule")
-	public Response updateSchulen(Oertlichkeiten o, Schulen s){
+	public Response updateSchulen(Schulen s){
 		System.out.println("SchulenService/updateSchulen... called.");
 		try {	
-			if (o != null) {
+			if (s.oertlichkeit != null) {
 				String str = "UPDATE Oertlichkeiten "
 						+ " SET bezeichnung = ?, longitude = ?, latitude = ?, strasse = ?, hausnummer = ?, postleitzahl = ?, ort = ?, kategorienId = ? "
-						+ " WHERE oertlichkeitenId=" + o.oertlichkeitenId;
+						+ " WHERE oertlichkeitenId=" + s.oertlichkeit.oertlichkeitenId;
 				PreparedStatement st = connection.prepareStatement(str, Statement.RETURN_GENERATED_KEYS);
-				st.setString(1, o.bezeichnung);
-				st.setDouble(2, o.longitude);
-				st.setDouble(3, o.longitude);
-				st.setString(4, o.strasse);
-				st.setString(5, o.hausnummer);
-				st.setInt(6, o.postleitzahl);
-				st.setString(7, o.ort);
-				st.setInt(8, o.kategorienId);
+				st.setString(1, s.oertlichkeit.bezeichnung);
+				st.setDouble(2, s.oertlichkeit.longitude);
+				st.setDouble(3, s.oertlichkeit.longitude);
+				st.setString(4, s.oertlichkeit.strasse);
+				st.setString(5, s.oertlichkeit.hausnummer);
+				st.setInt(6, s.oertlichkeit.postleitzahl);
+				st.setString(7, s.oertlichkeit.ort);
+				st.setInt(8, s.oertlichkeit.kategorienId);
 				st.execute();	
 			}
 				

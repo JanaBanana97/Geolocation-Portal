@@ -19,6 +19,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import javax.xml.ws.BindingType;
 
 import entities.Gesundheit;
 import entities.Oertlichkeiten;
@@ -122,27 +123,27 @@ public class GesundheitService {
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("addGesundheit")
-	public Response addGesundheit(Oertlichkeiten o, Gesundheit g){
+	public Response addGesundheit(Gesundheit g){
 		System.out.println("GesundheitService/addGesundheit... called.");
 		try {		
-			if (o != null) {
+			if (g.oertlichkeit != null) {
 				String str = "INSERT INTO Oertlichkeiten (bezeichnung, longitude, latitude, strasse, hausnummer, postleitzahl, ort, kategorienId) "
 						+ " VALUES(?,?,?,?,?,?,?,?)";
 				PreparedStatement st = connection.prepareStatement(str, Statement.RETURN_GENERATED_KEYS);
-				st.setString(1, o.bezeichnung);
-				st.setDouble(2, o.longitude);
-				st.setDouble(3, o.longitude);
-				st.setString(4, o.strasse);
-				st.setString(5, o.hausnummer);
-				st.setInt(6, o.postleitzahl);
-				st.setString(7, o.ort);
-				st.setInt(8, o.kategorienId);
+				st.setString(1, g.oertlichkeit.bezeichnung);
+				st.setDouble(2, g.oertlichkeit.longitude);
+				st.setDouble(3, g.oertlichkeit.longitude);
+				st.setString(4, g.oertlichkeit.strasse);
+				st.setString(5, g.oertlichkeit.hausnummer);
+				st.setInt(6, g.oertlichkeit.postleitzahl);
+				st.setString(7, g.oertlichkeit.ort);
+				st.setInt(8, g.oertlichkeit.kategorienId);
 				st.execute();	
 			}
 			
 			if (g != null) {
 				ResultSet rs = statement.executeQuery("SELECT * FROM Oertlichkeiten"
-						+ " WHERE longitude='" + o.longitude + "' AND latitude='" + o.latitude + " ");
+						+ " WHERE longitude='" + g.oertlichkeit.longitude + "' AND latitude='" + g.oertlichkeit.latitude + " ");
 				int oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
 				
 				String str1 = "INSERT INTO Gesundheit (typ, beschreibung, oertlichkeitenId) "
@@ -166,22 +167,22 @@ public class GesundheitService {
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("updateGesundheit")
-	public Response updateGesundheit(Oertlichkeiten o, Gesundheit g){
+	public Response updateGesundheit(Gesundheit g){
 		System.out.println("GesundheitService/updateGesundheit... called.");
 		try {
-			if (o != null) {
+			if (g.oertlichkeit != null) {
 				String str = "UPDATE Oertlichkeiten "
 						+ " SET bezeichnung = ?, longitude = ?, latitude = ?, strasse = ?, hausnummer = ?, postleitzahl = ?, ort = ?, kategorienId = ? "
-						+ " WHERE oertlichkeitenId=" + o.oertlichkeitenId;
+						+ " WHERE oertlichkeitenId=" + g.oertlichkeit.oertlichkeitenId;
 				PreparedStatement st = connection.prepareStatement(str, Statement.RETURN_GENERATED_KEYS);
-				st.setString(1, o.bezeichnung);
-				st.setDouble(2, o.longitude);
-				st.setDouble(3, o.longitude);
-				st.setString(4, o.strasse);
-				st.setString(5, o.hausnummer);
-				st.setInt(6, o.postleitzahl);
-				st.setString(7, o.ort);
-				st.setInt(8, o.kategorienId);
+				st.setString(1, g.oertlichkeit.bezeichnung);
+				st.setDouble(2, g.oertlichkeit.longitude);
+				st.setDouble(3, g.oertlichkeit.longitude);
+				st.setString(4, g.oertlichkeit.strasse);
+				st.setString(5, g.oertlichkeit.hausnummer);
+				st.setInt(6, g.oertlichkeit.postleitzahl);
+				st.setString(7, g.oertlichkeit.ort);
+				st.setInt(8, g.oertlichkeit.kategorienId);
 				st.execute();	
 			}
 				

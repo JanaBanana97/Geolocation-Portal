@@ -124,28 +124,28 @@ public class ParkplaetzeService {
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("addParkplatz")
-	public Response addParkplatz(Oertlichkeiten o, Parkplaetze p){
+	public Response addParkplatz(Parkplaetze p){
 		System.out.println("ParkplaetzeService/addParkplatz... called.");
 		try {
-			if (o != null) {
+			if (p.oertlichkeit != null) {
 				String str = "INSERT INTO Oertlichkeiten (bezeichnung, longitude, latitude, strasse, hausnummer, postleitzahl, ort, kategorienId) "
 						+ " VALUES(?,?,?,?,?,?,?,?)";
 				PreparedStatement st = connection.prepareStatement(str, Statement.RETURN_GENERATED_KEYS);
-				st.setString(1, o.bezeichnung);
-				st.setDouble(2, o.longitude);
-				st.setDouble(3, o.longitude);
-				st.setString(4, o.strasse);
-				st.setString(5, o.hausnummer);
-				st.setInt(6, o.postleitzahl);
-				st.setString(7, o.ort);
-				st.setInt(8, o.kategorienId);
+				st.setString(1, p.oertlichkeit.bezeichnung);
+				st.setDouble(2, p.oertlichkeit.longitude);
+				st.setDouble(3, p.oertlichkeit.longitude);
+				st.setString(4, p.oertlichkeit.strasse);
+				st.setString(5, p.oertlichkeit.hausnummer);
+				st.setInt(6, p.oertlichkeit.postleitzahl);
+				st.setString(7, p.oertlichkeit.ort);
+				st.setInt(8, p.oertlichkeit.kategorienId);
 				st.execute();
 				
 			}
 			
 			if (p != null){
 				ResultSet rs = statement.executeQuery("SELECT * FROM Oertlichkeiten"
-						+ " WHERE longitude='" + o.longitude + "' AND latitude='" + o.latitude + " ");
+						+ " WHERE longitude='" + p.oertlichkeit.longitude + "' AND latitude='" + p.oertlichkeit.latitude + " ");
 				int oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
 				
 				String str1 = "INSERT INTO Parkplaetze (oeffnungszeiten, kosten, beschreibung, oertlichkeitenId) "
@@ -170,22 +170,22 @@ public class ParkplaetzeService {
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("updateParkplatz")
-	public Response updateSchulen(Oertlichkeiten o, Parkplaetze p){
+	public Response updateSchulen(Parkplaetze p){
 		System.out.println("ParkplaetzeService/updateParkplatz... called.");
 		try {
-			if (o != null){
+			if (p.oertlichkeit != null){
 				String str = "UPDATE Oertlichkeiten "
 						+ " SET bezeichnung = ?, longitude = ?, latitude = ?, strasse = ?, hausnummer = ?, postleitzahl = ?, ort = ?, kategorienId = ? "
-						+ " WHERE oertlichkeitenId=" + o.oertlichkeitenId;
+						+ " WHERE oertlichkeitenId=" + p.oertlichkeit.oertlichkeitenId;
 				PreparedStatement st = connection.prepareStatement(str, Statement.RETURN_GENERATED_KEYS);
-				st.setString(1, o.bezeichnung);
-				st.setDouble(2, o.longitude);
-				st.setDouble(3, o.longitude);
-				st.setString(4, o.strasse);
-				st.setString(5, o.hausnummer);
-				st.setInt(6, o.postleitzahl);
-				st.setString(7, o.ort);
-				st.setInt(8, o.kategorienId);
+				st.setString(1, p.oertlichkeit.bezeichnung);
+				st.setDouble(2, p.oertlichkeit.longitude);
+				st.setDouble(3, p.oertlichkeit.longitude);
+				st.setString(4, p.oertlichkeit.strasse);
+				st.setString(5, p.oertlichkeit.hausnummer);
+				st.setInt(6, p.oertlichkeit.postleitzahl);
+				st.setString(7, p.oertlichkeit.ort);
+				st.setInt(8, p.oertlichkeit.kategorienId);
 				st.execute();	
 			}
 			
