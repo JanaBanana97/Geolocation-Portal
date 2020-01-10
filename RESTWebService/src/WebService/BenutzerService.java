@@ -68,28 +68,35 @@ public class BenutzerService {
 	}
 	
 	@GET
-	@Produces({ MediaType.TEXT_PLAIN })
 	@Consumes({ MediaType.TEXT_PLAIN })
+	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("checkBenutzer")
-	public Response checkBenutzer(@QueryParam("username") String username, @QueryParam("passwort") String passwort){
+	public Response checkBenutzer(@QueryParam("email") String email, @QueryParam("passwort") String passwort){
 		System.out.println("BenutzerService.getAllBenutzer... called.");
-		String returnValue = Boolean.FALSE.toString();
-		try {
-			
-			//returnValue = returnValue + username + passwort;
-			
+		Benutzer benutzer = new Benutzer();
+		//String returnValue = Boolean.FALSE.toString();
+		try {			
 			ResultSet rs = statement.executeQuery("SELECT * FROM Benutzer "
-					+ " WHERE user='" + username + "' AND passwort='" + passwort + "'");
+					+ " WHERE email='" + email + "' AND passwort='" + passwort + "'");
 			
 			if (rs.isBeforeFirst() != false){
-				returnValue = Boolean.TRUE.toString();
+				//returnValue = Boolean.TRUE.toString();
+				while(rs.next()){
+					benutzer.benutzerId = rs.getInt("benutzerId");
+					benutzer.vorname = rs.getString("vorname");
+					benutzer.nachname = rs.getString("nachname");
+					benutzer.email = rs.getString("email");
+					benutzer.passwort = rs.getString("passwort");
+				}
 			}
 		}
 		catch(Exception e){
 			System.out.println(e.toString());
-			returnValue = Boolean.TRUE.toString();
+			//returnValue = Boolean.TRUE.toString();
+			benutzer = null;
 		}
-		GenericEntity<String> myEntity = new GenericEntity<String>(returnValue) {};
+		System.out.println("Hier...");
+		GenericEntity<Benutzer> myEntity = new GenericEntity<Benutzer>(benutzer) {};
 		return Response.ok(myEntity).build();
 	}
 }
