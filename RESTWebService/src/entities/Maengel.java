@@ -7,8 +7,8 @@ public class Maengel {
 
 	public int maengelID;
 	public String beschreibung;
-	public String latitude;
-	public String longitude;
+	public double latitude;
+	public double longitude;
 	public String status;
 	
 	public Maengel() {

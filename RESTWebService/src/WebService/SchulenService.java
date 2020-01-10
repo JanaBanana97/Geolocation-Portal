@@ -2,6 +2,7 @@ package WebService;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -18,8 +19,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-
-import com.sun.jersey.api.json.JSONConfiguration.Builder;
 
 import entities.Oertlichkeiten;
 import entities.Schulen;
@@ -119,33 +118,90 @@ public class SchulenService {
 		//return returnList;
 	}
 	
-	@PUT
-	@Consumes({MediaType.TEXT_PLAIN})
+	@POST
+	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("addSchule")
-	public Response addSchule(@QueryParam("bezeichnung") String bezeichnung, @QueryParam("longitude") String longitude, @QueryParam("latitude") String latitude,
-			@QueryParam("strasse") String strasse, @QueryParam("hausnummer") String hausnummer, @QueryParam("plz") int plz,
-			@QueryParam("ort") String ort, @QueryParam("kategorie") String Kategorie, @QueryParam("typ") String typ,
-			@QueryParam("beschreibung") String beschreibung){
+	public Response addSchule(Oertlichkeiten o, Schulen s){
 		System.out.println("SchulenService/addSchule... called.");
 		try {
-			boolean erfolgreich1 = statement.execute("INSERT INTO Oertlichkeiten (bezeichnung, longitude, latitude, strasse, hausnummer, postleitzahl, ort, kategorienId) "
-					+ "VALUES ('" + bezeichnung + "', '" + longitude + "', '" + latitude + "', '" + strasse + "', "
-					+ "'+" + hausnummer + "', " + plz + ", '" + ort + "', 2");
+			if (o != null){
+				String str = "INSERT INTO Oertlichkeiten (bezeichnung, longitude, latitude, strasse, hausnummer, postleitzahl, ort, kategorienId) "
+						+ " VALUES(?,?,?,?,?,?,?,?)";
+				PreparedStatement st = connection.prepareStatement(str, Statement.RETURN_GENERATED_KEYS);
+				st.setString(1, o.bezeichnung);
+				st.setDouble(2, o.longitude);
+				st.setDouble(3, o.longitude);
+				st.setString(4, o.strasse);
+				st.setString(5, o.hausnummer);
+				st.setInt(6, o.postleitzahl);
+				st.setString(7, o.ort);
+				st.setInt(8, o.kategorienId);
+				st.execute();	
+			}
 			
-			ResultSet rs = statement.executeQuery("SELECT * FROM Oertlichkeiten"
-					+ " WHERE longitude='" + longitude + "' AND latitude='" + latitude + " ");
-			
-			int oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
-			
-			boolean erfolgreich2 = statement.execute("INSERT INTO Schulen (typ, beschreibung, oertlichkeitenId) "
-					+ "VALUES ('" + typ + "', '" + beschreibung + "', " + oertlichkeitenId + ") ");
-		}
+			if (s != null) {
+				ResultSet rs = statement.executeQuery("SELECT * FROM Oertlichkeiten"
+						+ " WHERE longitude='" + o.longitude + "' AND latitude='" + o.latitude + " ");
+				int oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
+				
+				String str1 = "INSERT INTO Schulen (typ, beschreibung, oertlichkeitenId) "
+						+ " VALUES(?,?,?)";
+				PreparedStatement st1 = connection.prepareStatement(str1, Statement.RETURN_GENERATED_KEYS);
+				st1.setString(1, s.typ);
+				st1.setString(2, s.beschreibung);
+				st1.setInt(3, oertlichkeitenId);
+				st1.execute();			
+			}
+					}
 		catch(Exception e){
 			System.out.println(e.toString());
 			return Response.serverError().build();
 		}
 		return Response.ok().build();
 	}
+	
+	@PUT
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Path("updateSchule")
+	public Response updateSchulen(Oertlichkeiten o, Schulen s){
+		System.out.println("SchulenService/updateSchulen... called.");
+		try {	
+			if (o != null) {
+				String str = "UPDATE Oertlichkeiten "
+						+ " SET bezeichnung = ?, longitude = ?, latitude = ?, strasse = ?, hausnummer = ?, postleitzahl = ?, ort = ?, kategorienId = ? "
+						+ " WHERE oertlichkeitenId=" + o.oertlichkeitenId;
+				PreparedStatement st = connection.prepareStatement(str, Statement.RETURN_GENERATED_KEYS);
+				st.setString(1, o.bezeichnung);
+				st.setDouble(2, o.longitude);
+				st.setDouble(3, o.longitude);
+				st.setString(4, o.strasse);
+				st.setString(5, o.hausnummer);
+				st.setInt(6, o.postleitzahl);
+				st.setString(7, o.ort);
+				st.setInt(8, o.kategorienId);
+				st.execute();	
+			}
+				
+			if (s != null) {
+				String str1 = "UPDATE Schulen "
+						+ " SET typ = ?, beschreibung = ?, oertlichkeitenId = ? "
+						+ " WHERE oertlichkeitenId=" + s.oertlichkeitenId;
+				PreparedStatement st1 = connection.prepareStatement(str1, Statement.RETURN_GENERATED_KEYS);
+				st1.setString(1, s.typ);
+				st1.setString(2, s.beschreibung);
+				st1.setInt(3, s.oertlichkeitenId);
+				st1.execute();	
+			}
+		}
+		catch(Exception e){
+			System.out.println(e.toString());
+			return Response.serverError().build();
+		}
+		
+		return Response.ok().build();
+	}
+
 
 }

@@ -2,6 +2,7 @@ package WebService;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -50,8 +51,8 @@ public class MaengelService {
 				Maengel mangel = new Maengel();
 				mangel.maengelID = rs.getInt("Maengel.maengelId");
 				mangel.beschreibung = rs.getString("Maengel.beschreibung");
-				mangel.latitude = rs.getString("Maengel.longitude");
-				mangel.longitude = rs.getString("Maengel.latitude");
+				mangel.latitude = rs.getDouble("Maengel.longitude");
+				mangel.longitude = rs.getDouble("Maengel.latitude");
 				mangel.status = rs.getString("Maengel.status");
 				returnList.add(mangel);
 			}
@@ -67,29 +68,21 @@ public class MaengelService {
 		//return returnList;
 	}
 	
-	@GET
-	@Consumes({MediaType.TEXT_PLAIN})
+	@POST
+	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("addMangel")
-	public Response addMangel (@QueryParam("beschreibung") String beschreibung, @QueryParam("longitude") String longitude, 
-			@QueryParam("latitude") String latitude, @QueryParam("status") String status){
-		System.out.println("addMangel called...");
-		Maengel mangel = new Maengel();
-		mangel.beschreibung = beschreibung;
-		mangel.longitude = longitude;
-		mangel.latitude = latitude;
-		mangel.status = status;
-		
+	public Response addMangel (Maengel mangel){
+		System.out.println("addMangel called...");		
 		try {			
-			boolean insert = statement.execute
-					("INSERT INTO Maengel (beschreibung, longitude, latitude, status) "
-					+ " VALUES ('" + mangel.beschreibung + "', '" + mangel.longitude + "',"
-					+ "'" + mangel.latitude + "'," + mangel.status + "') ");
-			
-			if (!insert){
-				mangel = null;
-			}
-			
+			String str = "INSERT INTO Maengel (longitude, latitude, beschreibung, status) "
+					+ " VALUES(?,?,?,?) ";
+			PreparedStatement st = connection.prepareStatement(str, Statement.RETURN_GENERATED_KEYS);
+			st.setString(1, mangel.beschreibung);
+			st.setDouble(2, mangel.longitude);
+			st.setDouble(3, mangel.longitude);
+			st.setString(4, mangel.status);
+			st.execute();
 		}
 		catch(Exception e){
 			System.out.println(e.toString());
@@ -99,6 +92,5 @@ public class MaengelService {
 		}
 		GenericEntity<Maengel> myEntity = new GenericEntity<Maengel>(mangel) {};
 		return Response.ok(myEntity).build();
-		//return mangel;
 	}
 }
