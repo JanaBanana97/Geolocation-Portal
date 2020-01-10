@@ -2,6 +2,7 @@ package WebService;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -49,8 +50,8 @@ public class OertlichkeitenService {
 				Oertlichkeiten o = new Oertlichkeiten();
 				o.oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
 				o.bezeichnung = rs.getString("Oertlichkeiten.bezeichnung");
-				o.longitude = rs.getString("Oertlichkeiten.longitude");
-				o.latitude = rs.getString("Oertlichkeiten.latitude");
+				o.longitude = rs.getDouble("Oertlichkeiten.longitude");
+				o.latitude = rs.getDouble("Oertlichkeiten.latitude");
 				o.strasse = rs.getString("Oertlichkeiten.strasse");
 				o.hausnummer = rs.getString("Oertlichkeiten.hausnummer");
 				o.postleitzahl = rs.getInt("Oertlichkeiten.postleitzahl");
@@ -86,8 +87,8 @@ public class OertlichkeitenService {
 				Oertlichkeiten o = new Oertlichkeiten();
 				o.oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
 				o.bezeichnung = rs.getString("Oertlichkeiten.bezeichnung");
-				o.longitude = rs.getString("Oertlichkeiten.longitude");
-				o.latitude = rs.getString("Oertlichkeiten.latitude");
+				o.longitude = rs.getDouble("Oertlichkeiten.longitude");
+				o.latitude = rs.getDouble("Oertlichkeiten.latitude");
 				o.strasse = rs.getString("Oertlichkeiten.strasse");
 				o.hausnummer = rs.getString("Oertlichkeiten.hausnummer");
 				o.postleitzahl = rs.getInt("Oertlichkeiten.postleitzahl");
@@ -112,15 +113,19 @@ public class OertlichkeitenService {
 	public Response addOertlichkeit(Oertlichkeiten oertlichkeit){
 		System.out.println("OertlichkeitenService.addOertlichkeit... called.");
 		try {
-			boolean erfolgreich = statement.execute("INSERT INTO Oertlichkeiten "
-					+ "(bezeichnung, longitude, latitude, strasse, hausnummer, postleitzahl, ort, kategorienId) "
-					+ "VALUES ('" + oertlichkeit.bezeichnung + "', "
-							+ " " + oertlichkeit.longitude + ", "
-							+ " " + oertlichkeit.latitude + ", "
-							+ "' " + oertlichkeit.hausnummer + "', "
-							+ " " + oertlichkeit.postleitzahl + ", "
-							+ "' " + oertlichkeit.ort + "', "
-							+ " " + oertlichkeit.kategorienId + " ) ");
+			String str = "INSERT INTO Oertlichkeiten (bezeichnung, longitude, latitude, strasse, hausnummer, postleitzahl, ort, kategorienId) "
+					+ " VALUES(?,?,?,?,?,?,?,?)";
+			PreparedStatement st = connection.prepareStatement(str, Statement.RETURN_GENERATED_KEYS);
+			st.setString(1, oertlichkeit.bezeichnung);
+			st.setDouble(2, oertlichkeit.longitude);
+			st.setDouble(3, oertlichkeit.longitude);
+			st.setString(4, oertlichkeit.strasse);
+			st.setString(5, oertlichkeit.hausnummer);
+			st.setInt(6, oertlichkeit.postleitzahl);
+			st.setString(7, oertlichkeit.ort);
+			st.setInt(8, oertlichkeit.kategorienId);
+			st.execute();
+			
 		}
 		catch(Exception e){
 			System.out.println(e.toString());

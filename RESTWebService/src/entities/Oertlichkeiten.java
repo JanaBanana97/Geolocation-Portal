@@ -7,8 +7,8 @@ public class Oertlichkeiten {
 
 	public int oertlichkeitenId;
 	public String bezeichnung;
-	public String longitude;
-	public String latitude;
+	public double longitude;
+	public double latitude;
 	public String strasse;
 	public String hausnummer;
 	public int postleitzahl;

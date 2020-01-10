@@ -54,8 +54,8 @@ public class PolitikService {
 				politik.oertlichkeitenId = rs.getInt("Politik.oertlichkeitenId");
 				politik.oertlichkeit.oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
 				politik.oertlichkeit.bezeichnung = rs.getString("Oertlichkeiten.bezeichnung");
-				politik.oertlichkeit.longitude = rs.getString("Oertlichkeiten.longitude");
-				politik.oertlichkeit.latitude = rs.getString("Oertlichkeiten.latitude");
+				politik.oertlichkeit.longitude = rs.getDouble("Oertlichkeiten.longitude");
+				politik.oertlichkeit.latitude = rs.getDouble("Oertlichkeiten.latitude");
 				politik.oertlichkeit.strasse = rs.getString("Oertlichkeiten.strasse");
 				politik.oertlichkeit.hausnummer = rs.getString("Oertlichkeiten.hausnummer");
 				politik.oertlichkeit.postleitzahl = rs.getInt("Oertlichkeiten.postleitzahl");
@@ -94,8 +94,8 @@ public class PolitikService {
 				politik.oertlichkeitenId = rs.getInt("Politik.oertlichkeitenId");
 				politik.oertlichkeit.oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
 				politik.oertlichkeit.bezeichnung = rs.getString("Oertlichkeiten.bezeichnung");
-				politik.oertlichkeit.longitude = rs.getString("Oertlichkeiten.longitude");
-				politik.oertlichkeit.latitude = rs.getString("Oertlichkeiten.latitude");
+				politik.oertlichkeit.longitude = rs.getDouble("Oertlichkeiten.longitude");
+				politik.oertlichkeit.latitude = rs.getDouble("Oertlichkeiten.latitude");
 				politik.oertlichkeit.strasse = rs.getString("Oertlichkeiten.strasse");
 				politik.oertlichkeit.hausnummer = rs.getString("Oertlichkeiten.hausnummer");
 				politik.oertlichkeit.postleitzahl = rs.getInt("Oertlichkeiten.postleitzahl");

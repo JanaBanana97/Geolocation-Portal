@@ -54,8 +54,8 @@ public class GesundheitService {
 				gesundheit.oertlichkeitenId = rs.getInt("Gesundheit.oertlichkeitenId");
 				gesundheit.oertlichkeit.oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
 				gesundheit.oertlichkeit.bezeichnung = rs.getString("Oertlichkeiten.bezeichnung");
-				gesundheit.oertlichkeit.longitude = rs.getString("Oertlichkeiten.longitude");
-				gesundheit.oertlichkeit.latitude = rs.getString("Oertlichkeiten.latitude");
+				gesundheit.oertlichkeit.longitude = rs.getDouble("Oertlichkeiten.longitude");
+				gesundheit.oertlichkeit.latitude = rs.getDouble("Oertlichkeiten.latitude");
 				gesundheit.oertlichkeit.strasse = rs.getString("Oertlichkeiten.strasse");
 				gesundheit.oertlichkeit.hausnummer = rs.getString("Oertlichkeiten.hausnummer");
 				gesundheit.oertlichkeit.postleitzahl = rs.getInt("Oertlichkeiten.postleitzahl");
@@ -94,8 +94,8 @@ public class GesundheitService {
 				gesundheit.oertlichkeitenId = rs.getInt("Gesundheit.oertlichkeitenId");
 				gesundheit.oertlichkeit.oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
 				gesundheit.oertlichkeit.bezeichnung = rs.getString("Oertlichkeiten.bezeichnung");
-				gesundheit.oertlichkeit.longitude = rs.getString("Oertlichkeiten.longitude");
-				gesundheit.oertlichkeit.latitude = rs.getString("Oertlichkeiten.latitude");
+				gesundheit.oertlichkeit.longitude = rs.getDouble("Oertlichkeiten.longitude");
+				gesundheit.oertlichkeit.latitude = rs.getDouble("Oertlichkeiten.latitude");
 				gesundheit.oertlichkeit.strasse = rs.getString("Oertlichkeiten.strasse");
 				gesundheit.oertlichkeit.hausnummer = rs.getString("Oertlichkeiten.hausnummer");
 				gesundheit.oertlichkeit.postleitzahl = rs.getInt("Oertlichkeiten.postleitzahl");

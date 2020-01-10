@@ -55,8 +55,8 @@ public class ParkplaetzeService {
 				parkplatz.oertlichkeitenId = rs.getInt("Parkplaetze.oertlichkeitenId");
 				parkplatz.oertlichkeit.oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
 				parkplatz.oertlichkeit.bezeichnung = rs.getString("Oertlichkeiten.bezeichnung");
-				parkplatz.oertlichkeit.longitude = rs.getString("Oertlichkeiten.longitude");
-				parkplatz.oertlichkeit.latitude = rs.getString("Oertlichkeiten.latitude");
+				parkplatz.oertlichkeit.longitude = rs.getDouble("Oertlichkeiten.longitude");
+				parkplatz.oertlichkeit.latitude = rs.getDouble("Oertlichkeiten.latitude");
 				parkplatz.oertlichkeit.strasse = rs.getString("Oertlichkeiten.strasse");
 				parkplatz.oertlichkeit.hausnummer = rs.getString("Oertlichkeiten.hausnummer");
 				parkplatz.oertlichkeit.postleitzahl = rs.getInt("Oertlichkeiten.postleitzahl");
@@ -96,8 +96,8 @@ public class ParkplaetzeService {
 				parkplatz.oertlichkeitenId = rs.getInt("Parkplaetze.oertlichkeitenId");
 				parkplatz.oertlichkeit.oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
 				parkplatz.oertlichkeit.bezeichnung = rs.getString("Oertlichkeiten.bezeichnung");
-				parkplatz.oertlichkeit.longitude = rs.getString("Oertlichkeiten.longitude");
-				parkplatz.oertlichkeit.latitude = rs.getString("Oertlichkeiten.latitude");
+				parkplatz.oertlichkeit.longitude = rs.getDouble("Oertlichkeiten.longitude");
+				parkplatz.oertlichkeit.latitude = rs.getDouble("Oertlichkeiten.latitude");
 				parkplatz.oertlichkeit.strasse = rs.getString("Oertlichkeiten.strasse");
 				parkplatz.oertlichkeit.hausnummer = rs.getString("Oertlichkeiten.hausnummer");
 				parkplatz.oertlichkeit.postleitzahl = rs.getInt("Oertlichkeiten.postleitzahl");

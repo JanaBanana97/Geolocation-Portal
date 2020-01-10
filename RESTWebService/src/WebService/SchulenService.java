@@ -58,8 +58,8 @@ public class SchulenService {
 				schule.oertlichkeitenId = rs.getInt("Schulen.oertlichkeitenId");
 				schule.oertlichkeit.oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
 				schule.oertlichkeit.bezeichnung = rs.getString("Oertlichkeiten.bezeichnung");
-				schule.oertlichkeit.longitude = rs.getString("Oertlichkeiten.longitude");
-				schule.oertlichkeit.latitude = rs.getString("Oertlichkeiten.latitude");
+				schule.oertlichkeit.longitude = rs.getDouble("Oertlichkeiten.longitude");
+				schule.oertlichkeit.latitude = rs.getDouble("Oertlichkeiten.latitude");
 				schule.oertlichkeit.strasse = rs.getString("Oertlichkeiten.strasse");
 				schule.oertlichkeit.hausnummer = rs.getString("Oertlichkeiten.hausnummer");
 				schule.oertlichkeit.postleitzahl = rs.getInt("Oertlichkeiten.postleitzahl");
@@ -98,8 +98,8 @@ public class SchulenService {
 				schulen.oertlichkeitenId = rs.getInt("Schulen.oertlichkeitenId");
 				schulen.oertlichkeit.oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
 				schulen.oertlichkeit.bezeichnung = rs.getString("Oertlichkeiten.bezeichnung");
-				schulen.oertlichkeit.longitude = rs.getString("Oertlichkeiten.longitude");
-				schulen.oertlichkeit.latitude = rs.getString("Oertlichkeiten.latitude");
+				schulen.oertlichkeit.longitude = rs.getDouble("Oertlichkeiten.longitude");
+				schulen.oertlichkeit.latitude = rs.getDouble("Oertlichkeiten.latitude");
 				schulen.oertlichkeit.strasse = rs.getString("Oertlichkeiten.strasse");
 				schulen.oertlichkeit.hausnummer = rs.getString("Oertlichkeiten.hausnummer");
 				schulen.oertlichkeit.postleitzahl = rs.getInt("Oertlichkeiten.postleitzahl");
