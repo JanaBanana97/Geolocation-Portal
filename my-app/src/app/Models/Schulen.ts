@@ -1,6 +1,10 @@
+import { Oertlichkeiten } from './Oertlichkeiten';
+
 export class Schulen {
-    SchulenId: Number;
-    Typ: string;
-    Beschreibung: string;
-    OertlichkeitenId: Number;
+    schulenId: number;
+    typ: string;
+    beschreibung: string;
+    oertlichkeitenId: number;
+    oertlichkeit: Oertlichkeiten;
+
 }
