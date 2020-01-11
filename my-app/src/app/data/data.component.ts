@@ -17,6 +17,7 @@ export class DataComponent implements OnInit {
   oertlichkeiten: Oertlichkeiten[];
   items: Oertlichkeiten[];
   cols: any[];
+  display1: boolean = false;
   private _opened: boolean = false;
  
   constructor(  private route: ActivatedRoute, private restApi:RestApi ) { }
@@ -27,7 +28,10 @@ export class DataComponent implements OnInit {
         console.log(res);
         this.items = res;
       });
+  }
 
+  loadOertlichkeiten(){
+    this.display1 = true;
     this.cols = [
       { field: 'oertlichkeitenId', header: 'ID', width: '9em' },
       { field: 'bezeichnung', header: 'Bezeichnung', width: '9em' },
@@ -41,6 +45,7 @@ export class DataComponent implements OnInit {
 
     ]  
   }
+
   private _toggleSidebar() {
     this._opened = !this._opened;
   }

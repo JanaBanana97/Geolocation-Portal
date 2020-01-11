@@ -18,6 +18,7 @@ export class MapComponent implements OnInit {
   private geoCoder;
   selectedMarker;
   display: boolean = false;
+  displayMangel: boolean = false;
   items: Oertlichkeiten[];
 
   markers = [];
@@ -29,16 +30,21 @@ export class MapComponent implements OnInit {
     this.restApi.getOertlichkeiten()
       .subscribe(res => {
         this.items = res as Oertlichkeiten[];
-      });
-     for (let marker of this.items.entries()) {
-       if (marker["1"].kategorienId == 1){
+        for (let marker of this.items.entries()) {
+          if (marker["1"].kategorienId == 1){
            this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
-       }
-     }
+          }
+        }
+      });
+     
   }
 
-  openDialog($event){
+  placeMarker($event){
     this.display = true;
+  }
+
+  openMaengelMelder($event){
+    this.displayMangel = true;
   }
 
   selectMarker(event) {
@@ -53,22 +59,22 @@ export class MapComponent implements OnInit {
   }  
   
   addMarker(lat: number, lng: number) {
+    this.selectMarker(event);
     this.markers.push({ lat, lng });
     this.display = false;
   }
 
   loadAll(){
     this.display = true;
+
     // this.restApi.getOertlichkeiten()
     //   .subscribe(res => {
     //     console.log(res);
     //     this.items = res as Oertlichkeiten[];
     //   });
 
-    // for (let marker of this.items.entries()) {
-    //   if (marker["1"].kategorienId == 1){
-    //       this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
-    //   }
-    // }
+    for (let marker of this.items.entries()) {
+          this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
+    }
   }
 }
