@@ -47,4 +47,9 @@ export class RestApi{
         return this.http.get<Oertlichkeiten[]>(url, httpOptionsGet);
         
     }
+    checkBenutzer(email, password): Observable<Benutzer>
+    {
+            let url = this.apiUrl + "/BenutzerService/checkBenutzer?email=" + email + "&passwort=" + password + "";
+            return this.http.get<Benutzer>(url, httpOptionsGet);
+    }
 }
