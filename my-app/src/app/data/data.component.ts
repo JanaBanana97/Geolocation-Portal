@@ -15,7 +15,7 @@ import { RestApi } from "../RestApi/RestApi";
 export class DataComponent implements OnInit {
 
   oertlichkeiten: Oertlichkeiten[];
-  items: any[];
+  items: Oertlichkeiten[];
   cols: any[];
   private _opened: boolean = false;
  
@@ -29,7 +29,7 @@ export class DataComponent implements OnInit {
       });
 
     this.cols = [
-      { field: 'oertlichkeitenid', header: 'ID', width: '9em' },
+      { field: 'oertlichkeitenId', header: 'ID', width: '9em' },
       { field: 'bezeichnung', header: 'Bezeichnung', width: '9em' },
       { field: 'longitude', header: 'Long', width: '9em' },
       { field: 'latitude', header: 'Lat', width: '9em' },
@@ -37,7 +37,7 @@ export class DataComponent implements OnInit {
       { field: 'hausnummer', header: 'Hausnr', width: '9em' },
       { field: 'postleitzahl', header: 'PLZ', width: '9em' },
       { field: 'ort', header: 'Ort', width: '9em' },
-      { field: 'kategorienid', header: 'Kategorie', width: '9em' },
+      { field: 'kategorienId', header: 'Kategorie', width: '9em' },
 
     ]  
   }

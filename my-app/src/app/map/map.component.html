@@ -1,28 +1,83 @@
-<div class='row'>   
-    <div class='col-sm-2'>
-      <app-nav-bar></app-nav-bar>
-    </div>
 
-    
+<div class='.col-md-2'>
+  <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:15%">
+   <table class="table table-hover">
+      <button class="w3-bar-item w3-button" onClick="loadAll($event)"> <!--Statt der weiterleitung muss hier die map sich ändern-->
+        Gesamtübersicht
+      </button>
+      <button class="w3-bar-item w3-button" (Click)="loadSchools()"> <!--Statt der weiterleitung muss hier die map sich ändern-->
+        Bildung
+      </button>
+      <button class="w3-bar-item w3-button" onClick="loadHealth()"> <!--Statt der weiterleitung muss hier die map sich ändern-->
+        Gesundheit
+      </button>
+      <button class="w3-bar-item w3-button" onClick="loadPolitics()"> <!--Statt der weiterleitung muss hier die map sich ändern-->
+        Politik
+      </button>
+      <button class="w3-bar-item w3-button" onClick="loadEnvironment()"> <!--Statt der weiterleitung muss hier die map sich ändern-->
+        Parkplätze
+      </button>
+      <button class="w3-bar-item w3-button" onClick="loadDefect()"> <!--Statt der weiterleitung muss hier die map sich ändern-->
+        Mängel
+      </button>
+    </table>
+    <p-button label="Mangel melden" (onClick)="openDialog($event)" styleClass="ui-button-info"></p-button>
+  </div>
+</div>
 
-    <div class='col-sm-10 body-content'>
-      <agm-map [latitude]='latitude' [longitude]='longitude' [zoom]="15"
-        [mapTypeId]='mapType' (mapClick)="addMarker($event.coords.lat, $event.coords.lng)">
+
+<p-dialog [(visible)]="display" [modal]="true" [style]="{width: '800px', height: '2000px'}">
+    <p-header>
+      Mangel melden
+    </p-header>
+    <p> Wähle den aktuellen Standort oder setzte einen Marker </p>
+      <p-button label="aktueller Standort" (onClick)="setLocation($event)" styleClass="ui-button-info"></p-button>
+      <p-button label="Marker setzten" (onClick)="setMarker($event)" styleClass="ui-button-info"></p-button> <hr/>
+      <p> Beschreibung des Mangels </p>
+        <input type="text" pInputText /> <hr/>
+      <p> Lade ein erkennbares Foto hoch </p>
+      <p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple"
+        accept="image/*" [auto]="true">
+      </p-fileUpload>  <hr/>
+    <p-footer>
+        <p-button label="Speichern" (onClick)="save($event)" styleClass="dialog-button"></p-button>
+    </p-footer>
+</p-dialog>
+      
+
+    <div class='style'>
+      <agm-map [latitude]='latitude' [longitude]='longitude' [zoom]="14"
+        [mapTypeId]='mapType' (mapClick)="openDialog($event)"><!--addMarker($event.coords.lat, $event.coords.lng)!-->
       <agm-marker
         *ngFor="let marker of markers"
         [latitude]="marker.lat"
         [longitude]="marker.lng"
-        [opacity]="marker.alpha"
         [markerDraggable]="true"
-        (markerClick)="selectMarker($event)"
-      >
+        (markerClick)="selectMarker($event)">
       </agm-marker>
       
     </agm-map>
+    <p-panel >
     <p *ngIf="selectedMarker">
       Lat: {{ selectedMarker.lat }} Lng: {{ selectedMarker.lng }}
     </p>
     <h5>Address: {{address}}</h5>
   <div>Latitude: {{latitude}}</div>
   <div>Longitude: {{longitude}}</div>
+  </p-panel>
   </div>
+
+  <p-dialog [(visible)]="display" [modal]="true" [style]="{width: '800px', height: '2000px'}">
+    <p-header>
+        Marker hinzufügen
+    </p-header>
+    <p> Wähle den aktuellen Standort oder setzte einen Marker </p>
+      <p-button label="aktueller Standort" (onClick)="setLocation($event)" styleClass="ui-button-info"></p-button>
+      <p-button label="Marker setzten" (onClick)="setMarker($event)" styleClass="ui-button-info"></p-button> <hr/>
+      <p> Beschreibung</p>
+        <input type="text" pInputText /> <hr/>
+
+    <p-footer>
+        <p-button label="Speichern" (onClick)="save($event)" styleClass="ui-button-info"></p-button>
+    </p-footer>
+  </p-dialog>

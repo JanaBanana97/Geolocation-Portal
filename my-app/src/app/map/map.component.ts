@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core';
+import { Oertlichkeiten } from "../Models/Oertlichkeiten";
+import { RestApi } from "../RestApi/RestApi";
 import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { ActivatedRoute } from '@angular/router';
 
@@ -15,33 +17,59 @@ export class MapComponent implements OnInit {
   address: string;
   private geoCoder;
   selectedMarker;
-  markers = [
-    { lat: 49.3504637, lng: 9.1602141, alpha: 1 },
-    { lat: 49.3382232, lng: 9.122834, alpha: 1 },
-    { lat: 49.3502419, lng: 9.1473992, alpha: 1 },
-    { lat: 49.3499529, lng: 9.1450694, alpha: 1 },
-    { lat: 49.348638, lng: 9.170692, alpha: 1 },
-    { lat: 49.3498062, lng: 9.1087208, alpha: 1 }
-  ];
+  display: boolean = false;
+  items: Oertlichkeiten[];
 
-  ngOnInit(){}
+  markers = [];
 
-  addMarker(lat: number, lng: number) {
-    this.markers.push({ lat, lng, alpha: 0.4 });
+  constructor(  private route: ActivatedRoute, private restApi:RestApi ) { }
+
+  ngOnInit(){
+    this.restApi.getOertlichkeiten()
+      .subscribe(res => {
+        console.log(res);
+        this.items = res;
+      });
+
+    for (let marker of this.items.entries()) {
+      if (marker["1"].kategorienId == 1){
+          this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
+      }
+    }
   }
 
-  //max(coordType: 'lat' | 'lng'): number {
-  //  return Math.max(...this.markers.map(marker => marker[coordType]));
-  //}
-
-  //min(coordType: 'lat' | 'lng'): number {
-  //  return Math.min(...this.markers.map(marker => marker[coordType]));
-  //}
+  openDialog($event){
+    this.display = true;
+  }
 
   selectMarker(event) {
     this.selectedMarker = {
       lat: event.latitude,
       lng: event.longitude
     };
+  }
+
+  save($event){
+     this.addMarker($event.coords.lat, $event.coords.lng);
+  }  
+  
+  addMarker(lat: number, lng: number) {
+    this.markers.push({ lat, lng });
+    this.display = false;
+  }
+
+  loadAll($event){
+    this.display = true;
+    this.restApi.getOertlichkeiten()
+      .subscribe(res => {
+        console.log(res);
+        this.items = res;
+      });
+
+    for (let marker of this.items.entries()) {
+      if (marker["1"].kategorienId == 1){
+          this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
+      }
+    }
   }
 }

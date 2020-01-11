@@ -8,6 +8,7 @@ import { RestApi } from "../RestApi/RestApi";
 })
 export class NavBarComponent {
 
+  kategorieId: number;
   totalActivities: number
   totalDistance: number
   display: boolean = false;
@@ -43,23 +44,23 @@ export class NavBarComponent {
   }
 
   loadSchools(){
-
+    this.kategorieId = 2;
   }
 
   loadHealth(){
-
+    this.kategorieId = 3;
   }
 
   loadPolitics(){
-
+    this.kategorieId = 4;
   }
 
   loadEnvironment(){
-
+    this.kategorieId = 1;
   }
 
   loadDefect(){
-
+    this.kategorieId = 5;
   }
 
   openDialog($event){

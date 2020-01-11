@@ -1,7 +1,5 @@
 <div class='row'>    
-    <div class='col-sm-2'>
-      <app-nav-bar></app-nav-bar>
-    </div>
+
     <div class='col-sm-10 body-content'>
         <h1> Örtlichkeiten </h1>
         <p-table #dt [columns]="cols" [value]="items">
@@ -15,7 +13,7 @@
             <ng-template pTemplate="body" let-item>
                 <tr>
                     <td>
-                        {{item.oertlichkeitenid}}
+                        {{item.oertlichkeitenId}}
                     </td>
                     <td>
                         {{item.bezeichnung}}
@@ -39,7 +37,7 @@
                         {{item.ort}}
                     </td>
                     <td>
-                        {{item.kategorienid}}
+                        {{item.kategorienId}}
                     </td>
                 </tr>
             </ng-template>

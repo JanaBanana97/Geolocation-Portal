@@ -7,6 +7,10 @@ div.card-header {
  font-size: large;
 }
 
+body .ui-button.ui-state-default.ui-button-info, body .ui-buttonset.ui-button-info > .ui-button.ui-state-default {
+  margin: 1em;
+}
+
 div.card {
   margin-top: 10px
 }

@@ -1,9 +1,9 @@
 <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:15%">
   <table class="table table-hover">
-    <button class="w3-bar-item w3-button" onClick="loadAll($event)"> <!--Statt der weiterleitung muss hier die map sich ändern-->
+    <button class="w3-bar-item w3-button" (Click)="loadAll($event)"> <!--Statt der weiterleitung muss hier die map sich ändern-->
       Gesamtübersicht
     </button>
-    <button class="w3-bar-item w3-button" onClick="loadSchools()"> <!--Statt der weiterleitung muss hier die map sich ändern-->
+    <button class="w3-bar-item w3-button" (Click)="loadSchools()"> <!--Statt der weiterleitung muss hier die map sich ändern-->
       Bildung
     </button>
     <button class="w3-bar-item w3-button" onClick="loadHealth()"> <!--Statt der weiterleitung muss hier die map sich ändern-->
@@ -37,7 +37,8 @@
         accept="image/*" [auto]="true">
       </p-fileUpload>  <hr/>
     <p-footer>
-        <p-button label="Speichern" (onClick)="save($event)" styleClass="ui-button-info"></p-button>
+        <p-button label="Speichern" (onClick)="save($event)" styleClass="dialog-button"></p-button>
     </p-footer>
 </p-dialog>
+
 <!-- !-->

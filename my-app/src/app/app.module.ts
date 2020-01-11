@@ -13,6 +13,7 @@ import { ButtonModule } from 'primeng/button';
 import { DialogModule } from 'primeng/dialog';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputTextModule } from 'primeng/inputtext';
+import { PanelModule } from 'primeng/panel';
 
 import { AppComponent } from './app.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
@@ -20,7 +21,6 @@ import { MapComponent } from './map/map.component';
 import { DataComponent } from './data/data.component';
 
 import { AgmCoreModule } from '@agm/core';
-import { NavBarComponent } from './nav-bar/nav-bar.component';
 
 import { appRoutes } from '../routes';
 import { RestApi } from './RestApi/RestApi';
@@ -31,7 +31,7 @@ import { RestApi } from './RestApi/RestApi';
     LandingpageComponent,
     MapComponent,
     DataComponent,
-    NavBarComponent    
+        
   ],
   imports: [
     BrowserModule,
@@ -46,6 +46,7 @@ import { RestApi } from './RestApi/RestApi';
     DialogModule,
     FileUploadModule,
     InputTextModule,
+    PanelModule,    
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDwL3gnt_96YgFTDLp9mW8LpYGGEaZowC8'}),
     RouterModule.forRoot([

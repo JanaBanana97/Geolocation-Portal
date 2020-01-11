@@ -1,7 +1,7 @@
 export class Parkplaetze {
-    ParkplaetzeId: Number;
-    Oeffnungszeiten: string;
-    Kosten: string;
-    Beschreibung: string;
-    OertlichkeitenId: Number;
+    parkplaetzeId: Number;
+    oeffnungszeiten: string;
+    kosten: string;
+    beschreibung: string;
+    oertlichkeitenId: Number;
 }
