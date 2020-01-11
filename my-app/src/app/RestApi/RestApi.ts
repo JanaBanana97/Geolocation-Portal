@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 // Models
 import { Benutzer } from "../Models/Benutzer";
 import { Gesundheit } from "../Models/Gesundheit";
@@ -9,8 +10,6 @@ import { Oertlichkeiten } from "../Models/Oertlichkeiten";
 import { Parkplaetze } from "../Models/Parkplaetze";
 import { Politik } from "../Models/Politik";
 import { Schulen } from "../Models/Schulen";
-import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
 const httpOptionsGet = {
     headers: new HttpHeaders({
         'Accept': 'application/json',

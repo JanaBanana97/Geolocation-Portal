@@ -1,8 +1,8 @@
-
-<div class='.col-md-2'>
+<div class="p-grid">
+<div class="p-col-2">
   <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:15%">
    <table class="table table-hover">
-      <button class="w3-bar-item w3-button" onClick="loadAll($event)"> <!--Statt der weiterleitung muss hier die map sich ändern-->
+      <button class="w3-bar-item w3-button" (Click)="loadAll()"> <!--Statt der weiterleitung muss hier die map sich ändern-->
         Gesamtübersicht
       </button>
       <button class="w3-bar-item w3-button" (Click)="loadSchools()"> <!--Statt der weiterleitung muss hier die map sich ändern-->
@@ -45,26 +45,26 @@
 </p-dialog>
       
 
-    <div class='style'>
+    <div class="p-col-10 p-align-center" style="margin-left: 200px">
       <agm-map [latitude]='latitude' [longitude]='longitude' [zoom]="14"
         [mapTypeId]='mapType' (mapClick)="openDialog($event)"><!--addMarker($event.coords.lat, $event.coords.lng)!-->
-      <agm-marker
-        *ngFor="let marker of markers"
-        [latitude]="marker.lat"
-        [longitude]="marker.lng"
-        [markerDraggable]="true"
-        (markerClick)="selectMarker($event)">
-      </agm-marker>
-      
-    </agm-map>
-    <p-panel >
-    <p *ngIf="selectedMarker">
-      Lat: {{ selectedMarker.lat }} Lng: {{ selectedMarker.lng }}
-    </p>
-    <h5>Address: {{address}}</h5>
-  <div>Latitude: {{latitude}}</div>
-  <div>Longitude: {{longitude}}</div>
-  </p-panel>
+        <agm-marker
+          *ngFor="let marker of markers"
+          [latitude]="marker.lat"
+          [longitude]="marker.lng"
+          [markerDraggable]="true"
+          (markerClick)="selectMarker($event)">
+        </agm-marker>      
+      </agm-map>
+      <p-panel>
+        <p *ngIf="selectedMarker">
+        Lat: {{ selectedMarker.lat }} Lng: {{ selectedMarker.lng }}
+      </p>
+      <h5>Address: {{address}}</h5>
+    <div>Latitude: {{latitude}}</div>
+    <div>Longitude: {{longitude}}</div>
+    </p-panel>
+  </div>
   </div>
 
   <p-dialog [(visible)]="display" [modal]="true" [style]="{width: '800px', height: '2000px'}">
