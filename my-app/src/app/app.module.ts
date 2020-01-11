@@ -26,6 +26,7 @@ import { AgmCoreModule } from '@agm/core';
 import { appRoutes } from '../routes';
 import { RestApi } from './RestApi/RestApi';
 import { LoginComponent } from './login/login.component';
+import {CookieService} from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -58,7 +59,7 @@ import { LoginComponent } from './login/login.component';
       {path: 'landingpage', component: LandingpageComponent}
     ])    
   ],
-  providers: [RestApi],
+  providers: [RestApi, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

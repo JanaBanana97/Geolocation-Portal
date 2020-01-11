@@ -1,6 +1,7 @@
 import { Component, OnInit, NgModule } from '@angular/core';
 import { Router } from '@angular/router';
 import { RestApi } from "../RestApi/RestApi";
+import { CookieService } from 'ngx-cookie-service';
 
 
  
@@ -19,12 +20,15 @@ export class LoginComponent implements OnInit {
   
   constructor( 
     private router: Router,
-    private restApi:RestApi) {
+    private restApi:RestApi,
+    private cookie: CookieService) {
     
    }
  
   ngOnInit() {
   }
+  
+  
 
   loginUser(event)
   {
@@ -33,23 +37,34 @@ export class LoginComponent implements OnInit {
     const email = target.querySelector('#email').value
     const password = target.querySelector('#password').value
 
+   
     this.restApi.checkBenutzer(email, password)
     .subscribe(res => {
       console.log(res);
       
-      if (res.Email==null) {
-        console.log('null!')
-        this.checkLogin = false
+      if (res.Email!=null) {
+        this.checkLogin = true
+        
+        this.cookie.set("email", res.Email)
+            this.cookie.set("password", password)
+            // Getting cookie
+            alert("User " + res.Email + " hat sich angemeldet")
+        
+
+
       }
 
       else {
-        this.checkLogin = true
+                 
+        console.log('null!')
+        this.checkLogin = false
+        alert("Inkorrekte Credentials")
       }
 
     });
      
 
-    console.log(email, password)
+    //console.log(email, password)
 
     
   }

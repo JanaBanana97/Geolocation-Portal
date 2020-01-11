@@ -21,6 +21,8 @@ export class MapComponent implements OnInit {
   displayMangel: boolean = false;
   items: Oertlichkeiten[];
 
+  location = location
+
   markers = [];
 
   constructor( public restApi:RestApi, private route: ActivatedRoute ) { }
@@ -38,6 +40,7 @@ export class MapComponent implements OnInit {
       });
      
   }
+  
 
   placeMarker($event){
     this.display = true;
@@ -77,4 +80,5 @@ export class MapComponent implements OnInit {
           this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
     }
   }
+  
 }
