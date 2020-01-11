@@ -20,6 +20,8 @@ export class MapComponent implements OnInit {
   display: boolean = false;
   items: Oertlichkeiten[];
 
+  location = location
+
   markers = [];
 
   constructor(  private route: ActivatedRoute, private restApi:RestApi ) { }
@@ -37,6 +39,7 @@ export class MapComponent implements OnInit {
       }
     }
   }
+  
 
   openDialog($event){
     this.display = true;
@@ -72,4 +75,5 @@ export class MapComponent implements OnInit {
       }
     }
   }
+  
 }
