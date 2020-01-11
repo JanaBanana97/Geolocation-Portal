@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core';
-import { Oertlichkeiten } from "../Models/Oertlichkeiten";
-import { RestApi } from "../RestApi/RestApi";
-import { MapsAPILoader, MouseEvent } from '@agm/core';
+import { Oertlichkeiten } from '../Models/Oertlichkeiten';
+import { RestApi } from '../RestApi/RestApi';
+import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -22,20 +22,19 @@ export class MapComponent implements OnInit {
 
   markers = [];
 
-  constructor(  private route: ActivatedRoute, private restApi:RestApi ) { }
+  constructor( public restApi:RestApi, private route: ActivatedRoute ) { }
 
-  ngOnInit(){
+  ngOnInit(): void {
+    this.items = []
     this.restApi.getOertlichkeiten()
       .subscribe(res => {
-        console.log(res);
-        this.items = res;
+        this.items = res as Oertlichkeiten[];
       });
-
-    for (let marker of this.items.entries()) {
-      if (marker["1"].kategorienId == 1){
-          this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
-      }
-    }
+     for (let marker of this.items.entries()) {
+       if (marker["1"].kategorienId == 1){
+           this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
+       }
+     }
   }
 
   openDialog($event){
@@ -58,18 +57,18 @@ export class MapComponent implements OnInit {
     this.display = false;
   }
 
-  loadAll($event){
+  loadAll(){
     this.display = true;
-    this.restApi.getOertlichkeiten()
-      .subscribe(res => {
-        console.log(res);
-        this.items = res;
-      });
+    // this.restApi.getOertlichkeiten()
+    //   .subscribe(res => {
+    //     console.log(res);
+    //     this.items = res as Oertlichkeiten[];
+    //   });
 
-    for (let marker of this.items.entries()) {
-      if (marker["1"].kategorienId == 1){
-          this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
-      }
-    }
+    // for (let marker of this.items.entries()) {
+    //   if (marker["1"].kategorienId == 1){
+    //       this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
+    //   }
+    // }
   }
 }
