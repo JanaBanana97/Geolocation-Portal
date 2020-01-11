@@ -24,6 +24,7 @@ import { AgmCoreModule } from '@agm/core';
 
 import { appRoutes } from '../routes';
 import { RestApi } from './RestApi/RestApi';
+import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { RestApi } from './RestApi/RestApi';
     LandingpageComponent,
     MapComponent,
     DataComponent,
+    LoginComponent,
         
   ],
   imports: [
