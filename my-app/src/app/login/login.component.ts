@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { RestApi } from "../RestApi/RestApi";
 import { CookieService } from 'ngx-cookie-service';
 import { Benutzer } from '../Models/Benutzer';
+import Swal from 'sweetalert2';
  
 @Component({
   selector: 'app-login',
@@ -35,30 +36,29 @@ export class LoginComponent implements OnInit {
 
     this.restApi.checkBenutzer(email, password)
     .subscribe(res => {
-      console.log(res)
-      console.log(res.email)
-      console.log(email)
-      var test = (email === res.email)
+     // console.log(res)
+     // console.log(res.email)
+     // console.log(email)
+     // var test = (email === res.email)
 
-      console.log(test)
+     // console.log(test)
 
       if (email==res.email) {
         console.log("übereinstimmung")
         this.checkLogin = true
         
-        this.cookie.set("email", email)
-        this.cookie.set("password", password)
-            // Getting cookie
-        alert("User " + res.email + " hat sich angemeldet") 
+        this.cookie.set("email", res.email)
+       
+            Swal.fire('Login succeeded', 'welcome: ' + res.email, 'success'); 
       }
 
       else {           
-        console.log('null!')
+        //console.log('null!')
         this.checkLogin = false
-       // alert("Inkorrekte Credentials")
+        Swal.fire('Login failed', 'wrong credentials', 'error');
       }
     });
 
-    //console.log(email, password) 
+    
   }
 }

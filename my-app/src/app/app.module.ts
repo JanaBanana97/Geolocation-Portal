@@ -14,7 +14,7 @@ import { DialogModule } from 'primeng/dialog';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputTextModule } from 'primeng/inputtext';
 import { PanelModule } from 'primeng/panel';
-
+import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 import { AppComponent } from './app.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
@@ -27,6 +27,8 @@ import { appRoutes } from '../routes';
 import { RestApi } from './RestApi/RestApi';
 import { LoginComponent } from './login/login.component';
 import { CookieService } from 'ngx-cookie-service';
+import { LogoutComponent } from './logout/logout.component';
+
 
 @NgModule({
   declarations: [
@@ -35,6 +37,7 @@ import { CookieService } from 'ngx-cookie-service';
     MapComponent,
     DataComponent,
     LoginComponent,
+    LogoutComponent,
         
   ],
   imports: [
@@ -42,6 +45,7 @@ import { CookieService } from 'ngx-cookie-service';
     AppRoutingModule,
     BrowserAnimationsModule,
     HttpClientModule,
+    [SweetAlert2Module.forRoot()],
     FormsModule,
     GMapModule,
     MatTabsModule,
@@ -59,6 +63,7 @@ import { CookieService } from 'ngx-cookie-service';
       {path: 'landingpage', component: LandingpageComponent}
     ])    
   ],
+  
   providers: [RestApi, CookieService],
   bootstrap: [AppComponent]
 })
