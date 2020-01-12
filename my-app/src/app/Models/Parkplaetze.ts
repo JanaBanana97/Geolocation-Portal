@@ -1,7 +1,10 @@
+import { Oertlichkeiten } from './Oertlichkeiten';
+
 export class Parkplaetze {
-    parkplaetzeId: Number;
+    parkplaetzeId: number;
     oeffnungszeiten: string;
     kosten: string;
     beschreibung: string;
-    oertlichkeitenId: Number;
+    oertlichkeitenId: number;
+    oertlichkeit: Oertlichkeiten;
 }
