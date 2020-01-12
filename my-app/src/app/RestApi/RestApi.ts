@@ -30,8 +30,8 @@ export class RestApi{
     constructor (private http: HttpClient) {
         this.apiUrl = "http://localhost:6098/rest"
         //this.apiUrl = "https://localhost:44383/api"
-
     }
+
     getBenutzer(): Observable<Benutzer[]> {
         let url = this.apiUrl + "/getAllBenutzer";
         return this.http.get<Benutzer[]>(url, httpOptionsGet);
@@ -47,13 +47,18 @@ export class RestApi{
         return this.http.put<Gesundheit[]>(url, items);
     }
 
+    postGesundheit(item: Gesundheit): Observable<Gesundheit>{
+        let url = this.apiUrl + "/GesundheitService/addGesundheit";
+        return this.http.post<Gesundheit>(url, item);
+    }
+
     getKategorien(): Observable<Kategorien[]> {
         let url = this.apiUrl + "/KategorienService/getAllKategorien";
         return this.http.get<Kategorien[]>(url, httpOptionsGet);    
     }
 
     putKategorien(items: Kategorien[]): Observable<Kategorien[]>{
-        let url = this.apiUrl + "/SchulenService/updateSchule";
+        let url = this.apiUrl + "/KategorienService/updateKategorie";
         return this.http.put<Kategorien[]>(url, items);
     }
 
@@ -65,6 +70,11 @@ export class RestApi{
     putMaengel(items: Maengel[]): Observable<Maengel[]>{
         let url = this.apiUrl + "/MaengelService/updateMangel";
         return this.http.put<Maengel[]>(url, items);
+    }
+
+    postMangel(item: Maengel): Observable<Maengel>{
+        let url = this.apiUrl + "/MaengelService/addMangel";
+        return this.http.post<Maengel>(url, item);
     }
     
     getOertlichkeiten(): Observable<Oertlichkeiten[]> {
@@ -78,6 +88,11 @@ export class RestApi{
         return this.http.put<Oertlichkeiten[]>(url, items);
     }
 
+    postOertlichkeit(item: Oertlichkeiten): Observable<Oertlichkeiten>{
+        let url = this.apiUrl + "/OertlichkeitenService/addOertlichkeit";
+        return this.http.post<Oertlichkeiten>(url, item);
+    }
+
     getParkplaetze(): Observable<Parkplaetze[]> {
         let url = this.apiUrl + "/ParkplaetzeService/getAllParkplaetze";
         return this.http.get<Parkplaetze[]>(url, httpOptionsGet); 
@@ -86,6 +101,11 @@ export class RestApi{
     putParken(items: Parkplaetze[]): Observable<Parkplaetze[]>{
         let url = this.apiUrl + "/ParkplaetzeService/updateParkplatz";
         return this.http.put<Parkplaetze[]>(url, items);
+    }
+
+    postParken(item: Parkplaetze): Observable<Parkplaetze>{
+        let url = this.apiUrl + "/ParkplaetzeService/addParkplatz";
+        return this.http.post<Parkplaetze>(url, item);
     }
 
     getSchulen(): Observable<Schulen[]> {
@@ -98,12 +118,13 @@ export class RestApi{
         return this.http.put<Schulen[]>(url, items);
     }
 
-    checkBenutzer(email, password): Observable<Benutzer>
-    {
-            let url = this.apiUrl + "/BenutzerService/checkBenutzer?email=" + email + "&passwort=" + password + "";
-            
-                
-                return this.http.get<Benutzer>(url, httpOptionsGet);
-           
+    postSchule(item: Schulen): Observable<Schulen>{
+        let url = this.apiUrl + "/SchulenService/addSchule";
+        return this.http.post<Schulen>(url, item);
+    }
+
+    checkBenutzer(email, password): Observable<Benutzer>{
+        let url = this.apiUrl + "/BenutzerService/checkBenutzer?email=" + email + "&passwort=" + password + "";
+        return this.http.get<Benutzer>(url, httpOptionsGet);   
     }
 }

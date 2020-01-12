@@ -1,30 +1,87 @@
-<div class="p-grid">
-<div class="p-col-2">
-  <div class="w3-sidebar w3-light-grey w3-bar-block">
-   <table class="table table-hover">
-      <button class="w3-bar-item w3-button" (click)="loadAll()"> 
-        Gesamtübersicht
-      </button>
-      <button class="w3-bar-item w3-button" (click)="loadSchools()"> 
-        Schulen
-      </button>
-      <button class="w3-bar-item w3-button" (click)="loadHealth()"> 
-        Gesundheit
-      </button>
-      <button class="w3-bar-item w3-button" (click)="loadPolitics()">
-        Politik
-      </button>
-      <button class="w3-bar-item w3-button" (click)="loadParking()">
-        Parkplätze
-      </button>
-      <button class="w3-bar-item w3-button" (click)="loadDefect()"> 
-        Mängel
-      </button>
-    </table>
-    <p-button label="Mangel melden" (onClick)="openMaengelMelder($event)" styleClass="ui-button-info"></p-button>
-  </div>
-</div>
+  <div class="p-grid">
+    <div class="p-col-2">
+      <div class="w3-sidebar w3-light-grey w3-bar-block">
+      <table class="table table-hover">
+          <button class="w3-bar-item w3-button" (click)="loadAll()"> 
+            Gesamtübersicht
+          </button>
+          <button class="w3-bar-item w3-button" (click)="loadSchools()"> 
+            Schulen
+          </button>
+          <button class="w3-bar-item w3-button" (click)="loadHealth()"> 
+            Gesundheit
+          </button>
+          <button class="w3-bar-item w3-button" (click)="loadPolitics()">
+            Politik
+          </button>
+          <button class="w3-bar-item w3-button" (click)="loadParking()">
+            Parkplätze
+          </button>
+          <button class="w3-bar-item w3-button" (click)="loadDefect()"> 
+            Mängel
+          </button>
+        </table>
+        <p-button label="Mangel melden" (onClick)="openMaengelMelder($event)" styleClass="ui-button-info"></p-button>
+      </div>
+    </div>
 
+    <div class="p-col-10 p-align-center" style="margin-left: 200px">
+      <agm-map [latitude]='latitude' [longitude]='longitude' [zoom]="14"
+        [mapTypeId]='mapType' (mapClick)="placeMarker($event.coords.lat, $event.coords.lng)">
+        <agm-marker
+          *ngFor="let marker of markers"
+          [latitude]="marker.lat"
+          [longitude]="marker.lng"
+          [markerDraggable]="true"
+          (markerClick)="selectMarker($event)">
+        </agm-marker>      
+      </agm-map>
+      <p-panel>
+        <p *ngIf="selectedMarker">
+          Lat: {{ selectedMarker.latitude }} Lng: {{ selectedMarker.longitude }}
+          Adresse: {{selectedMarker.strasse}} x: {{selectedMarker.hausnummer}} x:{{selectedMarker.ort}} x:{{selectedMarker.postleitzahl}}
+        </p>
+      </p-panel>
+    </div>
+  </div>
+
+<p-dialog [(visible)]="display" [modal]="true" [style]="{width: '800px', height: '2000px'}" >
+  <p-header>
+      Marker hinzufügen
+  </p-header>
+    <p> Koordinaten der gewählten Position sind: </p>
+      <p *ngIf="currLng, currLat"> Längengrad: {{currLng}} Breitengrad: {{currLat}}</p>  
+  <p> Koordinaten auf aktuellen Standort setzen </p>
+    <p-button label="aktueller Standort" (onClick)="setLocation($event)" styleClass="ui-button-info"></p-button><hr/>
+    Kategorie 
+    <select id = "KategorieList" class="form-control input" (change)="changeCategory($event.target.value)" >
+      <option value="?"></option>
+      <option value = "Parkplätze">Parkplätze</option>
+      <option value = "Schulen">Schulen</option>
+      <option value = "Gesundheit">Gesundheit</option>
+      <option value = "Politik">Politik</option>
+    </select><hr/>
+    <p>Bezeichnung (Name)</p>
+      <input type="text" pInputText class="form-control input" />
+    <p>Longitude</p>
+    <p>Straße</p>
+      <input type="text" pInputText class="form-control input" />
+    <p>Hausnummer</p>
+      <input type="text" pInputText class="form-control input" />
+    <p>Postleitzahl</p>
+      <input type="text" pInputText class="form-control input" />
+    <p>Ort</p>
+      <input type="text" pInputText class="form-control input" /><hr/>
+    <p>Typ</p>
+      <input type="text" pInputText class="form-control input" [disabled]="disabledOther ? true : false" />
+    <p>Öffnungszeiten</p>
+      <input type="text" pInputText class="form-control input" [disabled]="disabledParkplaetze ? true : false" />
+    <p>Kosten</p>
+      <input type="text" pInputText class="form-control input" [disabled]="disabledParkplaetze ? true : false" /><hr/>
+  <p-footer>
+      <p-button label="Speichern" (onClick)="save($event)" styleClass="ui-button-info"></p-button>
+  </p-footer>  
+</p-dialog>
 
 <p-dialog [(visible)]="displayMangel" [modal]="true" [style]="{width: '800px', height: '2000px'}">
     <p-header>
@@ -44,66 +101,3 @@
     </p-footer>
 </p-dialog>
       
-
-    <div class="p-col-10 p-align-center" style="margin-left: 200px">
-      <agm-map [latitude]='latitude' [longitude]='longitude' [zoom]="14"
-        [mapTypeId]='mapType' (mapClick)="placeMarker($event)"><!--addMarker($event.coords.lat, $event.coords.lng)!-->
-        <agm-marker
-          *ngFor="let marker of markers"
-          [latitude]="marker.lat"
-          [longitude]="marker.lng"
-          [markerDraggable]="true"
-          (markerClick)="selectMarker($event)">
-        </agm-marker>      
-      </agm-map>
-      <p-panel>
-        <p *ngIf="selectedMarker">
-        Lat: {{ selectedMarker.latitude }} Lng: {{ selectedMarker.longitude }}
-        Adresse: {{selectedMarker.strasse}} x: {{selectedMarker.hausnummer}} x:{{selectedMarker.ort}} x:{{selectedMarker.postleitzahl}}
-      </p>
-    </p-panel>
-  </div>
-  </div>
-
-  
-<p-dialog [(visible)]="display" [modal]="true" [style]="{width: '800px', height: '2000px'}">
-  <p-header>
-      Marker hinzufügen
-  </p-header>
-  <p> Wähle den aktuellen Standort oder setzte einen Marker </p>
-    <p-button label="aktueller Standort" (onClick)="setLocation($event)" styleClass="ui-button-info"></p-button><hr/> 
-    Kategorie 
-    <select id = "KategorieList" class="form-control input" (change)="changeCategory($event.target.value)" >
-      <option value="?"></option>
-      <option value = "Parkplätze">Parkplätze</option>
-      <option value = "Schulen">Schulen</option>
-      <option value = "Gesundheit">Gesundheit</option>
-      <option value = "Politik">Politik</option>
-    </select><hr/>
-    <p>Bezeichnung (Name)</p>
-      <input type="text" pInputText class="form-control input" />
-    <p>Longitude</p>
-      <input type="text" pInputText class="form-control input" />
-    <p>Latitude</p>
-      <input type="text" pInputText class="form-control input" />
-    <p>Straße</p>
-      <input type="text" pInputText class="form-control input" />
-    <p>Hausnummer</p>
-      <input type="text" pInputText class="form-control input" />
-    <p>Postleitzahl</p>
-      <input type="text" pInputText class="form-control input" />
-    <p>Ort</p>
-      <input type="text" pInputText class="form-control input" /><hr/> 
-    
-    <p>Typ</p>
-      <input type="text" pInputText class="form-control input" [disabled]="disabledOther ? true : false" />
-    <p>Öffnungszeiten</p>
-      <input type="text" pInputText class="form-control input" [disabled]="disabledParkplaetze ? true : false" />
-    <p>Kosten</p>
-      <input type="text" pInputText class="form-control input" [disabled]="disabledParkplaetze ? true : false" /><hr/>
-    
-
-  <p-footer>
-      <p-button label="Speichern" (onClick)="save($event)" styleClass="ui-button-info"></p-button>
-  </p-footer>  
-</p-dialog>

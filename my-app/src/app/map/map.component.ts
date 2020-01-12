@@ -13,6 +13,8 @@ export class MapComponent implements OnInit {
 
   latitude = 49.3527796;
   longitude = 9.1455235;
+  currLat: number;
+  currLng: number;
   mapType = 'roadmap';
   address: string;
   selectedMarker: Oertlichkeiten;
@@ -21,7 +23,7 @@ export class MapComponent implements OnInit {
   oertlichkeiten: Oertlichkeiten[];
   maengel: Maengel[];
   markers = [];
-  
+
   disabledParkplaetze: boolean = false;
   disabledOther : boolean = false;
 
@@ -42,10 +44,23 @@ export class MapComponent implements OnInit {
       .subscribe(m => {
         this.maengel = m as Maengel[];
     });
+    this.loadAll();
   }
 
-  placeMarker($event){
+  placeMarker(lat: number, lng: number){
+    this.currLng = lng;
+    this.currLat = lat;
     this.display = true;
+  }
+
+  setLocation($event){
+    if (navigator)
+    {
+    navigator.geolocation.getCurrentPosition( pos => {
+        this.currLng = +pos.coords.longitude;
+        this.currLat = +pos.coords.latitude;
+      });
+    }
   }
 
   openMaengelMelder($event){
@@ -77,6 +92,7 @@ export class MapComponent implements OnInit {
   }
 
   loadAll(){
+    this.markers = [];
     for (let marker of this.oertlichkeiten.entries()) {
       this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
     }
