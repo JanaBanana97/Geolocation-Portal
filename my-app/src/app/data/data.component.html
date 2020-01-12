@@ -1,71 +1,114 @@
 <div class='row'>    
-<div class="p-grid">
-<div class="p-col-2">
-  <div class="w3-sidebar w3-light-grey w3-bar-block">
-   <table class="table table-hover">
-      <button class="w3-bar-item w3-button" (Click)="loadOertlichkeiten()"> 
-        Gesamtübersicht
-      </button>
-      <button class="w3-bar-item w3-button" (Click)="loadSchools()">
-        Bildung
-      </button>
-      <button class="w3-bar-item w3-button" onClick="loadHealth()"> 
-        Gesundheit
-      </button>
-      <button class="w3-bar-item w3-button" onClick="loadPolitics()">
-        Politik
-      </button>
-      <button class="w3-bar-item w3-button" onClick="loadEnvironment()">
-        Parkplätze
-      </button>
-      <button class="w3-bar-item w3-button" onClick="loadDefect()">
-        Mängel
-      </button>
-    </table>
-  </div>
-</div>
+    <div class="p-grid">
+        <div class="p-col-2">
+            <div class="w3-sidebar w3-light-grey w3-bar-block">
+                <table class="table table-hover">
+                    <button class="w3-bar-item w3-button" (click)="loadOertlichkeiten()"> 
+                        Gesamtübersicht
+                    </button>
+                    <button class="w3-bar-item w3-button" (click)="loadSchools()">
+                        Bildung
+                    </button>
+                    <button class="w3-bar-item w3-button" (click)="loadHealth()"> 
+                        Gesundheit
+                    </button>
+                    <button class="w3-bar-item w3-button" (click)="loadPolitics()">
+                        Politik
+                    </button>
+                    <button class="w3-bar-item w3-button" (click)="loadParking()">
+                        Parkplätze
+                    </button>
+                    <button class="w3-bar-item w3-button" (click)="loadDefect()">
+                        Mängel
+                    </button>
+                </table>
+            </div>
+        </div>
 
-    <div visible="display1" class='col-sm-10 body-content'  style="margin-left: 200px">
-        <h1> Örtlichkeiten </h1>
-        <p-table #dt [columns]="cols" [value]="items">
-            <ng-template pTemplate="header" let columns>
-                <tr>
-                    <th *ngFor="let col of cols">
-                        {{col.header}}
-                    </th>
-                </tr>
-            </ng-template>
-            <ng-template pTemplate="body" let-item>
-                <tr>
-                    <td>
-                        {{item.oertlichkeitenId}}
-                    </td>
-                    <td>
-                        {{item.bezeichnung}}
-                    </td>
-                    <td>
-                        {{item.longitude}}
-                    </td>
-                    <td>
-                        {{item.latitude}}
-                    </td>
-                    <td>
-                        {{item.strasse}}
-                    </td>
-                    <td>
-                        {{item.hausnummer}}
-                    </td>
-                    <td>
-                        {{item.postleitzahl}}
-                    </td>
-                    <td>
-                        {{item.ort}}
-                    </td>
-                    <td>
-                        {{item.kategorienId}}
-                    </td>
-                </tr>
-            </ng-template>
-        </p-table>        
+        <div visible="displayAll" class='p-col-10'  style="margin-left: 200px">
+            <p-button label="Speichern" (onClick)="save(dt)" styleClass="dialog-button"></p-button>
+            <p-table #dt [columns]="cols" [value]="oertlichkeiten">
+                <ng-template pTemplate="header" let columns>
+                    <tr>
+                        <th *ngFor="let col of colsOer">
+                            {{col.header}}
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-itemO>
+                    <tr>
+                        <td>
+                            {{itemO.oertlichkeitenId}}
+                        </td>
+                        <td pEditableColumn>
+                            <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text" [(ngModel)]="itemO.bezeichnung">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                            {{itemO.bezeichnung}}
+                            </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                            {{itemO.longitude}}
+                        </td>
+                        <td>
+                            {{itemO.latitude}}
+                        </td>
+                        <td>
+                            {{itemO.strasse}}
+                        </td>
+                        <td>
+                            {{itemO.hausnummer}}
+                        </td>
+                        <td>
+                            {{itemO.postleitzahl}}
+                        </td>
+                        <td>
+                            {{itemO.ort}}
+                        </td>
+                        <td>
+                            {{itemO.kategorienId}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>  
+        </div>
+        
+        <div visible="displaySchool" class='p-col-10' style="margin-left: 200px">
+            <p-table #dt [columns]="cols" [value]="schulen">
+                <ng-template pTemplate="header" let columns>
+                    <tr>
+                        <th *ngFor="let col of colsSch">
+                            {{col.header}}
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <tr>
+                        <td>
+                            {{item.schulenId}}
+                        </td>
+                        <td>
+                            {{item.typ}}
+                        </td>
+                        <td pEditableColumn>
+                            <p-cellEditor>
+                            <ng-template pTemplate="input">
+                                <input pInputText type="text" [(ngModel)]="item.beschreibung">
+                            </ng-template>
+                            <ng-template pTemplate="output">
+                            {{item.beschreibung}}
+                            </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                            {{item.oertlichkeitenId}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>  
+        </div>            
     </div>
 </div>

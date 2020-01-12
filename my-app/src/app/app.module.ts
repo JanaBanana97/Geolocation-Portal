@@ -26,7 +26,7 @@ import { AgmCoreModule } from '@agm/core';
 import { appRoutes } from '../routes';
 import { RestApi } from './RestApi/RestApi';
 import { LoginComponent } from './login/login.component';
-import {CookieService} from 'ngx-cookie-service';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [

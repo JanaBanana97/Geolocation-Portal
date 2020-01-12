@@ -1,6 +1,6 @@
 export class Gesundheit {
-    GesundheitId: Number;
-    Typ: string;
-    Beschreibung: string;
-    OertlichkeitenId: Number;
+    gesundheitId: number;
+    typ: string;
+    beschreibung: string;
+    oertlichkeitenId: number;
 }
