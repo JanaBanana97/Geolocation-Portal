@@ -15,7 +15,10 @@ import { Benutzer } from '../Models/Benutzer';
 })
 
 export class LoginComponent implements OnInit {
-  
+
+  async delay(ms: number) {
+    await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
+}
   checkLogin = false
   
   constructor( private router: Router, private restApi:RestApi, private cookie: CookieService) {}
@@ -23,7 +26,7 @@ export class LoginComponent implements OnInit {
   ngOnInit() {
   }
 
-  loginUser(event)
+  async loginUser(event)
   {
     event.preventDefault()
     const target = event.target
