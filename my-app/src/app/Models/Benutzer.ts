@@ -1,6 +1,6 @@
 export class Benutzer{
-    BenutzerId: Number; //test
-    Vorname: string;
-    Nachname: string;
-    Email: string
+    benutzerId: Number; //test
+    vorname: string;
+    nachname: string;
+    email: string
 }

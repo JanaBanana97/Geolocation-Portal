@@ -3,8 +3,6 @@ import { Router } from '@angular/router';
 import { RestApi } from "../RestApi/RestApi";
 import { CookieService } from 'ngx-cookie-service';
 import { Benutzer } from '../Models/Benutzer';
-
-
  
 @Component({
   selector: 'app-login',
@@ -12,27 +10,18 @@ import { Benutzer } from '../Models/Benutzer';
   styleUrls: ['./login.component.css']
 })
 
-
 @NgModule({
   providers: [RestApi]
 })
-
 
 export class LoginComponent implements OnInit {
   
   checkLogin = false
   
-  constructor( 
-    private router: Router,
-    private restApi:RestApi,
-    private cookie: CookieService) {
-    
-   }
+  constructor( private router: Router, private restApi:RestApi, private cookie: CookieService) {}
  
   ngOnInit() {
   }
-  
-  
 
   loginUser(event)
   {
@@ -41,46 +30,32 @@ export class LoginComponent implements OnInit {
     const email = target.querySelector('#email').value
     const password = target.querySelector('#password').value
 
-   
     this.restApi.checkBenutzer(email, password)
     .subscribe(res => {
-      
-      
       console.log(res)
-      console.log(JSON.stringify(res.Email))
+      console.log(res.email)
       console.log(email)
-      var test = (email === res.Email)
+      var test = (email === res.email)
 
       console.log(test)
-      
-      
 
-      if (email==res.Email) {
-       
-
+      if (email==res.email) {
         console.log("übereinstimmung")
         this.checkLogin = true
         
         this.cookie.set("email", email)
         this.cookie.set("password", password)
             // Getting cookie
-        alert("User " + res.Email + " hat sich angemeldet")
-        
+        alert("User " + res.email + " hat sich angemeldet") 
       }
 
-      else {
-                 
+      else {           
         console.log('null!')
         this.checkLogin = false
        // alert("Inkorrekte Credentials")
       }
-      
     });
-     
 
-    //console.log(email, password)
-
-    
+    //console.log(email, password) 
   }
- 
 }
