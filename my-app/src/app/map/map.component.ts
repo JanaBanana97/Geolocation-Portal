@@ -23,6 +23,9 @@ export class MapComponent implements OnInit {
   maengel: Maengel[];
   markers = [];
 
+  disabledParkplaetze: boolean = false;
+  disabledOther : boolean = false;
+
   constructor( public restApi:RestApi, private route: ActivatedRoute ) { }
 
   ngOnInit(): void {
@@ -111,6 +114,17 @@ export class MapComponent implements OnInit {
     }
   }
 
+  changeCategory(value){
+    if (value != "Parkplätze") {
+      this.disabledParkplaetze = true;
+      this.disabledOther = false;
+    }
+    else {
+      this.disabledParkplaetze = false;
+      this.disabledOther = true;
+    }
+  }
+  
   loadDefect(){
     this.markers = [];
     for (let marker of this.maengel.entries()) {
