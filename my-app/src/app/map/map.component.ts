@@ -3,6 +3,7 @@ import { Oertlichkeiten } from '../Models/Oertlichkeiten';
 import { Maengel } from '../Models/Meangel';
 import { RestApi } from '../RestApi/RestApi';
 import { ActivatedRoute } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-map',
@@ -10,6 +11,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit {
+  
 
   latitude = 49.3527796;
   longitude = 9.1455235;
