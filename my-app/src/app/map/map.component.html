@@ -67,17 +67,45 @@
   </div>
   </div>
 
-  <p-dialog [(visible)]="display" [modal]="true" [style]="{width: '800px', height: '2000px'}">
-    <p-header>
-        Marker hinzufügen
-    </p-header>
-    <p> Wähle den aktuellen Standort oder setzte einen Marker </p>
-      <p-button label="aktueller Standort" (onClick)="setLocation($event)" styleClass="ui-button-info"></p-button>
-      <p-button label="Marker setzten" (onClick)="setMarker($event)" styleClass="ui-button-info"></p-button> <hr/>
-      <p> Beschreibung</p>
-        <input type="text" pInputText /> <hr/>
+  
+<p-dialog [(visible)]="display" [modal]="true" [style]="{width: '800px', height: '2000px'}">
+  <p-header>
+      Marker hinzufügen
+  </p-header>
+  <p> Wähle den aktuellen Standort oder setzte einen Marker </p>
+    <p-button label="aktueller Standort" (onClick)="setLocation($event)" styleClass="ui-button-info"></p-button><hr/> 
+    Kategorie 
+    <select id = "KategorieList" class="form-control input" (change)="changeCategory($event.target.value)" >
+      <option value="?"></option>
+      <option value = "Parkplätze">Parkplätze</option>
+      <option value = "Schulen">Schulen</option>
+      <option value = "Gesundheit">Gesundheit</option>
+      <option value = "Politik">Politik</option>
+    </select><hr/>
+    <p>Bezeichnung (Name)</p>
+      <input type="text" pInputText class="form-control input" />
+    <p>Longitude</p>
+      <input type="text" pInputText class="form-control input" />
+    <p>Latitude</p>
+      <input type="text" pInputText class="form-control input" />
+    <p>Straße</p>
+      <input type="text" pInputText class="form-control input" />
+    <p>Hausnummer</p>
+      <input type="text" pInputText class="form-control input" />
+    <p>Postleitzahl</p>
+      <input type="text" pInputText class="form-control input" />
+    <p>Ort</p>
+      <input type="text" pInputText class="form-control input" /><hr/> 
+    
+    <p>Typ</p>
+      <input type="text" pInputText class="form-control input" [disabled]="disabledOther ? true : false" />
+    <p>Öffnungszeiten</p>
+      <input type="text" pInputText class="form-control input" [disabled]="disabledParkplaetze ? true : false" />
+    <p>Kosten</p>
+      <input type="text" pInputText class="form-control input" [disabled]="disabledParkplaetze ? true : false" /><hr/>
+    
 
-    <p-footer>
-        <p-button label="Speichern" (onClick)="save($event)" styleClass="ui-button-info"></p-button>
-    </p-footer>
-  </p-dialog>
+  <p-footer>
+      <p-button label="Speichern" (onClick)="save($event)" styleClass="ui-button-info"></p-button>
+  </p-footer>  
+</p-dialog>

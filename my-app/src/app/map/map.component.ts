@@ -25,6 +25,9 @@ export class MapComponent implements OnInit {
 
   markers = [];
 
+  disabledParkplaetze: boolean = false;
+  disabledOther : boolean = false;
+
   constructor( public restApi:RestApi, private route: ActivatedRoute ) { }
 
   ngOnInit(): void {
@@ -78,6 +81,17 @@ export class MapComponent implements OnInit {
 
     for (let marker of this.items.entries()) {
           this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
+    }
+  }
+
+  changeCategory(value){
+    if (value != "Parkplätze") {
+      this.disabledParkplaetze = true;
+      this.disabledOther = false;
+    }
+    else {
+      this.disabledParkplaetze = false;
+      this.disabledOther = true;
     }
   }
   
