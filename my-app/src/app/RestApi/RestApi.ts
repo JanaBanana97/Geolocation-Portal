@@ -105,6 +105,9 @@ export class RestApi{
                 
                 return this.http.get<Benutzer>(url, httpOptionsGet);
            
+<<<<<<< HEAD
     {           
+=======
+>>>>>>> 66d4467ad8614f618644160fbe4da08ba71656ea
     }
 }}

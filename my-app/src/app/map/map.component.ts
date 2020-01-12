@@ -1,8 +1,7 @@
-import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Oertlichkeiten } from '../Models/Oertlichkeiten';
 import { Maengel } from '../Models/Meangel';
 import { RestApi } from '../RestApi/RestApi';
-import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -22,7 +21,7 @@ export class MapComponent implements OnInit {
   oertlichkeiten: Oertlichkeiten[];
   maengel: Maengel[];
   markers = [];
-
+  
   disabledParkplaetze: boolean = false;
   disabledOther : boolean = false;
 

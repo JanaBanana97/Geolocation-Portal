@@ -3,9 +3,6 @@ import { Router } from '@angular/router';
 import { RestApi } from "../RestApi/RestApi";
 import { CookieService } from 'ngx-cookie-service';
 import { Benutzer } from '../Models/Benutzer';
-import { delay } from 'rxjs/operators';
-
-
  
 @Component({
   selector: 'app-login',
@@ -13,11 +10,9 @@ import { delay } from 'rxjs/operators';
   styleUrls: ['./login.component.css']
 })
 
-
 @NgModule({
   providers: [RestApi]
 })
-
 
 export class LoginComponent implements OnInit {
 
@@ -26,17 +21,10 @@ export class LoginComponent implements OnInit {
 }
   checkLogin = false
   
-  constructor( 
-    private router: Router,
-    private restApi: RestApi,
-    private cookie: CookieService) {
-    
-   }
+  constructor( private router: Router, private restApi:RestApi, private cookie: CookieService) {}
  
   ngOnInit() {
   }
-  
-  
 
   async loginUser(event)
   {
@@ -44,54 +32,33 @@ export class LoginComponent implements OnInit {
     const target = event.target
     const email = target.querySelector('#email').value
     const password = target.querySelector('#password').value
-    //const delay = ms => new Promise(res => setTimeout(res, ms));
-    
-    
-    //this.cookie.set("email", "ssss")
-    //this.cookie.set("password", "12345")
-    
-      //your task after delay.
- 
+
     this.restApi.checkBenutzer(email, password)
     .subscribe(res => {
       console.log(res)
-      console.log("warten")
-      this.delay(3000).then(any=>{
-      var neu = res.BenutzerId
-      console.log("erwarteter wert: " + neu)
+      console.log(res.email)
       console.log(email)
+      var test = (email === res.email)
 
-  
-      
-      
+      console.log(test)
 
-      if (neu != 0) {
-       
-
+      if (email==res.email) {
         console.log("übereinstimmung")
         this.checkLogin = true
         
         this.cookie.set("email", email)
         this.cookie.set("password", password)
             // Getting cookie
-        alert("User " + res.Email + " hat sich angemeldet")
-        
+        alert("User " + res.email + " hat sich angemeldet") 
       }
 
-      else {
-                 
+      else {           
         console.log('null!')
         this.checkLogin = false
        // alert("Inkorrekte Credentials")
       }
     });
-    });
-  
-     
 
-    //console.log(email, password)
-
-    
+    //console.log(email, password) 
   }
- 
 }
