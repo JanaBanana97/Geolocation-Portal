@@ -6,6 +6,9 @@
                     <button class="w3-bar-item w3-button" (click)="loadOertlichkeiten()"> 
                         Gesamtübersicht
                     </button>
+                    <button class="w3-bar-item w3-button" (click)="loadCategory()"> 
+                        Kategorien
+                    </button>
                     <button class="w3-bar-item w3-button" (click)="loadSchools()">
                         Bildung
                     </button>
@@ -26,7 +29,7 @@
         </div>
 
         <div visible="displayAll" class='p-col-10'  style="margin-left: 200px">
-            <p-button label="Speichern" (onClick)="save(dt)" styleClass="dialog-button"></p-button>
+            <p-button label="Speichern" (onClick)="saveOrt(dt)" styleClass="dialog-button"></p-button>
             <p-table #dt [columns]="cols" [value]="oertlichkeiten">
                 <ng-template pTemplate="header" let columns>
                     <tr>
@@ -42,12 +45,12 @@
                         </td>
                         <td pEditableColumn>
                             <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <input pInputText type="text" [(ngModel)]="itemO.bezeichnung">
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                            {{itemO.bezeichnung}}
-                            </ng-template>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" [(ngModel)]="itemO.bezeichnung">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{itemO.bezeichnung}}
+                                </ng-template>
                             </p-cellEditor>
                         </td>
                         <td>
@@ -56,27 +59,86 @@
                         <td>
                             {{itemO.latitude}}
                         </td>
-                        <td>
-                            {{itemO.strasse}}
+                        <td pEditableColumn>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" [(ngModel)]="itemO.strasse">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{itemO.strasse}}
+                                </ng-template>
+                            </p-cellEditor>
                         </td>
-                        <td>
-                            {{itemO.hausnummer}}
+                        <td pEditableColumn>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" [(ngModel)]="itemO.hausnummer">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{itemO.hausnummer}}
+                                </ng-template>
+                            </p-cellEditor>
                         </td>
-                        <td>
-                            {{itemO.postleitzahl}}
+                        <td pEditableColumn>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" [(ngModel)]="itemO.postleitzahl">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{itemO.postleitzahl}}
+                                </ng-template>
+                            </p-cellEditor>
                         </td>
-                        <td>
-                            {{itemO.ort}}
+                        <td pEditableColumn>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" [(ngModel)]="itemO.ort">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{itemO.ort}}
+                                </ng-template>
+                            </p-cellEditor>
                         </td>
-                        <td>
-                            {{itemO.kategorienId}}
+                        <td pEditableColumn>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" [(ngModel)]="itemO.kategorienId">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{itemO.kategorienId}}
+                                </ng-template>
+                            </p-cellEditor>
                         </td>
                     </tr>
                 </ng-template>
             </p-table>  
         </div>
-        
+
         <div visible="displaySchool" class='p-col-10' style="margin-left: 200px">
+            <p-button label="Speichern" (onClick)="saveCategory(dt)" styleClass="dialog-button"></p-button>
+            <p-table #dt [columns]="cols" [value]="kategorien">
+                <ng-template pTemplate="header" let columns>
+                    <tr>
+                        <th *ngFor="let col of colsCat">
+                            {{col.header}}
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <tr>
+                        <td>
+                            {{item.kategorienId}}
+                        </td>
+                        <td>
+                            {{item.bezeichnung}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>  
+        </div> 
+
+        <div visible="displaySchool" class='p-col-10' style="margin-left: 200px">
+            <p-button label="Speichern" (onClick)="saveSchool(dt)" styleClass="dialog-button"></p-button>
             <p-table #dt [columns]="cols" [value]="schulen">
                 <ng-template pTemplate="header" let columns>
                     <tr>
@@ -90,17 +152,24 @@
                         <td>
                             {{item.schulenId}}
                         </td>
-                        <td>
-                            {{item.typ}}
+                        <td pEditableColumn>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" [(ngModel)]="item.typ">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{item.typ}}
+                                </ng-template>
+                            </p-cellEditor>
                         </td>
                         <td pEditableColumn>
                             <p-cellEditor>
-                            <ng-template pTemplate="input">
-                                <input pInputText type="text" [(ngModel)]="item.beschreibung">
-                            </ng-template>
-                            <ng-template pTemplate="output">
-                            {{item.beschreibung}}
-                            </ng-template>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" [(ngModel)]="item.beschreibung">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{item.beschreibung}}
+                                </ng-template>
                             </p-cellEditor>
                         </td>
                         <td>
@@ -109,6 +178,148 @@
                     </tr>
                 </ng-template>
             </p-table>  
-        </div>            
+        </div> 
+
+        <div visible="displayHealth" class='p-col-10' style="margin-left: 200px">
+            <p-button label="Speichern" (onClick)="saveGesundheit(dt)" styleClass="dialog-button"></p-button>
+            <p-table #dt [columns]="cols" [value]="gesundheit">
+                <ng-template pTemplate="header" let columns>
+                    <tr>
+                        <th *ngFor="let col of colsHel">
+                            {{col.header}}
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <tr>
+                        <td>
+                            {{item.gesundheitId}}
+                        </td>
+                        <td pEditableColumn>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" [(ngModel)]="item.typ">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{item.typ}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td pEditableColumn>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" [(ngModel)]="item.beschreibung">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{item.beschreibung}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                            {{item.oertlichkeitenId}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>  
+        </div> 
+
+        <div visible="displayParking" class='p-col-10' style="margin-left: 200px">
+            <p-button label="Speichern" (onClick)="savePark(dt)" styleClass="dialog-button"></p-button>
+            <p-table #dt [columns]="cols" [value]="parken">
+                <ng-template pTemplate="header" let columns>
+                    <tr>
+                        <th *ngFor="let col of colsPar">
+                            {{col.header}}
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <tr>
+                        <td>
+                            {{item.parkplaetzeId}}
+                        </td>
+                        <td pEditableColumn>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" [(ngModel)]="item.oeffnungszeiten">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{item.oeffnungszeiten}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td pEditableColumn>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" [(ngModel)]="item.kosten">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{item.kosten}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td pEditableColumn>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" [(ngModel)]="item.beschreibung">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{item.beschreibung}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                            {{item.oertlichkeitenId}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>  
+        </div>     
+
+        <div visible="displayDefect" class='p-col-10' style="margin-left: 200px">
+            <p-button label="Speichern" (onClick)="saveMangel(dt)" styleClass="dialog-button"></p-button>
+            <p-table #dt [columns]="cols" [value]="maengel">
+                <ng-template pTemplate="header" let columns>
+                    <tr>
+                        <th *ngFor="let col of colsDef">
+                            {{col.header}}
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <tr>
+                        <td>
+                            {{item.maengelID}}
+                        </td>
+                        <td pEditableColumn>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" [(ngModel)]="item.beschreibung">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{item.beschreibung}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                            {{item.latitude}}
+                        </td>
+                        <td>
+                            {{item.longitude}}
+                        </td>
+                        <td pEditableColumn>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" [(ngModel)]="item.status">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{item.status}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>  
+        </div>                               
     </div>
 </div>

@@ -1,6 +1,6 @@
 export class Politik {
-    PolitikId: Number;
-    Typ: string;
-    Beschreibung: string;
-    OertlichkeitenId: Number;
+    politikId: Number;
+    typ: string;
+    beschreibung: string;
+    oertlichkeitenId: Number;
 }
