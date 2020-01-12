@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { RestApi } from "../RestApi/RestApi";
 import { CookieService } from 'ngx-cookie-service';
 import { Benutzer } from '../Models/Benutzer';
+import { delay } from 'rxjs/operators';
 
 
  
@@ -19,12 +20,15 @@ import { Benutzer } from '../Models/Benutzer';
 
 
 export class LoginComponent implements OnInit {
-  
+
+  async delay(ms: number) {
+    await new Promise(resolve => setTimeout(()=>resolve(), ms)).then(()=>console.log("fired"));
+}
   checkLogin = false
   
   constructor( 
     private router: Router,
-    private restApi:RestApi,
+    private restApi: RestApi,
     private cookie: CookieService) {
     
    }
@@ -34,28 +38,34 @@ export class LoginComponent implements OnInit {
   
   
 
-  loginUser(event)
+  async loginUser(event)
   {
     event.preventDefault()
     const target = event.target
     const email = target.querySelector('#email').value
     const password = target.querySelector('#password').value
-
-   
+    //const delay = ms => new Promise(res => setTimeout(res, ms));
+    
+    
+    //this.cookie.set("email", "ssss")
+    //this.cookie.set("password", "12345")
+    
+      //your task after delay.
+ 
     this.restApi.checkBenutzer(email, password)
     .subscribe(res => {
-      
-      
       console.log(res)
-      console.log(JSON.stringify(res.Email))
+      console.log("warten")
+      this.delay(3000).then(any=>{
+      var neu = res.BenutzerId
+      console.log("erwarteter wert: " + neu)
       console.log(email)
-      var test = (email === res.Email)
 
-      console.log(test)
+  
       
       
 
-      if (email==res.Email) {
+      if (neu != 0) {
        
 
         console.log("übereinstimmung")
@@ -74,8 +84,9 @@ export class LoginComponent implements OnInit {
         this.checkLogin = false
        // alert("Inkorrekte Credentials")
       }
-      
     });
+    });
+  
      
 
     //console.log(email, password)

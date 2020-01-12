@@ -11,6 +11,9 @@ import { Oertlichkeiten } from "../Models/Oertlichkeiten";
 import { Parkplaetze } from "../Models/Parkplaetze";
 import { Politik } from "../Models/Politik";
 import { Schulen } from "../Models/Schulen";
+import { isPromise } from '@angular/compiler/src/util';
+
+
 const httpOptionsGet = {
     headers: new HttpHeaders({
         'Accept': 'application/json',
@@ -102,7 +105,5 @@ export class RestApi{
                 
                 return this.http.get<Benutzer>(url, httpOptionsGet);
            
-        let url = this.apiUrl + "/BenutzerService/checkBenutzer?email=" + email + "&passwort=" + password + "";
-        return this.http.get<Benutzer>(url, httpOptionsGet);
     }
 }
