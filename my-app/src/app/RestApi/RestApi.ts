@@ -99,17 +99,11 @@ export class RestApi{
     }
 
     checkBenutzer(email, password): Observable<Benutzer>
-<<<<<<< HEAD
     {
             let url = this.apiUrl + "/BenutzerService/checkBenutzer?email=" + email + "&passwort=" + password + "";
             
                 
                 return this.http.get<Benutzer>(url, httpOptionsGet);
            
-=======
-    {           
-        let url = this.apiUrl + "/BenutzerService/checkBenutzer?email=" + email + "&passwort=" + password + "";
-        return this.http.get<Benutzer>(url, httpOptionsGet);
->>>>>>> df919f266f4ac6b01a7a87b030cc3d57ba057eb0
     }
 }
