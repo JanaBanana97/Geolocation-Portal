@@ -118,7 +118,6 @@ export class RestApi{
         return this.http.put<Schulen[]>(url, items);
     }
 
-<<<<<<< HEAD
     postSchule(item: Schulen): Observable<Schulen>{
         let url = this.apiUrl + "/SchulenService/addSchule";
         return this.http.post<Schulen>(url, item);
@@ -127,15 +126,5 @@ export class RestApi{
     checkBenutzer(email, password): Observable<Benutzer>{
         let url = this.apiUrl + "/BenutzerService/checkBenutzer?email=" + email + "&passwort=" + password + "";
         return this.http.get<Benutzer>(url, httpOptionsGet);   
-=======
-    checkBenutzer(email, password): Observable<Benutzer>
-    {
-            let url = this.apiUrl + "/BenutzerService/checkBenutzer?email=" + email + "&passwort=" + password + "";
-            
-                
-                return this.http.get<Benutzer>(url, httpOptionsGet);
-           
-    {           
->>>>>>> 3a97cde345a7052ae78b7f92231243133c47cf9b
     }
-}}
+}
