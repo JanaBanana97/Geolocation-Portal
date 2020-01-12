@@ -20,7 +20,6 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import entities.Oertlichkeiten;
 import entities.Schulen;
 
 @Path("SchulenService")
@@ -165,34 +164,36 @@ public class SchulenService {
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("updateSchule")
-	public Response updateSchulen(Schulen s){
+	public Response updateSchulen(List<Schulen> schulen){
 		System.out.println("SchulenService/updateSchulen... called.");
 		try {	
-			if (s.oertlichkeit != null) {
-				String str = "UPDATE Oertlichkeiten "
-						+ " SET bezeichnung = ?, longitude = ?, latitude = ?, strasse = ?, hausnummer = ?, postleitzahl = ?, ort = ?, kategorienId = ? "
-						+ " WHERE oertlichkeitenId=" + s.oertlichkeit.oertlichkeitenId;
-				PreparedStatement st = connection.prepareStatement(str, Statement.RETURN_GENERATED_KEYS);
-				st.setString(1, s.oertlichkeit.bezeichnung);
-				st.setDouble(2, s.oertlichkeit.longitude);
-				st.setDouble(3, s.oertlichkeit.longitude);
-				st.setString(4, s.oertlichkeit.strasse);
-				st.setString(5, s.oertlichkeit.hausnummer);
-				st.setInt(6, s.oertlichkeit.postleitzahl);
-				st.setString(7, s.oertlichkeit.ort);
-				st.setInt(8, s.oertlichkeit.kategorienId);
-				st.execute();	
-			}
-				
-			if (s != null) {
-				String str1 = "UPDATE Schulen "
-						+ " SET typ = ?, beschreibung = ?, oertlichkeitenId = ? "
-						+ " WHERE oertlichkeitenId=" + s.oertlichkeitenId;
-				PreparedStatement st1 = connection.prepareStatement(str1, Statement.RETURN_GENERATED_KEYS);
-				st1.setString(1, s.typ);
-				st1.setString(2, s.beschreibung);
-				st1.setInt(3, s.oertlichkeitenId);
-				st1.execute();	
+			for(Schulen s : schulen){
+				if (s.oertlichkeit != null) {
+					String str = "UPDATE Oertlichkeiten "
+							+ " SET bezeichnung = ?, longitude = ?, latitude = ?, strasse = ?, hausnummer = ?, postleitzahl = ?, ort = ?, kategorienId = ? "
+							+ " WHERE oertlichkeitenId=" + s.oertlichkeit.oertlichkeitenId;
+					PreparedStatement st = connection.prepareStatement(str, Statement.RETURN_GENERATED_KEYS);
+					st.setString(1, s.oertlichkeit.bezeichnung);
+					st.setDouble(2, s.oertlichkeit.longitude);
+					st.setDouble(3, s.oertlichkeit.longitude);
+					st.setString(4, s.oertlichkeit.strasse);
+					st.setString(5, s.oertlichkeit.hausnummer);
+					st.setInt(6, s.oertlichkeit.postleitzahl);
+					st.setString(7, s.oertlichkeit.ort);
+					st.setInt(8, s.oertlichkeit.kategorienId);
+					st.execute();	
+				}
+					
+				if (s != null) {
+					String str1 = "UPDATE Schulen "
+							+ " SET typ = ?, beschreibung = ?, oertlichkeitenId = ? "
+							+ " WHERE oertlichkeitenId=" + s.oertlichkeitenId;
+					PreparedStatement st1 = connection.prepareStatement(str1, Statement.RETURN_GENERATED_KEYS);
+					st1.setString(1, s.typ);
+					st1.setString(2, s.beschreibung);
+					st1.setInt(3, s.oertlichkeitenId);
+					st1.execute();	
+				}	
 			}
 		}
 		catch(Exception e){

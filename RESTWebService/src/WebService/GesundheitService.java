@@ -167,35 +167,37 @@ public class GesundheitService {
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("updateGesundheit")
-	public Response updateGesundheit(Gesundheit g){
+	public Response updateGesundheit(List<Gesundheit> gesundheit){
 		System.out.println("GesundheitService/updateGesundheit... called.");
 		try {
-			if (g.oertlichkeit != null) {
-				String str = "UPDATE Oertlichkeiten "
-						+ " SET bezeichnung = ?, longitude = ?, latitude = ?, strasse = ?, hausnummer = ?, postleitzahl = ?, ort = ?, kategorienId = ? "
-						+ " WHERE oertlichkeitenId=" + g.oertlichkeit.oertlichkeitenId;
-				PreparedStatement st = connection.prepareStatement(str, Statement.RETURN_GENERATED_KEYS);
-				st.setString(1, g.oertlichkeit.bezeichnung);
-				st.setDouble(2, g.oertlichkeit.longitude);
-				st.setDouble(3, g.oertlichkeit.longitude);
-				st.setString(4, g.oertlichkeit.strasse);
-				st.setString(5, g.oertlichkeit.hausnummer);
-				st.setInt(6, g.oertlichkeit.postleitzahl);
-				st.setString(7, g.oertlichkeit.ort);
-				st.setInt(8, g.oertlichkeit.kategorienId);
-				st.execute();	
-			}
+			for(Gesundheit g : gesundheit){
+				if (g.oertlichkeit != null) {
+					String str = "UPDATE Oertlichkeiten "
+							+ " SET bezeichnung = ?, longitude = ?, latitude = ?, strasse = ?, hausnummer = ?, postleitzahl = ?, ort = ?, kategorienId = ? "
+							+ " WHERE oertlichkeitenId=" + g.oertlichkeit.oertlichkeitenId;
+					PreparedStatement st = connection.prepareStatement(str, Statement.RETURN_GENERATED_KEYS);
+					st.setString(1, g.oertlichkeit.bezeichnung);
+					st.setDouble(2, g.oertlichkeit.longitude);
+					st.setDouble(3, g.oertlichkeit.longitude);
+					st.setString(4, g.oertlichkeit.strasse);
+					st.setString(5, g.oertlichkeit.hausnummer);
+					st.setInt(6, g.oertlichkeit.postleitzahl);
+					st.setString(7, g.oertlichkeit.ort);
+					st.setInt(8, g.oertlichkeit.kategorienId);
+					st.execute();	
+				}
 				
-			if (g != null) {
-				String str1 = "UPDATE Gesundheit "
-						+ " SET typ = ?, beschreibung = ?, oertlichkeitenId = ? "
-						+ " WHERE oertlichkeitenId=" + g.oertlichkeitenId;
-				PreparedStatement st1 = connection.prepareStatement(str1, Statement.RETURN_GENERATED_KEYS);
-				st1.setString(1, g.typ);
-				st1.setString(2, g.beschreibung);
-				st1.setInt(3, g.oertlichkeitenId);
-				st1.execute();	
-			}	
+				if (g != null) {
+					String str1 = "UPDATE Gesundheit "
+							+ " SET typ = ?, beschreibung = ?, oertlichkeitenId = ? "
+							+ " WHERE oertlichkeitenId=" + g.oertlichkeitenId;
+					PreparedStatement st1 = connection.prepareStatement(str1, Statement.RETURN_GENERATED_KEYS);
+					st1.setString(1, g.typ);
+					st1.setString(2, g.beschreibung);
+					st1.setInt(3, g.oertlichkeitenId);
+					st1.execute();	
+				}
+			}
 		}
 		catch(Exception e){
 			System.out.println(e.toString());

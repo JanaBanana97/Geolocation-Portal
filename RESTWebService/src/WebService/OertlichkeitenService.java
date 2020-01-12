@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
@@ -129,10 +130,41 @@ public class OertlichkeitenService {
 		}
 		catch(Exception e){
 			System.out.println(e.toString());
-			oertlichkeit = null;
+			return Response.serverError().build();
 		}
-		GenericEntity<Oertlichkeiten> myEntity = new GenericEntity<Oertlichkeiten>(oertlichkeit) {};
-		return Response.ok(myEntity).build();
+		return Response.ok().build();
 	}
 		
+	
+	@PUT
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Path("updateOertlichkeit")
+	public Response updateOertlichkeit(List<Oertlichkeiten> oertlichkeiten){
+		System.out.println("OertlichkeitenService.updateOertlichkeit... called.");
+		try {
+			for(Oertlichkeiten oertlichkeit : oertlichkeiten){
+				if (oertlichkeit != null){
+					String str = "UPDATE Oertlichkeiten "
+							+ " SET bezeichnung = ?, longitude = ?, latitude = ?, strasse = ?, hausnummer = ?, postleitzahl = ?, ort = ?, kategorienId = ? "
+							+ " WHERE oertlichkeitenId=" + oertlichkeit.oertlichkeitenId;
+					PreparedStatement st = connection.prepareStatement(str, Statement.RETURN_GENERATED_KEYS);
+					st.setString(1, oertlichkeit.bezeichnung);
+					st.setDouble(2, oertlichkeit.longitude);
+					st.setDouble(3, oertlichkeit.longitude);
+					st.setString(4, oertlichkeit.strasse);
+					st.setString(5, oertlichkeit.hausnummer);
+					st.setInt(6, oertlichkeit.postleitzahl);
+					st.setString(7, oertlichkeit.ort);
+					st.setInt(8, oertlichkeit.kategorienId);
+					st.execute();	
+				}	
+			}
+		}
+		catch(Exception e){
+			System.out.println(e.toString());
+			return Response.serverError().build();
+		}
+		return Response.ok().build();
+	}
 }

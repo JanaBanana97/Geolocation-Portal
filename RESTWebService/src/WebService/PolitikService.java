@@ -20,7 +20,6 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import entities.Oertlichkeiten;
 import entities.Politik;
 
 @Path("PolitikService")
@@ -167,35 +166,37 @@ public class PolitikService {
 	@Consumes({ MediaType.APPLICATION_JSON })
 	@Produces({ MediaType.APPLICATION_JSON })
 	@Path("updatePolitik")
-	public Response updatePolitik(Politik p){
+	public Response updatePolitik(List<Politik> politik){
 		System.out.println("PolitikService/updatePolitik... called.");
 		try {	
-			if (p.oertlichkeit != null) {
-				String str = "UPDATE Oertlichkeiten "
-						+ " SET bezeichnung = ?, longitude = ?, latitude = ?, strasse = ?, hausnummer = ?, postleitzahl = ?, ort = ?, kategorienId = ? "
-						+ " WHERE oertlichkeitenId=" + p.oertlichkeit.oertlichkeitenId;
-				PreparedStatement st = connection.prepareStatement(str, Statement.RETURN_GENERATED_KEYS);
-				st.setString(1, p.oertlichkeit.bezeichnung);
-				st.setDouble(2, p.oertlichkeit.longitude);
-				st.setDouble(3, p.oertlichkeit.longitude);
-				st.setString(4, p.oertlichkeit.strasse);
-				st.setString(5, p.oertlichkeit.hausnummer);
-				st.setInt(6, p.oertlichkeit.postleitzahl);
-				st.setString(7, p.oertlichkeit.ort);
-				st.setInt(8, p.oertlichkeit.kategorienId);
-				st.execute();
+			for(Politik p : politik){
+				if (p.oertlichkeit != null) {
+					String str = "UPDATE Oertlichkeiten "
+							+ " SET bezeichnung = ?, longitude = ?, latitude = ?, strasse = ?, hausnummer = ?, postleitzahl = ?, ort = ?, kategorienId = ? "
+							+ " WHERE oertlichkeitenId=" + p.oertlichkeit.oertlichkeitenId;
+					PreparedStatement st = connection.prepareStatement(str, Statement.RETURN_GENERATED_KEYS);
+					st.setString(1, p.oertlichkeit.bezeichnung);
+					st.setDouble(2, p.oertlichkeit.longitude);
+					st.setDouble(3, p.oertlichkeit.longitude);
+					st.setString(4, p.oertlichkeit.strasse);
+					st.setString(5, p.oertlichkeit.hausnummer);
+					st.setInt(6, p.oertlichkeit.postleitzahl);
+					st.setString(7, p.oertlichkeit.ort);
+					st.setInt(8, p.oertlichkeit.kategorienId);
+					st.execute();
+						
+				}
 					
-			}
-				
-			if (p != null){
-				String str1 = "UPDATE Politik "
-						+ " SET typ = ?, beschreibung = ?, oertlichkeitenId = ? "
-						+ " WHERE oertlichkeitenId=" + p.oertlichkeitenId;
-				PreparedStatement st1 = connection.prepareStatement(str1, Statement.RETURN_GENERATED_KEYS);
-				st1.setString(1, p.typ);
-				st1.setString(2, p.beschreibung);
-				st1.setInt(3, p.oertlichkeitenId);
-				st1.execute();	
+				if (p != null){
+					String str1 = "UPDATE Politik "
+							+ " SET typ = ?, beschreibung = ?, oertlichkeitenId = ? "
+							+ " WHERE oertlichkeitenId=" + p.oertlichkeitenId;
+					PreparedStatement st1 = connection.prepareStatement(str1, Statement.RETURN_GENERATED_KEYS);
+					st1.setString(1, p.typ);
+					st1.setString(2, p.beschreibung);
+					st1.setInt(3, p.oertlichkeitenId);
+					st1.execute();	
+				}	
 			}
 		}
 		catch(Exception e){
