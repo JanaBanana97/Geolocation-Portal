@@ -93,7 +93,9 @@
     <p>Postleitzahl</p>
       <input type="text" pInputText class="form-control input" />
     <p>Ort</p>
-      <input type="text" pInputText class="form-control input" /><hr/> 
+      <input type="text" pInputText class="form-control input" />
+    <p>Beschreibung</p>
+      <textarea [(ngModel)]="Comments" name="beschreibung" mdInput rows="3" class="form-control input" ></textarea><hr/> 
     
     <p>Typ</p>
       <input type="text" pInputText class="form-control input" [disabled]="disabledOther ? true : false" />
