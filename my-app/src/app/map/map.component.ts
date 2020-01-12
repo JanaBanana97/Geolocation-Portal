@@ -16,8 +16,7 @@ export class MapComponent implements OnInit {
   longitude = 9.1455235;
   mapType = 'roadmap';
   address: string;
-  private geoCoder;
-  selectedMarker;
+  selectedMarker: Oertlichkeiten;
   display: boolean = false;
   displayMangel: boolean = false;
   oertlichkeiten: Oertlichkeiten[];
@@ -53,8 +52,15 @@ export class MapComponent implements OnInit {
 
   selectMarker(event) {
     this.selectedMarker = {
-      lat: event.latitude,
-      lng: event.longitude
+      oertlichkeitenId: event.id,
+      bezeichnung: event.bezeichnung,
+      latitude: event.latitude,
+      longitude: event.longitude,
+      strasse: event.strasse,
+      hausnummer: event.hausnummer,
+      postleitzahl: event.postleitzahl,
+      ort: event.ort,
+      kategorienId: event.kategorienId
     };
   }
 

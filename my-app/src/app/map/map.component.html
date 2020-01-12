@@ -6,7 +6,7 @@
         Gesamtübersicht
       </button>
       <button class="w3-bar-item w3-button" (click)="loadSchools()"> 
-        Bildung
+        Schulen
       </button>
       <button class="w3-bar-item w3-button" (click)="loadHealth()"> 
         Gesundheit
@@ -58,7 +58,8 @@
       </agm-map>
       <p-panel>
         <p *ngIf="selectedMarker">
-        Lat: {{ selectedMarker.lat }} Lng: {{ selectedMarker.lng }}
+        Lat: {{ selectedMarker.latitude }} Lng: {{ selectedMarker.longitude }}
+        Adresse: {{selectedMarker.strasse}} x: {{selectedMarker.hausnummer}} x:{{selectedMarker.ort}} x:{{selectedMarker.postleitzahl}}
       </p>
     </p-panel>
   </div>
