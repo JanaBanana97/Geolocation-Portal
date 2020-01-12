@@ -2,6 +2,7 @@ import { Component, OnInit, NgModule } from '@angular/core';
 import { Router } from '@angular/router';
 import { RestApi } from "../RestApi/RestApi";
 import { CookieService } from 'ngx-cookie-service';
+import { Benutzer } from '../Models/Benutzer';
 
 
  
@@ -11,9 +12,12 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./login.component.css']
 })
 
+
 @NgModule({
   providers: [RestApi]
 })
+
+
 export class LoginComponent implements OnInit {
   
   checkLogin = false
@@ -40,27 +44,37 @@ export class LoginComponent implements OnInit {
    
     this.restApi.checkBenutzer(email, password)
     .subscribe(res => {
-      console.log(res);
       
-      if (res.Email!=null) {
+      
+      console.log(res)
+      console.log(JSON.stringify(res.Email))
+      console.log(email)
+      var test = (email === res.Email)
+
+      console.log(test)
+      
+      
+
+      if (email==res.Email) {
+       
+
+        console.log("übereinstimmung")
         this.checkLogin = true
         
-        this.cookie.set("email", res.Email)
-            this.cookie.set("password", password)
+        this.cookie.set("email", email)
+        this.cookie.set("password", password)
             // Getting cookie
-            alert("User " + res.Email + " hat sich angemeldet")
+        alert("User " + res.Email + " hat sich angemeldet")
         
-
-
       }
 
       else {
                  
         console.log('null!')
         this.checkLogin = false
-        alert("Inkorrekte Credentials")
+       // alert("Inkorrekte Credentials")
       }
-
+      
     });
      
 
