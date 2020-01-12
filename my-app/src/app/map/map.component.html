@@ -1,32 +1,32 @@
 <div class="p-grid">
 <div class="p-col-2">
-  <div class="w3-sidebar w3-light-grey w3-bar-block" style="width:15%">
+  <div class="w3-sidebar w3-light-grey w3-bar-block">
    <table class="table table-hover">
-      <button class="w3-bar-item w3-button" (Click)="loadAll()"> <!--Statt der weiterleitung muss hier die map sich ändern-->
+      <button class="w3-bar-item w3-button" (click)="loadAll()"> 
         Gesamtübersicht
       </button>
-      <button class="w3-bar-item w3-button" (Click)="loadSchools()"> <!--Statt der weiterleitung muss hier die map sich ändern-->
+      <button class="w3-bar-item w3-button" (click)="loadSchools()"> 
         Bildung
       </button>
-      <button class="w3-bar-item w3-button" onClick="loadHealth()"> <!--Statt der weiterleitung muss hier die map sich ändern-->
+      <button class="w3-bar-item w3-button" (click)="loadHealth()"> 
         Gesundheit
       </button>
-      <button class="w3-bar-item w3-button" onClick="loadPolitics()"> <!--Statt der weiterleitung muss hier die map sich ändern-->
+      <button class="w3-bar-item w3-button" (click)="loadPolitics()">
         Politik
       </button>
-      <button class="w3-bar-item w3-button" onClick="loadEnvironment()"> <!--Statt der weiterleitung muss hier die map sich ändern-->
+      <button class="w3-bar-item w3-button" (click)="loadParking()">
         Parkplätze
       </button>
-      <button class="w3-bar-item w3-button" onClick="loadDefect()"> <!--Statt der weiterleitung muss hier die map sich ändern-->
+      <button class="w3-bar-item w3-button" (click)="loadDefect()"> 
         Mängel
       </button>
     </table>
-    <p-button label="Mangel melden" (onClick)="openDialog($event)" styleClass="ui-button-info"></p-button>
+    <p-button label="Mangel melden" (onClick)="openMaengelMelder($event)" styleClass="ui-button-info"></p-button>
   </div>
 </div>
 
 
-<p-dialog [(visible)]="display" [modal]="true" [style]="{width: '800px', height: '2000px'}">
+<p-dialog [(visible)]="displayMangel" [modal]="true" [style]="{width: '800px', height: '2000px'}">
     <p-header>
       Mangel melden
     </p-header>
@@ -47,7 +47,7 @@
 
     <div class="p-col-10 p-align-center" style="margin-left: 200px">
       <agm-map [latitude]='latitude' [longitude]='longitude' [zoom]="14"
-        [mapTypeId]='mapType' (mapClick)="openDialog($event)"><!--addMarker($event.coords.lat, $event.coords.lng)!-->
+        [mapTypeId]='mapType' (mapClick)="placeMarker($event)"><!--addMarker($event.coords.lat, $event.coords.lng)!-->
         <agm-marker
           *ngFor="let marker of markers"
           [latitude]="marker.lat"
@@ -60,9 +60,6 @@
         <p *ngIf="selectedMarker">
         Lat: {{ selectedMarker.lat }} Lng: {{ selectedMarker.lng }}
       </p>
-      <h5>Address: {{address}}</h5>
-    <div>Latitude: {{latitude}}</div>
-    <div>Longitude: {{longitude}}</div>
     </p-panel>
   </div>
   </div>

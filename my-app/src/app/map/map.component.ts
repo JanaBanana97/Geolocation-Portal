@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, OnChanges, SimpleChange } from '@angular/core';
 import { Oertlichkeiten } from '../Models/Oertlichkeiten';
+import { Maengel } from '../Models/Meangel';
 import { RestApi } from '../RestApi/RestApi';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
@@ -18,30 +19,36 @@ export class MapComponent implements OnInit {
   private geoCoder;
   selectedMarker;
   display: boolean = false;
-  items: Oertlichkeiten[];
-
-  location = location
-
+  displayMangel: boolean = false;
+  oertlichkeiten: Oertlichkeiten[];
+  maengel: Maengel[];
   markers = [];
 
   constructor( public restApi:RestApi, private route: ActivatedRoute ) { }
 
   ngOnInit(): void {
-    this.items = []
+    this.oertlichkeiten = []
     this.restApi.getOertlichkeiten()
-      .subscribe(res => {
-        this.items = res as Oertlichkeiten[];
+      .subscribe(o => {
+        console.log(o);
+        this.oertlichkeiten = o as Oertlichkeiten[];
+          for (let marker of this.oertlichkeiten.entries()) {
+            this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
+          }
       });
-     for (let marker of this.items.entries()) {
-       if (marker["1"].kategorienId == 1){
-           this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
-       }
-     }
-  }
-  
 
-  openDialog($event){
+    this.restApi.getMaengel()
+      .subscribe(m => {
+        this.maengel = m as Maengel[];
+    });
+  }
+
+  placeMarker($event){
     this.display = true;
+  }
+
+  openMaengelMelder($event){
+    this.displayMangel = true;
   }
 
   selectMarker(event) {
@@ -56,23 +63,52 @@ export class MapComponent implements OnInit {
   }  
   
   addMarker(lat: number, lng: number) {
+    this.selectMarker(event);
     this.markers.push({ lat, lng });
     this.display = false;
   }
 
   loadAll(){
-    this.display = true;
-    // this.restApi.getOertlichkeiten()
-    //   .subscribe(res => {
-    //     console.log(res);
-    //     this.items = res as Oertlichkeiten[];
-    //   });
-
-    // for (let marker of this.items.entries()) {
-    //   if (marker["1"].kategorienId == 1){
-    //       this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
-    //   }
-    // }
+    for (let marker of this.oertlichkeiten.entries()) {
+      this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
+    }
   }
-  
+
+  loadSchools() {
+    this.markers = [];
+    for (let marker of this.oertlichkeiten.entries()) {
+      if (marker["1"].kategorienId == 2){
+       this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
+      }
+    }
+  }
+
+  loadHealth(){
+    this.markers = [];
+    for (let marker of this.oertlichkeiten.entries()) {
+      if (marker["1"].kategorienId == 3){
+       this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
+      }
+    }
+  }
+
+  loadPolitics(){
+
+  }
+
+  loadParking(){
+    this.markers = [];
+    for (let marker of this.oertlichkeiten.entries()) {
+      if (marker["1"].kategorienId == 1){
+       this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
+      }
+    }
+  }
+
+  loadDefect(){
+    this.markers = [];
+    for (let marker of this.maengel.entries()) {
+      this.markers.push({lat: marker["1"].latitude, lng: marker["1"].longitude})
+    }
+  } 
 }

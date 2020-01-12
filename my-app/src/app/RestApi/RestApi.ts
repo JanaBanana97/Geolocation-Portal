@@ -6,6 +6,7 @@ import { map } from 'rxjs/operators';
 import { Benutzer } from "../Models/Benutzer";
 import { Gesundheit } from "../Models/Gesundheit";
 import { Kategorien } from "../Models/Kategorien";
+import { Maengel } from '../Models/Meangel';
 import { Oertlichkeiten } from "../Models/Oertlichkeiten";
 import { Parkplaetze } from "../Models/Parkplaetze";
 import { Politik } from "../Models/Politik";
@@ -29,30 +30,57 @@ export class RestApi{
 
     }
     getBenutzer(): Observable<Benutzer[]> {
-        let url = this.apiUrl + "/user";
+        let url = this.apiUrl + "/getAllBenutzer";
         return this.http.get<Benutzer[]>(url, httpOptionsGet);
     }
-    //getGesundheit(): Observable<Gesundheit[]> {
-    //    let url = this.apiUrl + "/GesundheitService/getAllGesundheit";
-    //    return this.http.get<Gesundheit[]>(url, httpOptionsGet);
-    //}
+
+    getGesundheit(): Observable<Gesundheit[]> {
+       let url = this.apiUrl + "/GesundheitService/getAllGesundheit";
+       return this.http.get<Gesundheit[]>(url, httpOptionsGet);
+    }
+
     getKategorien(): Observable<Kategorien[]> {
         let url = this.apiUrl + "/KategorienService/getAllKategorien";
-        return this.http.get<Kategorien[]>(url, httpOptionsGet);
-        
+        return this.http.get<Kategorien[]>(url, httpOptionsGet);    
     }
+
+    getMaengel(): Observable<Maengel[]> {
+        let url = this.apiUrl + "/MaengelService/getAllMaengel";
+        return this.http.get<Maengel[]>(url, httpOptionsGet);    
+    }
+    
     getOertlichkeiten(): Observable<Oertlichkeiten[]> {
         let url = this.apiUrl + "/OertlichkeitenService/getAllOertlichkeiten";
         //let url = this.apiUrl + "/location";
-        return this.http.get<Oertlichkeiten[]>(url, httpOptionsGet);
-        
+        return this.http.get<Oertlichkeiten[]>(url, httpOptionsGet); 
     }
+
+    getParkplaetze(): Observable<Parkplaetze[]> {
+        let url = this.apiUrl + "/ParkplaetzeService/getAllParkplaetze";
+        return this.http.get<Parkplaetze[]>(url, httpOptionsGet); 
+    }
+
+    getSchulen(): Observable<Schulen[]> {
+        let url = this.apiUrl + "/SchulenService/getAllSchulen";
+        return this.http.get<Schulen[]>(url, httpOptionsGet); 
+    }
+
+    putSchulen(items: Schulen[]): Observable<Schulen[]>{
+        let url = this.apiUrl + "/SchulenService/updateSchule";
+        return this.http.put<Schulen[]>(url, items);
+    }
+
     checkBenutzer(email, password): Observable<Benutzer>
     {
+<<<<<<< HEAD
             let url = this.apiUrl + "/BenutzerService/checkBenutzer?email=" + email + "&passwort=" + password + "";
             
                 
                 return this.http.get<Benutzer>(url, httpOptionsGet);
            
+=======
+        let url = this.apiUrl + "/BenutzerService/checkBenutzer?email=" + email + "&passwort=" + password + "";
+        return this.http.get<Benutzer>(url, httpOptionsGet);
+>>>>>>> 815a121c035bc21ed70346beb977c11d470fccf3
     }
 }

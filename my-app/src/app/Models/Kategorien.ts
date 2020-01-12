@@ -1,4 +1,4 @@
 export class Kategorien {
-    KategorienId: Number;
-    Bezeichnung: string;
+    kategorienId: number;
+    bezeichnung: string;
 }
