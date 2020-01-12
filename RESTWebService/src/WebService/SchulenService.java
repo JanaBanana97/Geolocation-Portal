@@ -135,7 +135,7 @@ public class SchulenService {
 				st.setString(5, s.oertlichkeit.hausnummer);
 				st.setInt(6, s.oertlichkeit.postleitzahl);
 				st.setString(7, s.oertlichkeit.ort);
-				st.setInt(8, s.oertlichkeit.kategorienId);
+				st.setInt(8, 2);
 				st.execute();	
 			}
 			
@@ -180,7 +180,7 @@ public class SchulenService {
 					st.setString(5, s.oertlichkeit.hausnummer);
 					st.setInt(6, s.oertlichkeit.postleitzahl);
 					st.setString(7, s.oertlichkeit.ort);
-					st.setInt(8, s.oertlichkeit.kategorienId);
+					st.setInt(8, 2);
 					st.execute();	
 				}
 					

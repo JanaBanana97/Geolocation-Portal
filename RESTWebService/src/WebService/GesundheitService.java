@@ -137,7 +137,7 @@ public class GesundheitService {
 				st.setString(5, g.oertlichkeit.hausnummer);
 				st.setInt(6, g.oertlichkeit.postleitzahl);
 				st.setString(7, g.oertlichkeit.ort);
-				st.setInt(8, g.oertlichkeit.kategorienId);
+				st.setInt(8, 3);
 				st.execute();	
 			}
 			
@@ -183,7 +183,7 @@ public class GesundheitService {
 					st.setString(5, g.oertlichkeit.hausnummer);
 					st.setInt(6, g.oertlichkeit.postleitzahl);
 					st.setString(7, g.oertlichkeit.ort);
-					st.setInt(8, g.oertlichkeit.kategorienId);
+					st.setInt(8, 3);
 					st.execute();	
 				}
 				

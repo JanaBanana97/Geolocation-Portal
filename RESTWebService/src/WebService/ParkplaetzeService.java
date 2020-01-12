@@ -137,7 +137,7 @@ public class ParkplaetzeService {
 				st.setString(5, p.oertlichkeit.hausnummer);
 				st.setInt(6, p.oertlichkeit.postleitzahl);
 				st.setString(7, p.oertlichkeit.ort);
-				st.setInt(8, p.oertlichkeit.kategorienId);
+				st.setInt(8, 1);
 				st.execute();
 				
 			}
@@ -185,7 +185,7 @@ public class ParkplaetzeService {
 					st.setString(5, p.oertlichkeit.hausnummer);
 					st.setInt(6, p.oertlichkeit.postleitzahl);
 					st.setString(7, p.oertlichkeit.ort);
-					st.setInt(8, p.oertlichkeit.kategorienId);
+					st.setInt(8, 1);
 					st.execute();	
 				}
 				
