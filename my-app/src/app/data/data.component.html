@@ -1,4 +1,4 @@
-<div class='row'>    
+   <div>
     <div class="p-grid">
         <div class="p-col-2">
             <div class="w3-sidebar w3-light-grey w3-bar-block">
@@ -29,7 +29,7 @@
         </div>
 
         <div visible="displayAll" class='p-col-10'  style="margin-left: 200px">
-            <p-button label="Speichern" (onClick)="saveOrt(dt)" styleClass="dialog-button"></p-button>
+            <p-button label="Speichern" (onClick)="saveOrt(dt)" styleClass="dialog-button" *ngIf="this.displayAll"></p-button>
             <p-table #dt [columns]="cols" [value]="oertlichkeiten">
                 <ng-template pTemplate="header" let columns>
                     <tr>
@@ -114,8 +114,8 @@
             </p-table>  
         </div>
 
-        <div visible="displaySchool" class='p-col-10' style="margin-left: 200px">
-            <p-button label="Speichern" (onClick)="saveCategory(dt)" styleClass="dialog-button"></p-button>
+        <div visible="displayCategory" class='p-col-10' style="margin-left: 200px">
+            <p-button label="Speichern" (onClick)="saveCategory(dt)" styleClass="dialog-button" *ngIf="this.displayCategory"></p-button>
             <p-table #dt [columns]="cols" [value]="kategorien">
                 <ng-template pTemplate="header" let columns>
                     <tr>
@@ -138,7 +138,7 @@
         </div> 
 
         <div visible="displaySchool" class='p-col-10' style="margin-left: 200px">
-            <p-button label="Speichern" (onClick)="saveSchool(dt)" styleClass="dialog-button"></p-button>
+            <p-button label="Speichern" (onClick)="saveSchool(dt)" styleClass="dialog-button" *ngIf="this.displaySchool"></p-button>
             <p-table #dt [columns]="cols" [value]="schulen">
                 <ng-template pTemplate="header" let columns>
                     <tr>
@@ -181,7 +181,7 @@
         </div> 
 
         <div visible="displayHealth" class='p-col-10' style="margin-left: 200px">
-            <p-button label="Speichern" (onClick)="saveGesundheit(dt)" styleClass="dialog-button"></p-button>
+            <p-button label="Speichern" (onClick)="saveGesundheit(dt)" styleClass="dialog-button" *ngIf="this.displayHealth"></p-button>
             <p-table #dt [columns]="cols" [value]="gesundheit">
                 <ng-template pTemplate="header" let columns>
                     <tr>
@@ -224,7 +224,7 @@
         </div> 
 
         <div visible="displayParking" class='p-col-10' style="margin-left: 200px">
-            <p-button label="Speichern" (onClick)="savePark(dt)" styleClass="dialog-button"></p-button>
+            <p-button label="Speichern" (onClick)="savePark(dt)" styleClass="dialog-button" *ngIf="this.displayParking"></p-button>
             <p-table #dt [columns]="cols" [value]="parken">
                 <ng-template pTemplate="header" let columns>
                     <tr>
@@ -277,7 +277,7 @@
         </div>     
 
         <div visible="displayDefect" class='p-col-10' style="margin-left: 200px">
-            <p-button label="Speichern" (onClick)="saveMangel(dt)" styleClass="dialog-button"></p-button>
+            <p-button label="Speichern" (onClick)="saveMangel(dt)" styleClass="dialog-button" *ngIf="this.displayDefect"></p-button>
             <p-table #dt [columns]="cols" [value]="maengel">
                 <ng-template pTemplate="header" let columns>
                     <tr>
