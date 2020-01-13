@@ -1,9 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { Oertlichkeiten } from '../Models/Oertlichkeiten';
+import { Kategorien } from '../Models/Kategorien';
+import { Gesundheit } from '../Models/Gesundheit';
+import { Parkplaetze } from '../Models/Parkplaetze';
+import { Schulen } from '../Models/Schulen';
 import { Maengel } from '../Models/Meangel';
 import { RestApi } from '../RestApi/RestApi';
 import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
+import { from } from 'rxjs';
+import Swal from 'sweetalert2';
+
 
 @Component({
   selector: 'app-map',
@@ -11,19 +18,44 @@ import { CookieService } from 'ngx-cookie-service';
   styleUrls: ['./map.component.css']
 })
 export class MapComponent implements OnInit {
-  
-
+  mapType = 'roadmap';
   latitude = 49.3527796;
   longitude = 9.1455235;
+
+  oertlichkeiten: Oertlichkeiten[];
+  kategorien: Kategorien[];
+  gesundheit: Gesundheit[];
+  parken: Parkplaetze[];
+  schulen: Schulen[];
+  maengel: Maengel[];
+
   currLat: number;
   currLng: number;
-  mapType = 'roadmap';
+  bezeichnung: string;
+  strasse: string;
+  hausnr: number;
+  plz: number;
+  ort: string;
+  beschreibung: string;
+  typ: string;
+  zeiten: string;
+  kosten: string;
+  mBeschreibung: string;
+  status: string;
+
+  selectedOrt: Oertlichkeiten;
+  selectedGesundheit: Gesundheit;
+  selectedParken: Parkplaetze;
+  selectedSchule: Schulen;
+  selectedMangel: Maengel;
+
   address: string;
-  selectedMarker: Oertlichkeiten;
   display: boolean = false;
   displayMangel: boolean = false;
-  oertlichkeiten: Oertlichkeiten[];
-  maengel: Maengel[];
+
+  selectedMarker: Oertlichkeiten;
+  selectedKat: Kategorien;
+
   markers = [];
 
   disabledParkplaetze: boolean = false;
@@ -40,6 +72,11 @@ export class MapComponent implements OnInit {
           for (let marker of this.oertlichkeiten.entries()) {
             this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
           }
+      });
+
+    this.restApi.getKategorien()
+      .subscribe(k => {
+        this.kategorien = k as Kategorien[];
       });
 
     this.restApi.getMaengel()
@@ -107,6 +144,10 @@ export class MapComponent implements OnInit {
        this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
       }
     }
+    this.restApi.getSchulen()
+      .subscribe( s => {
+        this.schulen = s as Schulen[];
+      });
   }
 
   loadHealth(){
@@ -116,6 +157,10 @@ export class MapComponent implements OnInit {
        this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
       }
     }
+    this.restApi.getGesundheit()
+      .subscribe( g => {
+        this.gesundheit = g as Gesundheit[];
+      });
   }
 
   loadPolitics(){
@@ -129,10 +174,14 @@ export class MapComponent implements OnInit {
        this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
       }
     }
+    this.restApi.getParkplaetze()
+      .subscribe( p => {
+        this.parken = p as Parkplaetze[]
+      });
   }
 
-  changeCategory(value){
-    if (value != "Parkplätze") {
+  changeCategory(){
+    if (this.selectedKat.kategorienId != 1) {
       this.disabledParkplaetze = true;
       this.disabledOther = false;
     }
@@ -148,4 +197,24 @@ export class MapComponent implements OnInit {
       this.markers.push({lat: marker["1"].latitude, lng: marker["1"].longitude})
     }
   } 
+
+  saveMangel($event) {
+    let newMangel = this.selectedMangel;
+    newMangel.latitude = this.currLat;
+    newMangel.longitude = this.currLng;
+    newMangel.beschreibung = this.mBeschreibung;
+    newMangel.status = this.status;
+
+    this.restApi.postMangel(newMangel)
+      .subscribe( m => {
+        console.log("Value: ", m)
+        if (m) {
+          this.displayMangel = false;
+        }
+        else Swal.fire('Speichern fehlgeschlagen');
+      });
+
+  }
 }
+
+

@@ -14,6 +14,7 @@ import { DialogModule } from 'primeng/dialog';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputTextModule } from 'primeng/inputtext';
 import { PanelModule } from 'primeng/panel';
+import { DropdownModule } from 'primeng/dropdown';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 
 import { AppComponent } from './app.component';
@@ -54,6 +55,7 @@ import { LogoutComponent } from './logout/logout.component';
     DialogModule,
     FileUploadModule,
     InputTextModule,
+    DropdownModule,
     PanelModule,    
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDwL3gnt_96YgFTDLp9mW8LpYGGEaZowC8'}),
