@@ -1,5 +1,6 @@
 package WebService;
 
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -19,6 +20,9 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+
+import com.sun.jersey.core.header.FormDataContentDisposition;
+import com.sun.jersey.multipart.FormDataParam;
 
 import entities.Maengel;
 import entities.Schulen;
@@ -51,8 +55,8 @@ public class MaengelService {
 				Maengel mangel = new Maengel();
 				mangel.maengelID = rs.getInt("Maengel.maengelId");
 				mangel.beschreibung = rs.getString("Maengel.beschreibung");
-				mangel.latitude = rs.getDouble("Maengel.longitude");
-				mangel.longitude = rs.getDouble("Maengel.latitude");
+				mangel.latitude = rs.getDouble("Maengel.latitude");
+				mangel.longitude = rs.getDouble("Maengel.longitude");
 				mangel.status = rs.getString("Maengel.status");
 				returnList.add(mangel);
 			}
@@ -77,11 +81,24 @@ public class MaengelService {
 		try {			
 			String str = "INSERT INTO Maengel (longitude, latitude, beschreibung, status) "
 					+ " VALUES(?,?,?,?) ";
+			
+			System.out.println(mangel.longitude);
+			System.out.println(mangel.latitude);
+			System.out.println(mangel.beschreibung);
+			System.out.println(mangel.status);
+			
 			PreparedStatement st = connection.prepareStatement(str, Statement.RETURN_GENERATED_KEYS);
-			st.setString(1, mangel.beschreibung);
-			st.setDouble(2, mangel.longitude);
-			st.setDouble(3, mangel.longitude);
-			st.setString(4, mangel.status);
+			st.setDouble(1, mangel.longitude);
+			st.setDouble(2, mangel.latitude);
+			st.setString(3, mangel.beschreibung);
+			st.setString(4, "offen");
+//			if (mangel.bild != null){
+//				//st.setBlob(5, uploadedInputStream);
+//				st.setBlob(5, mangel.bild);
+//			}
+//			System.out.println("Blob: " + mangel.bild);
+//			System.out.println("Inp: " + mangel.inputStreamBild);
+//			System.out.println("Out:" + mangel.outputStreamBild);
 			st.execute();
 		}
 		catch(Exception e){
