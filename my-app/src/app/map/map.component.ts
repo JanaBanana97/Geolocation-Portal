@@ -61,6 +61,9 @@ export class MapComponent implements OnInit {
   disabledParkplaetze: boolean = false;
   disabledOther : boolean = false;
 
+  file: File;
+  uploadedFile: any[] = [];
+
   constructor( public restApi:RestApi, private route: ActivatedRoute ) { }
 
   ngOnInit(): void {
@@ -198,8 +201,11 @@ export class MapComponent implements OnInit {
     }
   } 
 
-  saveMangel($event) {
-    let newMangel = this.selectedMangel;
+  saveMangel(event) {
+    console.log("Lat:" + this.currLat);
+    console.log("Lng:" + this.currLng);
+    var newMangel = new Maengel();
+    //newMangel = this.selectedMangel;
     newMangel.latitude = this.currLat;
     newMangel.longitude = this.currLng;
     newMangel.beschreibung = this.mBeschreibung;
@@ -215,6 +221,10 @@ export class MapComponent implements OnInit {
       });
 
   }
+
+  onSelectImage(evt: any) {
+    this.uploadedFile = evt[0];
+ }
 }
 
 

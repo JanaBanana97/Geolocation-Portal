@@ -92,15 +92,13 @@
     <p> Koordinaten auf aktuellen Standort setzen </p>
     <p-button label="aktueller Standort" (onClick)="setLocation($event)" styleClass="ui-button-info"></p-button><hr/>
       
-      <p> Beschreibung des Mangels </p>
-        <input type="text" [(ngModel)]="mBeschreibung" pInputText /> <hr/>
-      <p> Status </p>        
-      <input type="text" [(ngModel)]="status" pInputText /> <hr/>
+    <p> Beschreibung des Mangels </p>
+      <textarea name="beschreibung" [(ngModel)]="mBeschreibung" mdInput rows="3" class="form-control input" ></textarea><hr/>
 
-      <!--<p> Lade ein erkennbares Foto hoch </p>
-      <p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple"
-        accept="image/*" [auto]="true">
-      </p-fileUpload>!-->  <hr/>
+    <p> Lade ein erkennbares Foto hoch </p>
+      <p-fileUpload name="myfile[]" url="./upload.php" multiple="false"
+        accept="image/*" [auto]="true" (onSelect)="onSelectImage($event.files)">
+      </p-fileUpload>  <hr/>
     <p-footer>
         <p-button label="Speichern" (onClick)="saveMangel($event)" styleClass="dialog-button"></p-button>
     </p-footer>

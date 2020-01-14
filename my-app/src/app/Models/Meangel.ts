@@ -4,4 +4,5 @@ export class Maengel{
     latitude: number;
     longitude: number;
     status: string;
+    //bild: any;
 }
