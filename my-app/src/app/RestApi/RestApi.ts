@@ -31,6 +31,7 @@ export class RestApi{
         this.apiUrl = "http://localhost:6098/rest"
         //this.apiUrl = "https://localhost:44383/api"
     }
+    
 
     getBenutzer(): Observable<Benutzer[]> {
         let url = this.apiUrl + "/getAllBenutzer";
