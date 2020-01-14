@@ -32,9 +32,11 @@
   .w3-btn,.w3-button{border:none;display:inline-block;padding:8px 16px;vertical-align:middle;overflow:hidden;text-decoration:none;color:inherit;background-color:inherit;text-align:center;cursor:pointer;white-space:nowrap}
 
   button:focus, button:active:focus, button.active:focus {
-    outline: auto !important;
-    outline-style: auto !important;
-    background-color: #D3D3D3;
+    outline: unset !important;
+    outline-style: unset !important;
+    outline-color: #4d90fe !important;
+    background-color: #D3D3D3 !important;
+    color: #4d90fe !important;
     }
   
   
