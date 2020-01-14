@@ -95,10 +95,10 @@
     <p> Beschreibung des Mangels </p>
       <textarea name="beschreibung" [(ngModel)]="mBeschreibung" mdInput rows="3" class="form-control input" ></textarea><hr/>
 
-    <p> Lade ein erkennbares Foto hoch </p>
+   <!--<p> Lade ein erkennbares Foto hoch </p>
       <p-fileUpload name="myfile[]" url="./upload.php" multiple="false"
         accept="image/*" [auto]="true" (onSelect)="onSelectImage($event.files)">
-      </p-fileUpload>  <hr/>
+      </p-fileUpload>  <hr/>--> 
     <p-footer>
         <p-button label="Speichern" (onClick)="saveMangel($event)" styleClass="dialog-button"></p-button>
     </p-footer>
