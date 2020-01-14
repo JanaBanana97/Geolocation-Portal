@@ -93,4 +93,34 @@ public class MaengelService {
 		GenericEntity<Maengel> myEntity = new GenericEntity<Maengel>(mangel) {};
 		return Response.ok(myEntity).build();
 	}
+	
+	@PUT
+	@Consumes({ MediaType.APPLICATION_JSON })
+	@Produces({ MediaType.APPLICATION_JSON })
+	@Path("updateMangel")
+	public Response updateMangel(List<Maengel> mangel){
+		System.out.println("MaengelService/updateMangel... called.");
+		try {	
+			for(Maengel m : mangel){					
+				if (m != null) {
+					String str = "UPDATE Maengel "
+							+ " SET beschreibung = ?, longitude = ?, latitude = ?, status = ? "
+							+ " WHERE maengelId=" + m.maengelID;
+					PreparedStatement st = connection.prepareStatement(str, Statement.RETURN_GENERATED_KEYS);
+					st.setString(1, m.beschreibung);
+					st.setDouble(2, m.longitude);
+					st.setDouble(3, m.latitude);
+					st.setString(4, m.status);
+					st.execute();	
+				}	
+			}
+		}
+		catch(Exception e){
+			System.out.println(e.toString());
+			return Response.serverError().build();
+		}
+		
+		return Response.ok().build();
+	}
+
 }
