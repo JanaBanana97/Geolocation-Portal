@@ -22,7 +22,7 @@ export class LogoutComponent implements OnInit {
       Swal.fire('sucess', 'See you soon ', 'success');
     }
     else{
-      Swal.fire('Logiout failed', 'Sie müssen eingeloggt sein, um sich ausloggen zu können', 'error');
+      Swal.fire('Logout failed', 'Sie müssen eingeloggt sein, um sich ausloggen zu können', 'error');
     }
   }
 
