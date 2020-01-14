@@ -55,36 +55,32 @@
       Marker hinzufügen
   </p-header>
     <p> Koordinaten der gewählten Position sind: </p>
-      <p *ngIf="currLng, currLat"> Längengrad: {{currLng}} Breitengrad: {{currLat}}</p>  
-  <p> Koordinaten auf aktuellen Standort setzen </p>
+    <p *ngIf="currLng, currLat"> Längengrad: {{currLng}} Breitengrad: {{currLat}}</p>  
+    <p> Koordinaten auf aktuellen Standort setzen </p>
     <p-button label="aktueller Standort" (onClick)="setLocation($event)" styleClass="ui-button-info"></p-button><hr/>
     Kategorie 
-    <select id = "KategorieList" class="form-control input" (change)="changeCategory($event.target.value)" >
-      <option value="?"></option>
-      <option value = "Parkplätze">Parkplätze</option>
-      <option value = "Schulen">Schulen</option>
-      <option value = "Gesundheit">Gesundheit</option>
-      <option value = "Politik">Politik</option>
-    </select><hr/>
+    <p-dropdown id="float-input" appendTo="body" [options]="kategorien" [(ngModel)]="selectedKat" optionLabel="bezeichnung" 
+      (onChange)="changeCategory($event)" placeholder="Wähle eine Kategorie"> 
+    </p-dropdown><hr/>
     <p>Bezeichnung (Name)</p>
-      <input type="text" pInputText class="form-control input" />
+      <input type="text" [(ngModel)]="bezeichnung" pInputText class="form-control input" />
     <p>Straße</p>
-      <input type="text" pInputText class="form-control input" />
+      <input type="text" [(ngModel)]="strasse" pInputText class="form-control input" />
     <p>Hausnummer</p>
-      <input type="text" pInputText class="form-control input" />
+      <input type="text" [(ngModel)]="hausnr" pInputText class="form-control input" />
     <p>Postleitzahl</p>
-      <input type="text" pInputText class="form-control input" />
+      <input type="text" [(ngModel)]="plz" pInputText class="form-control input" />
     <p>Ort</p>
-      <input type="text" pInputText class="form-control input" />
+      <input type="text" [(ngModel)]="ort" pInputText class="form-control input" /><hr/> 
+
     <p>Beschreibung</p>
-      <textarea name="beschreibung" mdInput rows="3" class="form-control input" ></textarea><hr/> 
-    
+      <textarea name="beschreibung" [(ngModel)]="beschreibung" mdInput rows="3" class="form-control input" ></textarea>
     <p>Typ</p>
-      <input type="text" pInputText class="form-control input" [disabled]="disabledOther ? true : false" />
+      <input type="text" [(ngModel)]="typ" pInputText class="form-control input" [disabled]="disabledOther ? true : false" />
     <p>Öffnungszeiten</p>
-      <input type="text" pInputText class="form-control input" [disabled]="disabledParkplaetze ? true : false" />
+      <input type="text" [(ngModel)]="zeiten" pInputText class="form-control input" [disabled]="disabledParkplaetze ? true : false" />
     <p>Kosten</p>
-      <input type="text" pInputText class="form-control input" [disabled]="disabledParkplaetze ? true : false" /><hr/>
+      <input type="text" [(ngModel)]="kosten" pInputText class="form-control input" [disabled]="disabledParkplaetze ? true : false" /><hr/>
   <p-footer>
       <p-button label="Speichern" (onClick)="save($event)" styleClass="ui-button-info"></p-button>
   </p-footer>  
@@ -94,17 +90,22 @@
     <p-header>
       Mangel melden
     </p-header>
-    <p> Wähle den aktuellen Standort oder setzte einen Marker </p>
-      <p-button label="aktueller Standort" (onClick)="setLocation($event)" styleClass="ui-button-info"></p-button>
-      <p-button label="Marker setzten" (onClick)="setMarker($event)" styleClass="ui-button-info"></p-button> <hr/>
+    <p> Koordinaten der gewählten Position sind: </p>
+    <p *ngIf="currLng, currLat"> Längengrad: {{currLng}} Breitengrad: {{currLat}}</p>  
+    <p> Koordinaten auf aktuellen Standort setzen </p>
+    <p-button label="aktueller Standort" (onClick)="setLocation($event)" styleClass="ui-button-info"></p-button><hr/>
+      
       <p> Beschreibung des Mangels </p>
-        <input type="text" pInputText /> <hr/>
-      <p> Lade ein erkennbares Foto hoch </p>
+        <input type="text" [(ngModel)]="mBeschreibung" pInputText /> <hr/>
+      <p> Status </p>        
+      <input type="text" [(ngModel)]="status" pInputText /> <hr/>
+
+      <!--<p> Lade ein erkennbares Foto hoch </p>
       <p-fileUpload name="myfile[]" url="./upload.php" multiple="multiple"
         accept="image/*" [auto]="true">
-      </p-fileUpload>  <hr/>
+      </p-fileUpload>!-->  <hr/>
     <p-footer>
-        <p-button label="Speichern" (onClick)="save($event)" styleClass="dialog-button"></p-button>
+        <p-button label="Speichern" (onClick)="saveMangel($event)" styleClass="dialog-button"></p-button>
     </p-footer>
 </p-dialog>
       

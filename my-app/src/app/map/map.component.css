@@ -115,5 +115,6 @@ agm-map {
 button:focus, button:active:focus, button.active:focus {
   outline: auto !important;
   outline-style: auto !important;
+  background-color: #D3D3D3;
   }
 
