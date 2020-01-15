@@ -141,8 +141,11 @@ public class PolitikService {
 						
 			if (p != null) {
 				ResultSet rs = statement.executeQuery("SELECT * FROM Oertlichkeiten"
-						+ " WHERE longitude='" + p.oertlichkeit.longitude + "' AND latitude='" + p.oertlichkeit.latitude + " ");
-				int oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
+						+ " WHERE longitude=" + p.oertlichkeit.longitude + " AND latitude=" + p.oertlichkeit.latitude + " ");
+				int oertlichkeitenId = 0;
+				while(rs.next()){
+					oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");	
+				}
 				
 				String str1 = "INSERT INTO Politik (typ, beschreibung, oertlichkeitenId) "
 						+ " VALUES(?,?,?)";

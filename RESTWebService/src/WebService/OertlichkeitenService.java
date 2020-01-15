@@ -119,7 +119,7 @@ public class OertlichkeitenService {
 			PreparedStatement st = connection.prepareStatement(str, Statement.RETURN_GENERATED_KEYS);
 			st.setString(1, oertlichkeit.bezeichnung);
 			st.setDouble(2, oertlichkeit.longitude);
-			st.setDouble(3, oertlichkeit.longitude);
+			st.setDouble(3, oertlichkeit.latitude);
 			st.setString(4, oertlichkeit.strasse);
 			st.setString(5, oertlichkeit.hausnummer);
 			st.setInt(6, oertlichkeit.postleitzahl);
@@ -151,7 +151,7 @@ public class OertlichkeitenService {
 					PreparedStatement st = connection.prepareStatement(str, Statement.RETURN_GENERATED_KEYS);
 					st.setString(1, oertlichkeit.bezeichnung);
 					st.setDouble(2, oertlichkeit.longitude);
-					st.setDouble(3, oertlichkeit.longitude);
+					st.setDouble(3, oertlichkeit.latitude);
 					st.setString(4, oertlichkeit.strasse);
 					st.setString(5, oertlichkeit.hausnummer);
 					st.setInt(6, oertlichkeit.postleitzahl);

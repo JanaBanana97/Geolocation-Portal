@@ -130,7 +130,7 @@ public class SchulenService {
 				PreparedStatement st = connection.prepareStatement(str, Statement.RETURN_GENERATED_KEYS);
 				st.setString(1, s.oertlichkeit.bezeichnung);
 				st.setDouble(2, s.oertlichkeit.longitude);
-				st.setDouble(3, s.oertlichkeit.longitude);
+				st.setDouble(3, s.oertlichkeit.latitude);
 				st.setString(4, s.oertlichkeit.strasse);
 				st.setString(5, s.oertlichkeit.hausnummer);
 				st.setInt(6, s.oertlichkeit.postleitzahl);
@@ -141,8 +141,11 @@ public class SchulenService {
 			
 			if (s != null) {
 				ResultSet rs = statement.executeQuery("SELECT * FROM Oertlichkeiten"
-						+ " WHERE longitude='" + s.oertlichkeit.longitude + "' AND latitude='" + s.oertlichkeit.latitude + " ");
-				int oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
+						+ " WHERE longitude=" + s.oertlichkeit.longitude + " AND latitude=" + s.oertlichkeit.latitude + " ");
+				int oertlichkeitenId = 0;
+				while(rs.next()){
+					oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");	
+				}
 				
 				String str1 = "INSERT INTO Schulen (typ, beschreibung, oertlichkeitenId) "
 						+ " VALUES(?,?,?)";
@@ -175,12 +178,13 @@ public class SchulenService {
 					PreparedStatement st = connection.prepareStatement(str, Statement.RETURN_GENERATED_KEYS);
 					st.setString(1, s.oertlichkeit.bezeichnung);
 					st.setDouble(2, s.oertlichkeit.longitude);
-					st.setDouble(3, s.oertlichkeit.longitude);
+					st.setDouble(3, s.oertlichkeit.latitude);
 					st.setString(4, s.oertlichkeit.strasse);
 					st.setString(5, s.oertlichkeit.hausnummer);
 					st.setInt(6, s.oertlichkeit.postleitzahl);
 					st.setString(7, s.oertlichkeit.ort);
 					st.setInt(8, 2);
+					System.out.println("SQL: " + str);
 					st.execute();	
 				}
 					

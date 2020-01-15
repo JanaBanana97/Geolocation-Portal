@@ -132,7 +132,7 @@ public class ParkplaetzeService {
 				PreparedStatement st = connection.prepareStatement(str, Statement.RETURN_GENERATED_KEYS);
 				st.setString(1, p.oertlichkeit.bezeichnung);
 				st.setDouble(2, p.oertlichkeit.longitude);
-				st.setDouble(3, p.oertlichkeit.longitude);
+				st.setDouble(3, p.oertlichkeit.latitude);
 				st.setString(4, p.oertlichkeit.strasse);
 				st.setString(5, p.oertlichkeit.hausnummer);
 				st.setInt(6, p.oertlichkeit.postleitzahl);
@@ -144,8 +144,11 @@ public class ParkplaetzeService {
 			
 			if (p != null){
 				ResultSet rs = statement.executeQuery("SELECT * FROM Oertlichkeiten"
-						+ " WHERE longitude='" + p.oertlichkeit.longitude + "' AND latitude='" + p.oertlichkeit.latitude + " ");
-				int oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");
+						+ " WHERE longitude=" + p.oertlichkeit.longitude + " AND latitude=" + p.oertlichkeit.latitude + " ");
+				int oertlichkeitenId = 0;
+				while(rs.next()){
+					oertlichkeitenId = rs.getInt("Oertlichkeiten.oertlichkeitenId");	
+				}
 				
 				String str1 = "INSERT INTO Parkplaetze (oeffnungszeiten, kosten, beschreibung, oertlichkeitenId) "
 						+ " VALUES(?,?,?,?)";
@@ -180,7 +183,7 @@ public class ParkplaetzeService {
 					PreparedStatement st = connection.prepareStatement(str, Statement.RETURN_GENERATED_KEYS);
 					st.setString(1, p.oertlichkeit.bezeichnung);
 					st.setDouble(2, p.oertlichkeit.longitude);
-					st.setDouble(3, p.oertlichkeit.longitude);
+					st.setDouble(3, p.oertlichkeit.latitude);
 					st.setString(4, p.oertlichkeit.strasse);
 					st.setString(5, p.oertlichkeit.hausnummer);
 					st.setInt(6, p.oertlichkeit.postleitzahl);
