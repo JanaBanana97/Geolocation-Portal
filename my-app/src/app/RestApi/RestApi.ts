@@ -170,6 +170,7 @@ export class RestApi{
     }
 
     postSchule(item: Schulen): Observable<Schulen>{
+        console.log("postSchule aufgerufen: " + item);
         if (this.cookie.check('email') == true){
             let url = this.apiUrl + "/SchulenService/addSchule";
             Swal.fire('Wuhuuu', 'Datensatz erfolgreich angelegt', 'success');
@@ -182,5 +183,15 @@ export class RestApi{
     checkBenutzer(email, password): Observable<Benutzer>{
         let url = this.apiUrl + "/BenutzerService/checkBenutzer?email=" + email + "&passwort=" + password + "";
         return this.http.get<Benutzer>(url, httpOptionsGet);   
+    }
+
+    postPolitik(item: Politik): Observable<Politik>{
+        if (this.cookie.check('email') == true){
+            let url = this.apiUrl + "/PolitikService/addPolitik";
+            Swal.fire('Wuhuuu', 'Datensatz erfolgreich angelegt', 'success');
+            return this.http.post<Politik>(url, item);}
+        else{
+            Swal.fire('Mission failed', 'Sie müssen eingeloggt sein, um dies ausführen zu können', 'error');
+        }
     }
 }

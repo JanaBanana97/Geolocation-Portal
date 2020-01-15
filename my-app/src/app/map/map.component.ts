@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { from } from 'rxjs';
 import Swal from 'sweetalert2';
+import { Politik } from '../Models/Politik';
 
 
 @Component({
@@ -33,13 +34,18 @@ export class MapComponent implements OnInit {
   currLng: number;
   bezeichnung: string;
   strasse: string;
-  hausnr: number;
+  hausnr: string;
   plz: number;
   ort: string;
   beschreibung: string;
   typ: string;
   zeiten: string;
   kosten: string;
+  newOertlichkeit: Oertlichkeiten;
+  newParkplatz: Parkplaetze;
+  newSchule: Schulen;
+  newGesundheit: Gesundheit;
+  newPolitik: Politik;
   mBeschreibung: string;
   status: string;
 
@@ -124,8 +130,98 @@ export class MapComponent implements OnInit {
   }
 
   save($event){
-     this.addMarker($event.coords.lat, $event.coords.lng);
+     this.newOertlichkeit = new Oertlichkeiten();
+     //this.newOertlichkeit.longitude = $event.coord.lng;
+     //this.newOertlichkeit.latitude = $event.coord.lat;
+     this.newOertlichkeit.longitude = this.currLng;
+     this.newOertlichkeit.latitude = this.currLat;
+     this.newOertlichkeit.strasse = this.strasse;
+     this.newOertlichkeit.hausnummer = this.hausnr;
+     this.newOertlichkeit.bezeichnung = this.bezeichnung;
+     this.newOertlichkeit.postleitzahl = this.plz;
+     this.newOertlichkeit.ort = this.ort;
+     //this.newOertlichkeit.oertlichkeitenId = this.oertlichkeiten[this.oertlichkeiten.length-1].oertlichkeitenId + 1;
+
+     if (this.selectedKat.kategorienId == 1) {
+       this.newOertlichkeit.kategorienId = 1;
+       this.newParkplatz = new Parkplaetze();
+       this.newParkplatz.parkplaetzeId = 0;
+       this.newParkplatz.beschreibung = this.beschreibung;
+       this.newParkplatz.oeffnungszeiten = this.zeiten;
+       this.newParkplatz.kosten = this.kosten;
+       //this.newParkplatz.oertlichkeitenId = this.newOertlichkeit.oertlichkeitenId;
+       this.newParkplatz.oertlichkeit = this.newOertlichkeit;
+       this.addParkplatz(this.newParkplatz);
+     }
+     if (this.selectedKat.kategorienId == 2) {
+      this.newOertlichkeit.kategorienId = 2;
+      this.newSchule = new Schulen();
+      this.newSchule.schulenId = 0;
+      this.newSchule.beschreibung = this.beschreibung;
+      this.newSchule.typ = this.typ;
+      //this.newSchule.oertlichkeitenId = this.newOertlichkeit.oertlichkeitenId;
+      this.newSchule.oertlichkeit = this.newOertlichkeit;
+      this.addSchule(this.newSchule);
+    }
+    if (this.selectedKat.kategorienId == 3) {
+      this.newOertlichkeit.kategorienId = 3;
+      this.newGesundheit = new Gesundheit();
+      this.newGesundheit.gesundheitId = 0;
+      this.newGesundheit.beschreibung = this.beschreibung;
+      this.newGesundheit.typ = this.typ;
+      //this.newGesundheit.oertlichkeitenId = this.newOertlichkeit.oertlichkeitenId;
+      this.newGesundheit.oertlichkeit = this.newOertlichkeit;
+      this.addGesundheit(this.newGesundheit);
+    }
+    if (this.selectedKat.kategorienId == 4) {
+      this.newOertlichkeit.kategorienId = 4;
+      this.newPolitik = new Politik();
+      this.newPolitik.politikId = 0;
+      this.newPolitik.beschreibung = this.beschreibung;
+      this.newPolitik.typ = this.typ;
+      //this.newPolitik.oertlichkeitenId = this.newOertlichkeit.oertlichkeitenId;
+      this.newPolitik.oertlichkeit = this.newOertlichkeit;
+      this.addPolitik(this.newPolitik);
+    }
   }  
+
+  addParkplatz(p: Parkplaetze) {
+    this.restApi.postParken(p)
+    .subscribe( res => {
+      console.log("Value: ", res)
+      if (res != null ) {
+        Swal.fire('Speichern fehlgeschlagen');
+      }
+    });
+  }
+  addSchule(s: Schulen) {
+    this.restApi.postSchule(s)
+    .subscribe( res => {
+      console.log("Value: ", res)
+      if (res != null ) {
+        Swal.fire('Speichern fehlgeschlagen');
+      }
+    });
+  }
+  addGesundheit(g: Gesundheit) {
+    this.restApi.postGesundheit(g)
+    .subscribe( res => {
+      console.log("Value: ", res)
+      if (res != null ) {
+        Swal.fire('Speichern fehlgeschlagen');
+      }
+    });
+  }
+  addPolitik(p : Politik) {
+    this.restApi.postPolitik(p)
+    .subscribe( res => {
+      console.log("Value: ", res)
+      if (res != null ) {
+        Swal.fire('Speichern fehlgeschlagen');
+      }
+    });
+  }
+  
   
   addMarker(lat: number, lng: number) {
     this.selectMarker(event);
