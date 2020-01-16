@@ -272,8 +272,9 @@ export class MapComponent implements OnInit {
   
     
 
-  loadPolitics(){
-    var myGeoJson = {
+  loadPolitics(event){
+    
+    var GeoJsonObject = {
       "type": "FeatureCollection",
       "features": [
         {
@@ -313,20 +314,18 @@ export class MapComponent implements OnInit {
         }
       ]
     }
-    console.log(myGeoJson);
-
-    for (let marker of myGeoJson[this.latitude, this.longitude]) {
-      this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
+    var coordinates = GeoJsonObject.features[1].geometry.coordinates;
+    console.log(coordinates);
     
+
+    this.markers = [];
+    for (let marker of GeoJsonObject.features) {
+      this.markers.push({ lat: marker["1"].coordinates, lng: marker["1"].coordinates})
+      console.log(this.markers);
     }
+    
   }
-  
 
-    
-
-  
-    
-   
   
 
   loadParking(){
