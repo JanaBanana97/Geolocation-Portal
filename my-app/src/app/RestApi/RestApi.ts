@@ -194,17 +194,7 @@ export class RestApi{
             Swal.fire('Mission failed', 'Sie müssen eingeloggt sein, um dies ausführen zu können', 'error');
         }
     }
-
-    postPolitik(item: Politik): Observable<Politik>{
-        if (this.cookie.check('email') == true){
-            let url = this.apiUrl + "/SchulenService/addSchule";
-            Swal.fire('Wuhuuu', 'Datensatz erfolgreich angelegt', 'success');
-            return this.http.post<Politik>(url, item);}
-        else{
-            Swal.fire('Mission failed', 'Sie müssen eingeloggt sein, um dies ausführen zu können', 'error');
-        }
-    }
-
+    
     checkBenutzer(email, password): Observable<Benutzer>{
         let url = this.apiUrl + "/BenutzerService/checkBenutzer?email=" + email + "&passwort=" + password + "";
         return this.http.get<Benutzer>(url, httpOptionsGet);   
