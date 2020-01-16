@@ -30,6 +30,8 @@
 
         <div visible="displayAll" class='p-col-10'  style="margin-left: 200px">
             <p-button label="Speichern" (onClick)="saveOrt(dt)" styleClass="dialog-button" *ngIf="this.displayAll"></p-button>
+            <p-button label="Download" (onClick)="downloadOertlichkeiten($event)" styleClass="dialog-button" *ngIf="this.displayAll"></p-button>
+            
             <p-table #dt [columns]="cols" [value]="oertlichkeiten">
                 <ng-template pTemplate="header" let columns>
                     <tr>
@@ -116,6 +118,8 @@
 
         <div visible="displayCategory" class='p-col-10' style="margin-left: 200px">
             <p-button label="Speichern" (onClick)="saveCategory(dt)" styleClass="dialog-button" *ngIf="this.displayCategory"></p-button>
+            <p-button label="Download" (onClick)="downloadCategory($event)" styleClass="dialog-button" *ngIf="this.displayCategory"></p-button>
+            
             <p-table #dt [columns]="cols" [value]="kategorien">
                 <ng-template pTemplate="header" let columns>
                     <tr>
@@ -139,6 +143,8 @@
 
         <div visible="displaySchool" class='p-col-10' style="margin-left: 200px">
             <p-button label="Speichern" (onClick)="saveSchool(dt)" styleClass="dialog-button" *ngIf="this.displaySchool"></p-button>
+            <p-button label="Download" (onClick)="downloadSchool($event)" styleClass="dialog-button" *ngIf="this.displaySchool"></p-button>
+            
             <p-table #dt [columns]="cols" [value]="schulen">
                 <ng-template pTemplate="header" let columns>
                     <tr>
@@ -182,6 +188,8 @@
 
         <div visible="displayHealth" class='p-col-10' style="margin-left: 200px">
             <p-button label="Speichern" (onClick)="saveGesundheit(dt)" styleClass="dialog-button" *ngIf="this.displayHealth"></p-button>
+            <p-button label="Download" (onClick)="downloadHealth($event)" styleClass="dialog-button" *ngIf="this.displayHealth"></p-button>
+            
             <p-table #dt [columns]="cols" [value]="gesundheit">
                 <ng-template pTemplate="header" let columns>
                     <tr>
@@ -225,6 +233,8 @@
 
         <div visible="displayParking" class='p-col-10' style="margin-left: 200px">
             <p-button label="Speichern" (onClick)="savePark(dt)" styleClass="dialog-button" *ngIf="this.displayParking"></p-button>
+            <p-button label="Download" (onClick)="downloadParking($event)" styleClass="dialog-button" *ngIf="this.displayParking"></p-button>
+            
             <p-table #dt [columns]="cols" [value]="parken">
                 <ng-template pTemplate="header" let columns>
                     <tr>
@@ -278,6 +288,7 @@
 
         <div visible="displayDefect" class='p-col-10' style="margin-left: 200px">
             <p-button label="Speichern" (onClick)="saveMangel(dt)" styleClass="dialog-button" *ngIf="this.displayDefect"></p-button>
+            
             <p-table #dt [columns]="cols" [value]="maengel">
                 <ng-template pTemplate="header" let columns>
                     <tr>

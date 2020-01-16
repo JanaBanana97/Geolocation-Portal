@@ -8,6 +8,7 @@ import { Gesundheit } from "../Models/Gesundheit";
 import { Politik } from "../Models/Politik";
 import { Parkplaetze } from "../Models/Parkplaetze";
 import { Maengel } from "../Models/Meangel";
+import { AngularCsv } from 'angular7-csv/dist/Angular-csv';
 
 import { RestApi } from "../RestApi/RestApi";
 
@@ -44,6 +45,17 @@ export class DataComponent implements OnInit {
   displayDefect: boolean = false;
  
   constructor(  private route: ActivatedRoute, private restApi:RestApi ) { }
+  csvOptions = {
+    fieldSeparator: ',',
+    quoteStrings: '"',
+    decimalseparator: '.',
+    showLabels: true,
+    showTitle: true,
+    title: 'Ihre Liste:',
+    useBom: true,
+    noDownload: false,
+    headers: ["oertlichkeitenId", "bezeichnung", "longitude", "latitude", "strasse", "hausnummer", "plz", "ort", "kategorienID"]
+  };
 
   ngOnInit() {   
     this.oertlichkeiten = null;
@@ -98,6 +110,18 @@ export class DataComponent implements OnInit {
     // });
   }
 
+  downloadOertlichkeiten(event){
+    this.ngOnInit();    
+    this.displayAll=true;
+    this.restApi.getOertlichkeiten()
+      .subscribe(o => {
+        console.log(o);
+        this.oertlichkeiten = o as Oertlichkeiten[];
+        new  AngularCsv(this.oertlichkeiten, "Alle Örtlichkeiten", this.csvOptions);
+      });
+      
+  }
+
   loadCategory(){
     this.ngOnInit();
     this.displayCategory = true;
@@ -110,6 +134,18 @@ export class DataComponent implements OnInit {
       { field: 'kategorienId', header: 'ID', width: '9em' },
       { field: 'bezeichnung', header: 'Bezeichnung', width: '9em' },
     ]
+  }
+
+  downloadCategory(event){
+    this.ngOnInit();    
+    this.displayAll=true;
+    this.restApi.getKategorien()
+      .subscribe(o => {
+        console.log(o);
+        this.kategorien = o as Kategorien[];
+        new  AngularCsv(this.kategorien, "Alle Kategorien", this.csvOptions);
+      });
+      
   }
 
   saveCategory(dt: Table){
@@ -135,6 +171,17 @@ export class DataComponent implements OnInit {
       { field: 'oertlichkeitenId', header: 'ÖrtlichkeitID', width: '9em' },
     ]
   }
+  downloadSchool(event){
+    this.ngOnInit();
+    this.displaySchool = true;
+    this.restApi.getSchulen()
+      .subscribe(s => {
+        console.log(s);
+        this.schulen = s as Schulen[];
+        new  AngularCsv(this.schulen, "Alle Schulen", this.csvOptions);
+      });
+      
+  }
 
   saveSchool(dt: Table){
     this.restApi.putSchulen(this.schulen)
@@ -159,6 +206,19 @@ export class DataComponent implements OnInit {
       { field: 'oertlichkeitenId', header: 'ÖrtlichkeitID', width: '9em' },
     ]
   }
+
+  downloadHealth(event){
+    this.ngOnInit();
+    this.displaySchool = true;
+    this.restApi.getGesundheit()
+      .subscribe(s => {
+        console.log(s);
+        this.gesundheit = s as Gesundheit[];
+        new  AngularCsv(this.gesundheit, "Alle Krankenhäuser", this.csvOptions);
+      });
+      
+  }
+
   saveGesundheit(dt: Table){
     this.restApi.putGesundheit(this.gesundheit)
       .subscribe ( s => {
@@ -169,6 +229,10 @@ export class DataComponent implements OnInit {
 
   loadPolitics(){
 
+  }
+
+  downloadPolitics(event){
+    
   }
 
   loadParking(){
@@ -187,6 +251,17 @@ export class DataComponent implements OnInit {
       { field: 'oertlichkeitenId', header: 'ÖrtlichkeitID', width: '9em' },
     ]
   }
+
+  downloadParking(event){
+    this.ngOnInit();
+    this.displaySchool = true;
+    this.restApi.getParkplaetze()
+      .subscribe(s => {
+        console.log(s);
+        this.parken = s as Parkplaetze[];
+        new  AngularCsv(this.parken, "Alle Parkplätze", this.csvOptions);
+      });
+    }
 
   savePark(dt: Table){
     this.restApi.putParken(this.parken)
@@ -220,4 +295,6 @@ export class DataComponent implements OnInit {
         dt.reset;
       });
   }
+
+  
 }

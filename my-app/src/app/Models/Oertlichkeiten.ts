@@ -1,5 +1,5 @@
 export class Oertlichkeiten {
-    oertlichkeitenId: Number;
+    oertlichkeitenId: number;
     bezeichnung: string;
     longitude: number;
     latitude: number;

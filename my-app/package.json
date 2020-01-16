@@ -23,6 +23,8 @@
     "@angular/platform-browser-dynamic": "~8.2.14",
     "@angular/router": "~8.2.14",
     "@sweetalert2/ngx-sweetalert2": "^7.2.0",
+    "angular-csv": "^1.0.0",
+    "angular7-csv": "^0.2.12",
     "bootstrap": "^4.4.1",
     "mapbox": "^1.0.0-beta10",
     "ng-sidebar": "^9.2.0",

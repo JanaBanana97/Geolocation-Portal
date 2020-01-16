@@ -1,6 +1,9 @@
+import { Oertlichkeiten } from './Oertlichkeiten';
+
 export class Politik {
-    politikId: Number;
+    politikId: number;
     typ: string;
     beschreibung: string;
-    oertlichkeitenId: Number;
+    oertlichkeitenId: number;
+    oertlichkeit: Oertlichkeiten;
 }
