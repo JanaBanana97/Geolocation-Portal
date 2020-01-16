@@ -28,6 +28,7 @@ export class MapComponent implements OnInit {
   gesundheit: Gesundheit[];
   parken: Parkplaetze[];
   schulen: Schulen[];
+  politik: Politik[];
   maengel: Maengel[];
 
   currLat: number;
@@ -272,9 +273,24 @@ export class MapComponent implements OnInit {
   
     
 
+<<<<<<< HEAD
   loadPolitics(event){
     
     var GeoJsonObject = {
+=======
+  loadPolitics(){
+    this.markers = [];
+    for (let marker of this.oertlichkeiten.entries()) {
+      if (marker["1"].kategorienId == 4){
+       this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
+      }
+    }
+    this.restApi.getPolitik()
+      .subscribe( g => {
+        this.politik = g as Politik[];
+      });
+    var myGeoJson = {
+>>>>>>> 5451a026ec0f416e9455d404ee986f7a73f168a8
       "type": "FeatureCollection",
       "features": [
         {
@@ -317,6 +333,7 @@ export class MapComponent implements OnInit {
     var coordinates = GeoJsonObject.features[1].geometry.coordinates;
     console.log(coordinates);
     
+<<<<<<< HEAD
 
     this.markers = [];
     for (let marker of GeoJsonObject.features) {
@@ -327,6 +344,10 @@ export class MapComponent implements OnInit {
   }
 
   
+=======
+    }
+  }
+>>>>>>> 5451a026ec0f416e9455d404ee986f7a73f168a8
 
   loadParking(){
     this.markers = [];
