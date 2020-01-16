@@ -63,6 +63,7 @@ export class MapComponent implements OnInit {
   selectedKat: Kategorien;
 
   markers = [];
+  objects = [];
 
   disabledParkplaetze: boolean = false;
   disabledOther : boolean = false;
@@ -261,10 +262,72 @@ export class MapComponent implements OnInit {
         this.gesundheit = g as Gesundheit[];
       });
   }
+  styleFunc(feature) {
+    return ({
+    clickable: false,
+    fillColor: feature.getProperty('green'),
+    strokeWeight: 1
+    });
+  }
+  
+    
 
   loadPolitics(){
+    var myGeoJson = {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "properties": {},
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  9.143843650817871,
+                  49.34947849542076
+                ],
+                [
+                  9.14186954498291,
+                  49.350652672070105
+                ],
+                [
+                  9.137835502624512,
+                  49.34931075361165
+                ],
+                [
+                  9.14238452911377,
+                  49.34645905534977
+                ],
+                [
+                  9.145731925964355,
+                  49.34791288296037
+                ],
+                [
+                  9.143843650817871,
+                  49.34947849542076
+                ]
+              ]
+            ]
+          }
+        }
+      ]
+    }
+    console.log(myGeoJson);
 
+    for (let marker of myGeoJson[this.latitude, this.longitude]) {
+      this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
+    
+    }
   }
+  
+
+    
+
+  
+    
+   
+  
 
   loadParking(){
     this.markers = [];

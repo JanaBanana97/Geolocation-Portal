@@ -194,4 +194,7 @@ export class RestApi{
             Swal.fire('Mission failed', 'Sie müssen eingeloggt sein, um dies ausführen zu können', 'error');
         }
     }
+    
+
+    
 }
