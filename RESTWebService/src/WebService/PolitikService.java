@@ -130,7 +130,7 @@ public class PolitikService {
 				PreparedStatement st = connection.prepareStatement(str, Statement.RETURN_GENERATED_KEYS);
 				st.setString(1, p.oertlichkeit.bezeichnung);
 				st.setDouble(2, p.oertlichkeit.longitude);
-				st.setDouble(3, p.oertlichkeit.longitude);
+				st.setDouble(3, p.oertlichkeit.latitude);
 				st.setString(4, p.oertlichkeit.strasse);
 				st.setString(5, p.oertlichkeit.hausnummer);
 				st.setInt(6, p.oertlichkeit.postleitzahl);
