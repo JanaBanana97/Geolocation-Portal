@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { from } from 'rxjs';
 import Swal from 'sweetalert2';
+import { Politik } from '../Models/Politik';
 
 
 @Component({
@@ -27,6 +28,7 @@ export class MapComponent implements OnInit {
   gesundheit: Gesundheit[];
   parken: Parkplaetze[];
   schulen: Schulen[];
+  politik: Politik[];
   maengel: Maengel[];
 
   currLat: number;
@@ -167,7 +169,16 @@ export class MapComponent implements OnInit {
   }
 
   loadPolitics(){
-
+    this.markers = [];
+    for (let marker of this.oertlichkeiten.entries()) {
+      if (marker["1"].kategorienId == 4){
+       this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
+      }
+    }
+    this.restApi.getPolitik()
+      .subscribe( g => {
+        this.politik = g as Politik[];
+      });
   }
 
   loadParking(){

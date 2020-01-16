@@ -43,7 +43,7 @@ export class RestApi{
     getGesundheit(): Observable<Gesundheit[]> {
        let url = this.apiUrl + "/GesundheitService/getAllGesundheit";
        return this.http.get<Gesundheit[]>(url, httpOptionsGet);
-    }zzzzzz
+    }
 
     putGesundheit(items: Gesundheit[]): Observable<Gesundheit[]>{
         if (this.cookie.check('email') == true){
@@ -174,6 +174,31 @@ export class RestApi{
             let url = this.apiUrl + "/SchulenService/addSchule";
             Swal.fire('Wuhuuu', 'Datensatz erfolgreich angelegt', 'success');
             return this.http.post<Schulen>(url, item);}
+        else{
+            Swal.fire('Mission failed', 'Sie müssen eingeloggt sein, um dies ausführen zu können', 'error');
+        }
+    }
+
+    getPolitik(): Observable<Politik[]>{
+        let url = this.apiUrl + "/PolitikService/getAllPolitik";
+        return this.http.get<Politik[]>(url, httpOptionsGet);
+    }
+
+    putPolitik(items: Politik[]): Observable<Politik[]>{
+        if (this.cookie.check('email') == true){
+            let url = this.apiUrl + "/SchulenService/updateSchule";
+            Swal.fire('Wuhuuu', 'Datensatz erfolgreich angelegt', 'success');
+            return this.http.put<Politik[]>(url, items);}
+        else{
+            Swal.fire('Mission failed', 'Sie müssen eingeloggt sein, um dies ausführen zu können', 'error');
+        }
+    }
+
+    postPolitik(item: Politik): Observable<Politik>{
+        if (this.cookie.check('email') == true){
+            let url = this.apiUrl + "/SchulenService/addSchule";
+            Swal.fire('Wuhuuu', 'Datensatz erfolgreich angelegt', 'success');
+            return this.http.post<Politik>(url, item);}
         else{
             Swal.fire('Mission failed', 'Sie müssen eingeloggt sein, um dies ausführen zu können', 'error');
         }
