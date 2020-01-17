@@ -40,26 +40,26 @@
                         </th>
                     </tr>
                 </ng-template>
-                <ng-template pTemplate="body" let-itemO>
+                <ng-template pTemplate="body" let-item>
                     <tr>
                         <td>
-                            {{itemO.oertlichkeitenId}}
+                            {{item.oertlichkeitenId}}
                         </td>
                         <td pEditableColumn>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="text" [(ngModel)]="itemO.bezeichnung">
+                                    <input pInputText type="text" [(ngModel)]="item.bezeichnung">
                                 </ng-template>
                                 <ng-template pTemplate="output">
-                                    {{itemO.bezeichnung}}
+                                    {{item.bezeichnung}}
                                 </ng-template>
                             </p-cellEditor>
                         </td>
                         <td>
-                            {{itemO.longitude}}
+                            {{item.longitude}}
                         </td>
                         <td>
-                            {{itemO.latitude}}
+                            {{item.latitude}}
                         </td>
                         <td pEditableColumn>
                             <p-cellEditor>
@@ -67,47 +67,47 @@
                                     <input pInputText type="text" [(ngModel)]="itemO.strasse">
                                 </ng-template>
                                 <ng-template pTemplate="output">
-                                    {{itemO.strasse}}
+                                    {{item.strasse}}
                                 </ng-template>
                             </p-cellEditor>
                         </td>
                         <td pEditableColumn>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="text" [(ngModel)]="itemO.hausnummer">
+                                    <input pInputText type="text" [(ngModel)]="item.hausnummer">
                                 </ng-template>
                                 <ng-template pTemplate="output">
-                                    {{itemO.hausnummer}}
+                                    {{item.hausnummer}}
                                 </ng-template>
                             </p-cellEditor>
                         </td>
                         <td pEditableColumn>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="text" [(ngModel)]="itemO.postleitzahl">
+                                    <input pInputText type="text" [(ngModel)]="item.postleitzahl">
                                 </ng-template>
                                 <ng-template pTemplate="output">
-                                    {{itemO.postleitzahl}}
+                                    {{item.postleitzahl}}
                                 </ng-template>
                             </p-cellEditor>
                         </td>
                         <td pEditableColumn>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="text" [(ngModel)]="itemO.ort">
+                                    <input pInputText type="text" [(ngModel)]="item.ort">
                                 </ng-template>
                                 <ng-template pTemplate="output">
-                                    {{itemO.ort}}
+                                    {{item.ort}}
                                 </ng-template>
                             </p-cellEditor>
                         </td>
                         <td pEditableColumn>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="text" [(ngModel)]="itemO.kategorienId">
+                                    <input pInputText type="text" [(ngModel)]="item.kategorienId">
                                 </ng-template>
                                 <ng-template pTemplate="output">
-                                    {{itemO.kategorienId}}
+                                    {{item.kategorienId}}
                                 </ng-template>
                             </p-cellEditor>
                         </td>
@@ -202,6 +202,51 @@
                     <tr>
                         <td>
                             {{item.gesundheitId}}
+                        </td>
+                        <td pEditableColumn>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" [(ngModel)]="item.typ">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{item.typ}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td pEditableColumn>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" [(ngModel)]="item.beschreibung">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{item.beschreibung}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                            {{item.oertlichkeitenId}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>  
+        </div> 
+
+        <div visible="displayPolitic" class='p-col-10' style="margin-left: 200px">
+            <p-button label="Speichern" (onClick)="savePolitic(dt)" styleClass="dialog-button" *ngIf="this.displayPolitic"></p-button>
+            <p-button label="Download" (onClick)="downloadPolitics($event)" styleClass="dialog-button" *ngIf="this.displayPolitic"></p-button>
+            
+            <p-table #dt [columns]="cols" [value]="politik">
+                <ng-template pTemplate="header" let columns>
+                    <tr>
+                        <th *ngFor="let col of colsPol">
+                            {{col.header}}
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <tr>
+                        <td>
+                            {{item.politikId}}
                         </td>
                         <td pEditableColumn>
                             <p-cellEditor>
