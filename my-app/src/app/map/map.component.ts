@@ -73,6 +73,8 @@ export class MapComponent implements OnInit {
   file: File;
   uploadedFile: any[] = [];
 
+  geoJsonObject: any;
+
   constructor( public restApi:RestApi, private route: ActivatedRoute ) { }
 
   ngOnInit(): void {
@@ -235,6 +237,7 @@ export class MapComponent implements OnInit {
   }
 
   loadAll(){
+    this.geoJsonObject = null;
     this.markers = [];
     for (let marker of this.oertlichkeiten.entries()) {
       this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
@@ -242,6 +245,7 @@ export class MapComponent implements OnInit {
   }
 
   loadSchools() {
+    this.geoJsonObject = null;
     this.markers = [];
     for (let marker of this.oertlichkeiten.entries()) {
       if (marker["1"].kategorienId == 2){
@@ -255,6 +259,7 @@ export class MapComponent implements OnInit {
   }
 
   loadHealth(){
+    this.geoJsonObject = null;
     this.markers = [];
     for (let marker of this.oertlichkeiten.entries()) {
       if (marker["1"].kategorienId == 3){
@@ -268,9 +273,10 @@ export class MapComponent implements OnInit {
   }
   styleFunc(feature) {
     return ({
-    clickable: false,
-    fillColor: feature.getProperty('green'),
-    strokeWeight: 1
+    clickable: true,
+    fillColor: "#FF0000",
+    strokeColor: "FF0000",
+    strokeWeight: 0
     });
   }
   
@@ -287,7 +293,7 @@ export class MapComponent implements OnInit {
       .subscribe( g => {
         this.politik = g as Politik[];
       });
-    var GeoJsonObject = {
+    this.geoJsonObject = {
       "type": "FeatureCollection",
       "features": [
         {
@@ -327,13 +333,14 @@ export class MapComponent implements OnInit {
         }
       ]
     }
-    var coordinates = GeoJsonObject.features[1].geometry.coordinates;
-    console.log(coordinates);
+    //var coordinates = this.geoJsonObject.features[1].geometry.coordinates;
+    //console.log(coordinates);
     
     }
   
 
   loadParking(){
+    this.geoJsonObject = null;
     this.markers = [];
     for (let marker of this.oertlichkeiten.entries()) {
       if (marker["1"].kategorienId == 1){
@@ -358,6 +365,7 @@ export class MapComponent implements OnInit {
   }
   
   loadDefect(){
+    this.geoJsonObject = null;
     this.markers = [];
     for (let marker of this.maengel.entries()) {
       this.markers.push({lat: marker["1"].latitude, lng: marker["1"].longitude})
