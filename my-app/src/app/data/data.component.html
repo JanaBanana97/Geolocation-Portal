@@ -26,6 +26,9 @@
                     </button>
                 </table>
             </div>
+            
+        <div class="view" style="background-image: url('./assets/Logo2.png'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
+        </div>
         </div>
 
         <div visible="displayAll" class='p-col-10'  style="margin-left: 200px">
@@ -202,6 +205,51 @@
                     <tr>
                         <td>
                             {{item.gesundheitId}}
+                        </td>
+                        <td pEditableColumn>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" [(ngModel)]="item.typ">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{item.typ}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td pEditableColumn>
+                            <p-cellEditor>
+                                <ng-template pTemplate="input">
+                                    <input pInputText type="text" [(ngModel)]="item.beschreibung">
+                                </ng-template>
+                                <ng-template pTemplate="output">
+                                    {{item.beschreibung}}
+                                </ng-template>
+                            </p-cellEditor>
+                        </td>
+                        <td>
+                            {{item.oertlichkeitenId}}
+                        </td>
+                    </tr>
+                </ng-template>
+            </p-table>  
+        </div> 
+
+        <div visible="displyPolitic" class='p-col-10' style="margin-left: 200px">
+            <p-button label="Speichern" (onClick)="savePolitic(dt)" styleClass="dialog-button" *ngIf="this.displayPolitic"></p-button>
+            <p-button label="Download" (onClick)="downloadPolitics($event)" styleClass="dialog-button" *ngIf="this.displayPolitic"></p-button>
+            
+            <p-table #dt [columns]="cols" [value]="politik">
+                <ng-template pTemplate="header" let columns>
+                    <tr>
+                        <th *ngFor="let col of colsPol">
+                            {{col.header}}
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-item>
+                    <tr>
+                        <td>
+                            {{item.politikId}}
                         </td>
                         <td pEditableColumn>
                             <p-cellEditor>

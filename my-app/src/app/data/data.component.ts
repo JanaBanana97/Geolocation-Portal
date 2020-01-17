@@ -228,11 +228,31 @@ export class DataComponent implements OnInit {
   }
 
   loadPolitics(){
+    this.ngOnInit();
+    this.displayPolitic = true;
+    this.restApi.getPolitik()
+      .subscribe(g => {
+        console.log(g);
+        this.politik = g as Politik[];
+      });
+    this.colsHel = [
+      { field: 'politikId', header: 'ID', width: '9em' },
+      { field: 'typ', header: 'Typ', width: '9em' },
+      { field: 'beschreibung', header: 'Beschreibung', width: '9em' },
+      { field: 'oertlichkeitenId', header: 'ÖrtlichkeitID', width: '9em' },
+    ]
+  }
 
+  savePolitic(dt: Table){
+    this.restApi.putPolitik(this.politik)
+      .subscribe ( s => {
+        console.log('Data updated.')
+        dt.reset;
+      });
   }
 
   downloadPolitics(event){
-    
+    new  AngularCsv(this.politik, "Politik", this.csvOptions);  
   }
 
   loadParking(){

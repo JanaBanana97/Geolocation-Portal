@@ -1,6 +1,10 @@
 .style{
     margin-left: 200px;
   }
+
+  .view {
+    min-height: 100vh;
+  }
   
 .w3-sidebar{
     height:100%;
