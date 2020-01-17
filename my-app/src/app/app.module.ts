@@ -29,6 +29,7 @@ import { RestApi } from './RestApi/RestApi';
 import { LoginComponent } from './login/login.component';
 import { CookieService } from 'ngx-cookie-service';
 import { LogoutComponent } from './logout/logout.component';
+import { AgmDirectionModule } from 'agm-direction';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { LogoutComponent } from './logout/logout.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    AgmDirectionModule,
     HttpClientModule,
     [SweetAlert2Module.forRoot()],
     FormsModule,
