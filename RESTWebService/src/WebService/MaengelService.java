@@ -1,6 +1,8 @@
 package WebService;
 
+import java.beans.Visibility;
 import java.io.InputStream;
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -21,7 +23,10 @@ import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.codehaus.jackson.map.ObjectMapper;
+
 import com.sun.jersey.core.header.FormDataContentDisposition;
+import com.sun.jersey.core.util.Base64;
 import com.sun.jersey.multipart.FormDataParam;
 
 import entities.Maengel;
@@ -58,6 +63,8 @@ public class MaengelService {
 				mangel.latitude = rs.getDouble("Maengel.latitude");
 				mangel.longitude = rs.getDouble("Maengel.longitude");
 				mangel.status = rs.getString("Maengel.status");
+				//System.out.println("---" + rs.getBlob("Maengel.bild"));
+				//mangel.bild = rs.getString("maengel.bild");
 				returnList.add(mangel);
 			}
 		}
@@ -93,10 +100,10 @@ public class MaengelService {
 			st.setString(3, mangel.beschreibung);
 			st.setString(4, "offen");
 //			if (mangel.bild != null){
-//				//st.setBlob(5, uploadedInputStream);
+//				st.setBlob(5, uploadedInputStream);
 //				st.setBlob(5, mangel.bild);
 //			}
-//			System.out.println("Blob: " + mangel.bild);
+			//System.out.println("Blob: " + mangel.bild);
 //			System.out.println("Inp: " + mangel.inputStreamBild);
 //			System.out.println("Out:" + mangel.outputStreamBild);
 			st.execute();

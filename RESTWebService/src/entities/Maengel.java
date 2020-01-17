@@ -6,8 +6,12 @@ import java.sql.Blob;
 
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonAutoDetect;
+import org.codehaus.jackson.annotate.JsonAutoDetect.Visibility;
+
 
 @XmlRootElement
+@JsonAutoDetect(fieldVisibility = Visibility.ANY)
 public class Maengel {
 
 	public int maengelID;
