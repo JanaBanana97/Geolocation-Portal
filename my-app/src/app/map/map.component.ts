@@ -72,6 +72,8 @@ export class MapComponent implements OnInit {
   file: File;
   uploadedFile: any[] = [];
 
+  geoJsonObject: any;
+
   constructor( public restApi:RestApi, private route: ActivatedRoute ) { }
 
   ngOnInit(): void {
@@ -265,9 +267,10 @@ export class MapComponent implements OnInit {
   }
   styleFunc(feature) {
     return ({
-    clickable: false,
-    fillColor: feature.getProperty('green'),
-    strokeWeight: 1
+    clickable: true,
+    fillColor: "#FF0000",
+    strokeColor: "FF0000",
+    strokeWeight: 0
     });
   }
   
@@ -284,7 +287,7 @@ export class MapComponent implements OnInit {
       .subscribe( g => {
         this.politik = g as Politik[];
       });
-    var GeoJsonObject = {
+    this.geoJsonObject = {
       "type": "FeatureCollection",
       "features": [
         {
@@ -324,8 +327,8 @@ export class MapComponent implements OnInit {
         }
       ]
     }
-    var coordinates = GeoJsonObject.features[1].geometry.coordinates;
-    console.log(coordinates);
+    //var coordinates = this.geoJsonObject.features[1].geometry.coordinates;
+    //console.log(coordinates);
     
     }
   

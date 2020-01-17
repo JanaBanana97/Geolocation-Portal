@@ -35,7 +35,9 @@
           [markerDraggable]="true"
           (markerClick)="selectMarker($event)">
         </agm-marker>
-        <agm-data-layer [geoJson]="geoJsonObject" (layerClick)="loadPolitics($event)" [style]="styleFunc">      </agm-data-layer> 
+        <agm-data-layer 
+          [geoJson]="geoJsonObject" (layerClick)="loadPolitics($event)" [style]="styleFunc">Testeintrag
+        </agm-data-layer> 
       </agm-map>
       <p-panel>
         <p *ngIf="selectedMarker">
