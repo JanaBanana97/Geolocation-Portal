@@ -234,6 +234,7 @@ export class MapComponent implements OnInit {
   }
 
   loadAll(){
+    this.geoJsonObject = null;
     this.markers = [];
     for (let marker of this.oertlichkeiten.entries()) {
       this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
@@ -241,6 +242,7 @@ export class MapComponent implements OnInit {
   }
 
   loadSchools() {
+    this.geoJsonObject = null;
     this.markers = [];
     for (let marker of this.oertlichkeiten.entries()) {
       if (marker["1"].kategorienId == 2){
@@ -254,6 +256,7 @@ export class MapComponent implements OnInit {
   }
 
   loadHealth(){
+    this.geoJsonObject = null;
     this.markers = [];
     for (let marker of this.oertlichkeiten.entries()) {
       if (marker["1"].kategorienId == 3){
@@ -334,6 +337,7 @@ export class MapComponent implements OnInit {
   
 
   loadParking(){
+    this.geoJsonObject = null;
     this.markers = [];
     for (let marker of this.oertlichkeiten.entries()) {
       if (marker["1"].kategorienId == 1){
@@ -358,6 +362,7 @@ export class MapComponent implements OnInit {
   }
   
   loadDefect(){
+    this.geoJsonObject = null;
     this.markers = [];
     for (let marker of this.maengel.entries()) {
       this.markers.push({lat: marker["1"].latitude, lng: marker["1"].longitude})
