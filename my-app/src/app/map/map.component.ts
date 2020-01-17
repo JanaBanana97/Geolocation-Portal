@@ -7,15 +7,8 @@ import { Schulen } from '../Models/Schulen';
 import { Maengel } from '../Models/Meangel';
 import { RestApi } from '../RestApi/RestApi';
 import { ActivatedRoute } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { from } from 'rxjs';
 import Swal from 'sweetalert2';
 import { Politik } from '../Models/Politik';
-<<<<<<< HEAD
-import { AgmDirectionModule } from 'agm-direction';
-=======
-// import { google } from '@agm/core/services/google-maps-types';
->>>>>>> 6877bf030f8d128d5ff699db6645bb935c02e934
 
 
 @Component({
@@ -81,7 +74,7 @@ export class MapComponent implements OnInit {
 
   geoJsonObject: any;
 
-  constructor( public restApi:RestApi, private route: ActivatedRoute ) { }
+  constructor( public restApi:RestApi ) { }
 
   ngOnInit(): void {
     this.oertlichkeiten = []
@@ -112,7 +105,7 @@ export class MapComponent implements OnInit {
     this.display = true;
   }
 
-  setLocation($event){
+  setLocation(){
     if (navigator)
     {
     navigator.geolocation.getCurrentPosition( pos => {
@@ -122,7 +115,7 @@ export class MapComponent implements OnInit {
     }
   }
 
-  openMaengelMelder($event){
+  openMaengelMelder(){
     this.displayMangel = true;
   }
 
@@ -142,7 +135,7 @@ export class MapComponent implements OnInit {
     };
   }
 
-  save($event){
+  save(){
      this.newOertlichkeit = new Oertlichkeiten();
      //this.newOertlichkeit.longitude = $event.coord.lng;
      //this.newOertlichkeit.latitude = $event.coord.lat;
@@ -287,9 +280,9 @@ export class MapComponent implements OnInit {
     });
   }
   
-  clicked(clickEvent) {
+  clicked() {
 
-
+    
     Swal.fire('Hier könnten die Wahlergebnisse oder Vogelarten stehen');
     }
     
@@ -809,7 +802,7 @@ export class MapComponent implements OnInit {
     }
   } 
 
-  saveMangel(event) {
+  saveMangel() {
     console.log("Lat:" + this.currLat);
     console.log("Lng:" + this.currLng);
     var newMangel = new Maengel();
