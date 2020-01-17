@@ -235,7 +235,7 @@ export class DataComponent implements OnInit {
         console.log(g);
         this.politik = g as Politik[];
       });
-    this.colsHel = [
+    this.colsPol = [
       { field: 'politikId', header: 'ID', width: '9em' },
       { field: 'typ', header: 'Typ', width: '9em' },
       { field: 'beschreibung', header: 'Beschreibung', width: '9em' },
