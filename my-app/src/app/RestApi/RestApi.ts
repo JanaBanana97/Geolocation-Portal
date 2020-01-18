@@ -34,15 +34,24 @@ export class RestApi{
         //this.apiUrl = "https://localhost:44383/api"
     }
     
-
     getBenutzer(): Observable<Benutzer[]> {
         let url = this.apiUrl + "/getAllBenutzer";
         return this.http.get<Benutzer[]>(url, httpOptionsGet);
     }
 
+    checkBenutzer(email, password): Observable<Benutzer>{
+        let url = this.apiUrl + "/BenutzerService/checkBenutzer?email=" + email + "&passwort=" + password + "";
+        return this.http.get<Benutzer>(url, httpOptionsGet);   
+    }
+
     getGesundheit(): Observable<Gesundheit[]> {
        let url = this.apiUrl + "/GesundheitService/getAllGesundheit";
        return this.http.get<Gesundheit[]>(url, httpOptionsGet);
+    }
+
+    getGesundheitById(id: number): Observable<Gesundheit> {
+        let url = this.apiUrl + "/GesundheitService/getGesundheit";
+        return this.http.get<Gesundheit>(url, httpOptionsGet);
     }
 
     putGesundheit(items: Gesundheit[]): Observable<Gesundheit[]>{
@@ -91,16 +100,12 @@ export class RestApi{
         let url = this.apiUrl + "/MaengelService/updateMangel";
         Swal.fire('Wuhuuu', 'Datensatz erfolgreich angelegt', 'success');
         return this.http.put<Maengel[]>(url, items);
-        
-
     }
 
-    postMangel(item: Maengel): Observable<Maengel>{
-        
+    postMangel(item: Maengel): Observable<Maengel>{  
         let url = this.apiUrl + "/MaengelService/addMangel";
         Swal.fire('Wuhuuu', 'Datensatz erfolgreich angelegt', 'success');
-        return this.http.post<Maengel>(url, item);
-        
+        return this.http.post<Maengel>(url, item);   
     }
     
     getOertlichkeiten(): Observable<Oertlichkeiten[]> {
@@ -134,6 +139,11 @@ export class RestApi{
         return this.http.get<Parkplaetze[]>(url, httpOptionsGet); 
     }
 
+    getParkplatzById(id: number): Observable<Parkplaetze> {
+        let url = this.apiUrl + "/ParkplaetzeService/getParkplatz";
+        return this.http.get<Parkplaetze>(url, httpOptionsGet); 
+    }
+
     putParken(items: Parkplaetze[]): Observable<Parkplaetze[]>{
         if (this.cookie.check('email') == true){
             let url = this.apiUrl + "/ParkplaetzeService/updateParkplatz";
@@ -157,6 +167,11 @@ export class RestApi{
     getSchulen(): Observable<Schulen[]> {
         let url = this.apiUrl + "/SchulenService/getAllSchulen";
         return this.http.get<Schulen[]>(url, httpOptionsGet); 
+    }
+
+    getSchuleById(id: number): Observable<Schulen> {
+        let url = this.apiUrl + "/SchulenService/getSchule";
+        return this.http.get<Schulen>(url, httpOptionsGet); 
     }
 
     putSchulen(items: Schulen[]): Observable<Schulen[]>{
@@ -185,6 +200,12 @@ export class RestApi{
         return this.http.get<Politik[]>(url, httpOptionsGet);
     }
 
+    getPolitikById(id: number): Observable<Politik>{
+        let url = this.apiUrl + "/PolitikService/getPolitik";
+        return this.http.get<Politik>(url, httpOptionsGet);
+    }
+
+
     putPolitik(items: Politik[]): Observable<Politik[]>{
         if (this.cookie.check('email') == true){
             let url = this.apiUrl + "/SchulenService/updateSchule";
@@ -194,11 +215,7 @@ export class RestApi{
             Swal.fire('Mission failed', 'Sie müssen eingeloggt sein, um dies ausführen zu können', 'error');
         }
     }
-    
-    checkBenutzer(email, password): Observable<Benutzer>{
-        let url = this.apiUrl + "/BenutzerService/checkBenutzer?email=" + email + "&passwort=" + password + "";
-        return this.http.get<Benutzer>(url, httpOptionsGet);   
-    }
+
 
     postPolitik(item: Politik): Observable<Politik>{
         if (this.cookie.check('email') == true){
@@ -208,8 +225,5 @@ export class RestApi{
         else{
             Swal.fire('Mission failed', 'Sie müssen eingeloggt sein, um dies ausführen zu können', 'error');
         }
-    }
-    
-
-    
+    }    
 }
