@@ -9,11 +9,7 @@ import { RestApi } from '../RestApi/RestApi';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Politik } from '../Models/Politik';
-<<<<<<< HEAD
-=======
-import { AgmDirectionModule } from 'agm-direction';
 // import { google } from '@agm/core/services/google-maps-types';
->>>>>>> 427fff3adf6703463eddd24cb0630c8d97034c64
 
 
 @Component({
