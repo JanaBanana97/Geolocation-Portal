@@ -16,6 +16,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PanelModule } from 'primeng/panel';
 import { DropdownModule } from 'primeng/dropdown';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
+import {ToolbarModule} from 'primeng/toolbar';
 
 import { AppComponent } from './app.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
@@ -56,7 +57,8 @@ import { LogoutComponent } from './logout/logout.component';
     FileUploadModule,
     InputTextModule,
     DropdownModule,
-    PanelModule,    
+    PanelModule, 
+    ToolbarModule,   
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyDwL3gnt_96YgFTDLp9mW8LpYGGEaZowC8'}),
     RouterModule.forRoot([

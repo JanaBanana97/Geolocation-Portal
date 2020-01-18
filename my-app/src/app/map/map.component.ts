@@ -51,17 +51,19 @@ export class MapComponent implements OnInit {
   mBeschreibung: string;
   status: string;
 
+  currentSelectedMarkers: string;
   selectedOrt: Oertlichkeiten;
   selectedGesundheit: Gesundheit;
   selectedParken: Parkplaetze;
   selectedSchule: Schulen;
+  selectedPolitik: Politik;
   selectedMangel: Maengel;
 
   address: string;
   display: boolean = false;
   displayMangel: boolean = false;
 
-  selectedMarker: Oertlichkeiten;
+  selectedMarker = [];
   selectedKat: Kategorien;
 
   markers = [];
@@ -84,7 +86,7 @@ export class MapComponent implements OnInit {
         console.log(o);
         this.oertlichkeiten = o as Oertlichkeiten[];
           for (let marker of this.oertlichkeiten.entries()) {
-            this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
+            this.markers.push({ id: marker["1"].oertlichkeitenId, lat: marker["1"].latitude, lng: marker["1"].longitude, katId: marker["1"].kategorienId})
           }
       });
 
@@ -100,12 +102,6 @@ export class MapComponent implements OnInit {
     this.loadAll();
   }
 
-  placeMarker(lat: number, lng: number){
-    this.currLng = lng;
-    this.currLat = lat;
-    this.display = true;
-  }
-
   setLocation($event){
     if (navigator)
     {
@@ -118,22 +114,151 @@ export class MapComponent implements OnInit {
 
   openMaengelMelder($event){
     this.displayMangel = true;
+  } 
+  
+  placeMarker(lat: number, lng: number){
+    this.currLng = lng;
+    this.currLat = lat;
+    this.display = true;
   }
 
-  selectMarker(event) {
-    
-    this.selectedMarker=
-     {
-      oertlichkeitenId: event.id,
-      bezeichnung: event.bezeichnung,
-      latitude: event.latitude,
-      longitude: event.longitude,
-      strasse: event.strasse,
-      hausnummer: event.hausnummer,
-      postleitzahl: event.postleitzahl,
-      ort: event.ort,
-      kategorienId: event.kategorienId
-    };
+  selectMarker(katId: number, id: number) {
+    this.selectedMarker = [];
+    for (let marker of this.oertlichkeiten.entries()) {
+      if (marker["1"].oertlichkeitenId == id){
+      this.selectedMarker.push({ 
+          oertlichkeitenId: marker["1"].oertlichkeitenId,
+          strasse: marker["1"].strasse,
+          hausnummer: marker["1"].hausnummer,
+          postleitzahl: marker["1"].postleitzahl,
+          ort: marker["1"].ort,
+          lat: marker["1"].latitude, 
+          lng: marker["1"].longitude,
+          kategorienId: marker["1"].kategorienId,        
+        })
+      }
+    }
+
+    switch(katId) { 
+      case 1: { 
+        this.selectedMarker=[];
+        this.restApi.getParkplaetze()
+          .subscribe( p => {
+            this.parken = p as Parkplaetze[];
+            for (let marker of this.parken.entries()) {
+              if (marker["1"].oertlichkeitenId == id){
+              this.selectedMarker.push({ 
+                  parkplaetzeId: marker["1"].parkplaetzeId,
+                  oeffnungszeiten: marker["1"].oeffnungszeiten,
+                  kosten: marker["1"].kosten,
+                  beschreibung: marker["1"].beschreibung,
+                  oertlichkeitenId: marker["1"].oertlichkeitenId,
+                  bezeichnung: marker["1"].oertlichkeit.bezeichnung,
+                  lng: marker["1"].oertlichkeit.longitude,
+                  lat: marker["1"].oertlichkeit.latitude,
+                  strasse: marker["1"].oertlichkeit.strasse,
+                  hausnummer: marker["1"].oertlichkeit.hausnummer,
+                  plz: marker["1"].oertlichkeit.postleitzahl,
+                  ort: marker["1"].oertlichkeit.ort,
+                })
+              }
+            }
+         });          
+         break; 
+      } 
+      case 2: { 
+        this.selectedMarker=[];
+        this.restApi.getSchulen()
+          .subscribe( p => {
+            this.schulen = p as Schulen[];
+            for (let marker of this.schulen.entries()) {
+              if (marker["1"].oertlichkeitenId == id){
+              this.selectedMarker.push({ 
+                  schulenId: marker["1"].schulenId,
+                  oeffnungszeiten: marker["1"].typ,
+                  beschreibung: marker["1"].beschreibung,
+                  oertlichkeitenId: marker["1"].oertlichkeitenId,
+                  bezeichnung: marker["1"].oertlichkeit.bezeichnung,
+                  lng: marker["1"].oertlichkeit.longitude,
+                  lat: marker["1"].oertlichkeit.latitude,
+                  strasse: marker["1"].oertlichkeit.strasse,
+                  hausnummer: marker["1"].oertlichkeit.hausnummer,
+                  plz: marker["1"].oertlichkeit.postleitzahl,
+                  ort: marker["1"].oertlichkeit.ort,
+                })
+              }
+            }
+         });
+         break;
+      } 
+      case 3: { 
+        this.selectedMarker=[];
+        this.restApi.getGesundheit()
+          .subscribe( p => {
+            this.gesundheit = p as Gesundheit[];
+            for (let marker of this.gesundheit.entries()) {
+              if (marker["1"].oertlichkeitenId == id){
+              this.selectedMarker.push({ 
+                  gesundheitId: marker["1"].gesundheitId,
+                  typ: marker["1"].typ,
+                  beschreibung: marker["1"].beschreibung,
+                  oertlichkeitenId: marker["1"].oertlichkeitenId,
+                  bezeichnung: marker["1"].oertlichkeit.bezeichnung,
+                  lng: marker["1"].oertlichkeit.longitude,
+                  lat: marker["1"].oertlichkeit.latitude,
+                  strasse: marker["1"].oertlichkeit.strasse,
+                  hausnummer: marker["1"].oertlichkeit.hausnummer,
+                  plz: marker["1"].oertlichkeit.postleitzahl,
+                  ort: marker["1"].oertlichkeit.ort,
+                })
+              }
+            }
+         });
+        break;
+     } 
+      case 4: { 
+        this.selectedMarker=[];
+        this.restApi.getPolitik()
+          .subscribe( p => {
+            this.politik = p as Politik[];
+            for (let marker of this.politik.entries()) {
+              if (marker["1"].oertlichkeitenId == id){
+              this.selectedMarker.push({ 
+                  politikId: marker["1"].politikId,
+                  typ: marker["1"].typ,
+                  beschreibung: marker["1"].beschreibung,
+                  oertlichkeitenId: marker["1"].oertlichkeitenId,
+                  bezeichnung: marker["1"].oertlichkeit.bezeichnung,
+                  lng: marker["1"].oertlichkeit.longitude,
+                  lat: marker["1"].oertlichkeit.latitude,
+                  strasse: marker["1"].oertlichkeit.strasse,
+                  hausnummer: marker["1"].oertlichkeit.hausnummer,
+                  plz: marker["1"].oertlichkeit.postleitzahl,
+                  ort: marker["1"].oertlichkeit.ort,
+                })
+              }
+            }
+         });
+        break;
+      } 
+      default: { 
+        for (let marker of this.oertlichkeiten.entries()) {
+          if (marker["1"].oertlichkeitenId == id){
+          this.selectedMarker.push({ 
+              oertlichkeitenId: marker["1"].oertlichkeitenId,
+              strasse: marker["1"].strasse,
+              hausnummer: marker["1"].hausnummer,
+              postleitzahl: marker["1"].postleitzahl,
+              ort: marker["1"].ort,
+              lat: marker["1"].latitude, 
+              lng: marker["1"].longitude,
+              kategorienId: marker["1"].kategorienId,        
+            })
+          }
+          break; 
+        } 
+      } 
+    }
   }
 
   save($event){
@@ -228,13 +353,6 @@ export class MapComponent implements OnInit {
       }
     });
   }
-  
-  
-  addMarker(lat: number, lng: number) {
-    this.selectMarker(event);
-    this.markers.push({ lat, lng });
-    this.display = false;
-  }
 
   loadAll(){
     this.geoJsonObject = null;
@@ -256,6 +374,7 @@ export class MapComponent implements OnInit {
       .subscribe( s => {
         this.schulen = s as Schulen[];
       });
+      this.currentSelectedMarkers = "Schools";
   }
 
   loadHealth(){
@@ -270,6 +389,7 @@ export class MapComponent implements OnInit {
       .subscribe( g => {
         this.gesundheit = g as Gesundheit[];
       });
+      this.currentSelectedMarkers = "Health";
   }
   styleFunc(feature) {
     return ({

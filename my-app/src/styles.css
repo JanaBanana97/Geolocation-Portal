@@ -2,6 +2,9 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import "~bootstrap/dist/css/bootstrap.min.css";
 
+.navbar{
+  position: fixed;
+}
 
 div.card-header {
  font-size: large;

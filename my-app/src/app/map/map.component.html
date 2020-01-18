@@ -25,31 +25,35 @@
       </div>
     </div>
 
-    <div class="p-col-10 p-align-center" style="margin-left: 200px">
+    <div class="p-col-10 p-align-center" style="margin-left: 200px; margin-top: 40px">
       <agm-map [latitude]='latitude' [longitude]='longitude' [zoom]="14"
         [mapTypeId]='mapType' (mapClick)="placeMarker($event.coords.lat, $event.coords.lng)">
         <agm-marker
           *ngFor="let marker of markers"
           [latitude]="marker.lat"
           [longitude]="marker.lng"
-          [markerDraggable]="true"
-          (markerClick)="selectMarker($event)">
+          (markerClick)="selectMarker(marker.katId, marker.id)">
         </agm-marker>
         <agm-data-layer 
           [geoJson]="geoJsonObject" (layerClick)="loadPolitics($event)" [style]="styleFunc">Testeintrag
         </agm-data-layer> 
+        <agm-info-window 
+          *ngFor="let marker of markers"
+          [disableAutoPan]="true"
+          [zIndex]="marker.id">
+          Hi, this is the content of the <strong>info window</strong>
+        </agm-info-window>
       </agm-map>
       <p-panel>
-        <p *ngIf="selectedMarker">
-          Lat: {{ selectedMarker.latitude }} Lng: {{ selectedMarker.longitude }}
-          Adresse: {{selectedMarker.strasse}} x: {{selectedMarker.hausnummer}} x:{{selectedMarker.ort}} x:{{selectedMarker.postleitzahl}}
+        <p *ngFor="let marker of selectedMarker">
+          Adresse: {{marker.strasse}} {{marker.hausnummer}} {{marker.plz}} {{marker.ort}}
+          Infos:{{marker.typ}}  {{marker.beschreibung}} {{marker.oeffnungszeiten}} {{marker.kosten}}
+          Lat: {{ marker.lat }} Lng: {{ marker.lng }}
         </p>
       </p-panel>
     </div>
   </div>
 
-  
-  
 <p-dialog [(visible)]="display" [modal]="true" [style]="{width: '800px', height: '2000px'}" >
   <p-header>
       Marker hinzufügen

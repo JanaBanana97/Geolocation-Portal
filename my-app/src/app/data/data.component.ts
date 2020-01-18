@@ -36,6 +36,7 @@ export class DataComponent implements OnInit {
   colsPol: any[];
   colsPar: any[];
   colsDef: any[];
+  displayImg: boolean = true;
   displayAll: boolean = false;
   displayCategory: boolean = false;
   displaySchool: boolean = false;
@@ -72,6 +73,7 @@ export class DataComponent implements OnInit {
     this.colsPol = null;
     this.colsPar = null;
     this.colsDef = null;
+    this.displayImg = false;
     this.displayAll = false;
     this.displayCategory = false;
     this.displaySchool = false;
@@ -235,8 +237,8 @@ export class DataComponent implements OnInit {
         console.log(g);
         this.politik = g as Politik[];
       });
-    this.colsHel = [
-      { field: 'politikId', header: 'ID', width: '9em' },
+    this.colsPol = [
+      { field: 'politikId', header: 'PolitikID', width: '9em' },
       { field: 'typ', header: 'Typ', width: '9em' },
       { field: 'beschreibung', header: 'Beschreibung', width: '9em' },
       { field: 'oertlichkeitenId', header: 'ÖrtlichkeitID', width: '9em' },
