@@ -152,6 +152,7 @@ export class MapComponent implements OnInit {
           lng: marker["1"].longitude,
           kategorienId: marker["1"].kategorienId,        
         })
+        this.selectedMarker = marker["1"];
       }
     }
 
@@ -375,7 +376,7 @@ export class MapComponent implements OnInit {
     this.geoJsonObject = null;
     this.markers = [];
     for (let marker of this.oertlichkeiten.entries()) {
-      this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
+      this.markers.push({ id: marker["1"].oertlichkeitenId, lat: marker["1"].latitude, lng: marker["1"].longitude, katId: marker["1"].kategorienId})
     }
   }
 
@@ -384,7 +385,7 @@ export class MapComponent implements OnInit {
     this.markers = [];
     for (let marker of this.oertlichkeiten.entries()) {
       if (marker["1"].kategorienId == 2){
-       this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
+       this.markers.push({ id: marker["1"].oertlichkeitenId, lat: marker["1"].latitude, lng: marker["1"].longitude, katId: marker["1"].kategorienId})
       }
     }
     this.restApi.getSchulen()
@@ -399,7 +400,7 @@ export class MapComponent implements OnInit {
     this.markers = [];
     for (let marker of this.oertlichkeiten.entries()) {
       if (marker["1"].kategorienId == 3){
-       this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
+       this.markers.push({ id: marker["1"].oertlichkeitenId, lat: marker["1"].latitude, lng: marker["1"].longitude, katId: marker["1"].kategorienId})
       }
     }
     this.restApi.getGesundheit()
@@ -429,7 +430,7 @@ export class MapComponent implements OnInit {
     this.markers = [];
     for (let marker of this.oertlichkeiten.entries()) {
       if (marker["1"].kategorienId == 4){
-       this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
+       this.markers.push({ id: marker["1"].oertlichkeitenId, lat: marker["1"].latitude, lng: marker["1"].longitude, katId: marker["1"].kategorienId})
       }
     }
     this.restApi.getPolitik()
@@ -912,7 +913,7 @@ export class MapComponent implements OnInit {
     this.markers = [];
     for (let marker of this.oertlichkeiten.entries()) {
       if (marker["1"].kategorienId == 1){
-       this.markers.push({ lat: marker["1"].latitude, lng: marker["1"].longitude})
+       this.markers.push({ id: marker["1"].oertlichkeitenId, lat: marker["1"].latitude, lng: marker["1"].longitude, katId: marker["1"].kategorienId})
       }
     }
     this.restApi.getParkplaetze()
@@ -936,7 +937,7 @@ export class MapComponent implements OnInit {
     this.geoJsonObject = null;
     this.markers = [];
     for (let marker of this.maengel.entries()) {
-      this.markers.push({lat: marker["1"].latitude, lng: marker["1"].longitude})
+      this.markers.push({id: marker["1"].maengelID, lat: marker["1"].latitude, lng: marker["1"].longitude})
     }
   } 
 
