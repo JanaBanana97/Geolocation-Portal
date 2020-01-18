@@ -60,7 +60,8 @@ import { AgmDirectionModule } from 'agm-direction';
     DropdownModule,
     PanelModule,    
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDwL3gnt_96YgFTDLp9mW8LpYGGEaZowC8'}),
+      //apiKey: 'AIzaSyDwL3gnt_96YgFTDLp9mW8LpYGGEaZowC8'}),
+      apiKey: 'AIzaSyDRhchsYWfmrP19D8vqm1hIWa_CwEeZcM4'}),
     RouterModule.forRoot([
       {path: 'data', component: DataComponent},
       {path: 'map', component: MapComponent},

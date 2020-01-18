@@ -39,7 +39,8 @@
         <agm-data-layer 
           [geoJson]="geoJsonObject" (layerClick)="clicked($event)" [style]="styleFunc">Testeintrag 
         </agm-data-layer> 
-        <agm-direction [origin]="origin" [destination]="destination">
+        <agm-direction 
+          *ngIf="dir" [origin]="dir.origin" [destination]="dir.destination">
         </agm-direction>
       </agm-map>
       <p-panel>
@@ -47,6 +48,7 @@
           Lat: {{ selectedMarker.latitude }} Lng: {{ selectedMarker.longitude }}
           Adresse: {{selectedMarker.strasse}} x: {{selectedMarker.hausnummer}} x:{{selectedMarker.ort}} x:{{selectedMarker.postleitzahl}}
         </p>
+        <p-button label="Route anzeigen" (onClick)="getDirection($event)" styleClass="ui-button-info"></p-button>
       </p-panel>
     </div>
   </div>
