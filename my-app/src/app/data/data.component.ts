@@ -103,11 +103,11 @@ export class DataComponent implements OnInit {
   }
 
   saveOrt(dt: Table){
-    // this.restApi.putOrt(this.oertlichkeiten)
-    // .subscribe ( o => {
-    //   console.log('Data updated.')
-    //   dt.reset;
-    // });
+     this.restApi.putOertlichkeiten(this.oertlichkeiten)
+     .subscribe ( o => {
+       console.log('Data updated.')
+       dt.reset;
+     });
   }
 
   downloadOertlichkeiten(event){
