@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { Oertlichkeiten } from '../Models/Oertlichkeiten';
 import { Kategorien } from '../Models/Kategorien';
 import { Gesundheit } from '../Models/Gesundheit';
@@ -11,19 +12,27 @@ import { CookieService } from 'ngx-cookie-service';
 import { from } from 'rxjs';
 import Swal from 'sweetalert2';
 import { Politik } from '../Models/Politik';
+
 import { AgmDirectionModule } from 'agm-direction';
+
 // import { google } from '@agm/core/services/google-maps-types';
 
+declare const google: any;
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
+
 export class MapComponent implements OnInit {
   mapType = 'roadmap';
   latitude = 49.3527796;
   longitude = 9.1455235;
+  private geoCoder;
+
+  //@ViewChild('search')
+  public searchElementRef: ElementRef;
 
   oertlichkeiten: Oertlichkeiten[];
   kategorien: Kategorien[];
@@ -85,7 +94,8 @@ export class MapComponent implements OnInit {
   currLocRouteLat: number;
   currLocRouteLng: number;
 
-  constructor( public restApi:RestApi, private route: ActivatedRoute ) { }
+  constructor( public restApi:RestApi, private route: ActivatedRoute, private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone ) { }
 
   ngOnInit(): void {
     this.oertlichkeiten = []
@@ -116,16 +126,63 @@ export class MapComponent implements OnInit {
         this.currLocRouteLat = +pos.coords.latitude;
       });
     }
+
+    //load Places Autocomplete
+    this.mapsAPILoader.load().then(() => {
+      this.setLocation();
+      this.geoCoder = new google.maps.Geocoder;
+
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+        types: ["address"]
+      });
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          //get the place result
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+          //verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+        });
+      });
+    });
   }
 
-  setLocation($event){
-    if (navigator)
-    {
-    navigator.geolocation.getCurrentPosition( pos => {
-        this.currLng = +pos.coords.longitude;
-        this.currLat = +pos.coords.latitude;
+  // setLocation($event){
+  //   if (navigator)
+  //   {
+  //   navigator.geolocation.getCurrentPosition( pos => {
+  //       this.currLng = +pos.coords.longitude;
+  //       this.currLat = +pos.coords.latitude;
+  //     });
+  //   }
+  // }
+
+  // Get Current Location Coordinates
+  private setLocation() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.getAddress(this.latitude, this.longitude);
       });
     }
+  }
+
+  getAddress(latitude, longitude) {
+    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+      console.log(results);
+      console.log(status);
+      if (status === 'OK') {
+        if (results[0]) {
+          this.address = results[0].formatted_address;
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+
+    });
   }
 
   openMaengelMelder($event){
@@ -155,6 +212,8 @@ export class MapComponent implements OnInit {
         this.selectedMarker = marker["1"];
       }
     }
+
+    
 
     switch(katId) { 
       case 1: { 
@@ -905,8 +964,6 @@ export class MapComponent implements OnInit {
         }
       ]
     }}
-    
-  
 
   loadParking(){
     this.geoJsonObject = null;

@@ -70,7 +70,6 @@ import { AgmDirectionModule } from 'agm-direction';
       {path: 'landingpage', component: LandingpageComponent}
     ])    
   ],
-  
   providers: [RestApi, CookieService],
   bootstrap: [AppComponent]
 })
