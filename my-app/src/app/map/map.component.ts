@@ -11,6 +11,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { from } from 'rxjs';
 import Swal from 'sweetalert2';
 import { Politik } from '../Models/Politik';
+import { AgmDirectionModule } from 'agm-direction';
 // import { google } from '@agm/core/services/google-maps-types';
 
 
@@ -31,6 +32,8 @@ export class MapComponent implements OnInit {
   schulen: Schulen[];
   politik: Politik[];
   maengel: Maengel[];
+  public origin: any;
+  public destination: any;
 
   currLat: number;
   currLng: number;
@@ -76,6 +79,9 @@ export class MapComponent implements OnInit {
   uploadedFile: any[] = [];
 
   geoJsonObject: any;
+  dir: any;
+  currLocRouteLat: number;
+  currLocRouteLng: number;
 
   constructor( public restApi:RestApi, private route: ActivatedRoute ) { }
 
@@ -100,6 +106,14 @@ export class MapComponent implements OnInit {
         this.maengel = m as Maengel[];
     });
     this.loadAll();
+
+    if (navigator)
+    {
+    navigator.geolocation.getCurrentPosition( pos => {
+        this.currLocRouteLng = +pos.coords.longitude;
+        this.currLocRouteLat = +pos.coords.latitude;
+      });
+    }
   }
 
   setLocation($event){
@@ -392,14 +406,20 @@ export class MapComponent implements OnInit {
       this.currentSelectedMarkers = "Health";
   }
   styleFunc(feature) {
+    
     return ({
     clickable: true,
-    fillColor: "#FF0000",
+    fillColor: feature.getProperty('color'),
     strokeColor: "FF0000",
-    strokeWeight: 0
+    strokeWeight: 1
     });
   }
   
+  clicked(clickEvent) {
+
+
+    Swal.fire('Hier könnten die Wahlergebnisse oder Vogelarten stehen');
+    }
     
 
   loadPolitics(){
@@ -418,45 +438,470 @@ export class MapComponent implements OnInit {
       "features": [
         {
           "type": "Feature",
-          "properties": {},
+          "properties": {
+            "color": "#F4A224",
+          },
           "geometry": {
             "type": "Polygon",
             "coordinates": [
               [
                 [
+                  9.12663459777832,
+                  49.347493514019895
+                ],
+                [
+                  9.130797386169434,
+                  49.34156605070885
+                ],
+                [
+                  9.133586883544922,
+                  49.34274041619706
+                ],
+                [
+                  9.134187698364258,
+                  49.343635152043596
+                ],
+                [
+                  9.134187698364258,
+                  49.34508906309549
+                ],
+                [
+                  9.133887290954588,
+                  49.34606763288385
+                ],
+                [
+                  9.133286476135254,
+                  49.346906391497846
+                ],
+                [
+                  9.132513999938965,
+                  49.347968798549005
+                ],
+                [
+                  9.131441116333008,
+                  49.348304290746306
+                ],
+                [
+                  9.130024909973143,
+                  49.34863978065587
+                ],
+                [
+                  9.12865161895752,
+                  49.34858386582981
+                ],
+                [
+                  9.127492904663086,
+                  49.34833224832616
+                ],
+                [
+                  9.126548767089844,
+                  49.348108587242585
+                ],
+                [
+                  9.1261625289917,
+                  49.3478849251422
+                ],
+                [
+                  9.12663459777832,
+                  49.347493514019895
+                ]
+              ]
+            ]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "color": "#E8E2DA",
+          },
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  9.127922058105469,
+                  49.34738168169873
+                ],
+                [
+                  9.131312370300293,
+                  49.34274041619706
+                ],
+                [
+                  9.132556915283203,
+                  49.34324370711258
+                ],
+                [
+                  9.133458137512207,
+                  49.344110473844836
+                ],
+                [
+                  9.133243560791016,
+                  49.34550845253078
+                ],
+                [
+                  9.132685661315918,
+                  49.346682723932204
+                ],
+                [
+                  9.132256507873535,
+                  49.34732576544282
+                ],
+                [
+                  9.131526947021484,
+                  49.34760534608687
+                ],
+                [
+                  9.130582809448242,
+                  49.34774513581314
+                ],
+                [
+                  9.129595756530762,
+                  49.34777309371073
+                ],
+                [
+                  9.128522872924805,
+                  49.34763330406392
+                ],
+                [
+                  9.128093719482422,
+                  49.34740963980287
+                ],
+                [
+                  9.127922058105469,
+                  49.34738168169873
+                ]
+              ]
+            ]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "color": "#2FEBEE",
+          },
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  9.131999015808105,
+                  49.349646236657904
+                ],
+                [
+                  9.137020111083984,
+                  49.344194353686056
+                ],
+                [
+                  9.138650894165039,
+                  49.3450611036727
+                ],
+                [
+                  9.136676788330078,
+                  49.3467106824335
+                ],
+                [
+                  9.13839340209961,
+                  49.34729780729104
+                ],
+                [
+                  9.13989543914795,
+                  49.34615150938869
+                ],
+                [
+                  9.141697883605955,
+                  49.346906391497846
+                ],
+                [
+                  9.1371488571167,
+                  49.351351573436894
+                ],
+                [
+                  9.135303497314453,
+                  49.35068062831545
+                ],
+                [
+                  9.136333465576172,
+                  49.34975806383159
+                ],
+                [
+                  9.137277603149414,
+                  49.34880752475272
+                ],
+                [
+                  9.135603904724121,
+                  49.347856967308154
+                ],
+                [
+                  9.13362979888916,
+                  49.3499537607739
+                ],
+                [
+                  9.131999015808105,
+                  49.349646236657904
+                ]
+              ]
+            ]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "color": "#F23F70",
+          },
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  9.13886547088623,
+                  49.352050464874274
+                ],
+                [
+                  9.14311408996582,
+                  49.34732576544282
+                ],
+                [
+                  9.144916534423828,
+                  49.34816450260881
+                ],
+                [
+                  9.145517349243164,
+                  49.34875161011731
+                ],
+                [
+                  9.146032333374023,
+                  49.34953440923001
+                ],
+                [
+                  9.145259857177734,
+                  49.35034515232307
+                ],
+                [
+                  9.144659042358398,
+                  49.35056880323884
+                ],
+                [
+                  9.143972396850586,
+                  49.35054084692999
+                ],
+                [
+                  9.142556190490723,
+                  49.3499537607739
+                ],
+                [
                   9.143843650817871,
-                  49.34947849542076
+                  49.351127926079826
                 ],
                 [
-                  9.14186954498291,
-                  49.350652672070105
+                  9.143929481506348,
+                  49.35196659842604
                 ],
                 [
-                  9.137835502624512,
-                  49.34931075361165
+                  9.143199920654297,
+                  49.35255366056091
                 ],
                 [
-                  9.14238452911377,
-                  49.34645905534977
+                  9.141783714294434,
+                  49.352721391312606
                 ],
                 [
-                  9.145731925964355,
-                  49.34791288296037
+                  9.140281677246094,
+                  49.35266548112557
                 ],
                 [
-                  9.143843650817871,
-                  49.34947849542076
+                  9.13912296295166,
+                  49.35235797396108
+                ],
+                [
+                  9.13886547088623,
+                  49.352050464874274
+                ]
+              ]
+            ]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "color": "#EFFE01",
+          },
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  9.143500328063979,
+                  49.3534202632884
+                ],
+                [
+                  9.148650169372559,
+                  49.349925804115514
+                ],
+                [
+                  9.150238037109375,
+                  49.35054084692999
+                ],
+                [
+                  9.148564338684094,
+                  49.35255366056088
+                ],
+                [
+                  9.149336814880371,
+                  49.35294503142515
+                ],
+                [
+                  9.151268005371094,
+                  49.35101610202001
+                ],
+                [
+                  9.152941703796387,
+                  49.35126770579715
+                ],
+                [
+                  9.150795936584485,
+                  49.356159745683776
+                ],
+                [
+                  9.149379730224624,
+                  49.355824307057425
+                ],
+                [
+                  9.14998054504396,
+                  49.35378367279174
+                ],
+                [
+                  9.147791862487805,
+                  49.35520933030078
+                ],
+                [
+                  9.146847724914563,
+                  49.35484593133036
+                ],
+                [
+                  9.147748947143555,
+                  49.35244183974205
+                ],
+                [
+                  9.146203994750977,
+                  49.353168670520965
+                ],
+                [
+                  9.144830703735352,
+                  49.354007308074735
+                ],
+                [
+                  9.143500328063979,
+                  49.3534202632884
+                ]
+              ]
+            ]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "color": "#E8E2DA",
+          },
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  9.140067100524902,
+                  49.351714998223514
+                ],
+                [
+                  9.141311645507812,
+                  49.350177413469
+                ],
+                [
+                  9.142427444458008,
+                  49.35070858454487
+                ],
+                [
+                  9.14285659790039,
+                  49.351183838014435
+                ],
+                [
+                  9.14285659790039,
+                  49.351714998223514
+                ],
+                [
+                  9.142427444458008,
+                  49.35213433117948
+                ],
+                [
+                  9.141440391540527,
+                  49.35224615269737
+                ],
+                [
+                  9.140582084655762,
+                  49.352050464874246
+                ],
+                [
+                  9.140067100524902,
+                  49.351714998223514
+                ]
+              ]
+            ]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "color": "#E8E2DA",
+          },
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  9.142084121704102,
+                  49.34925483954818
+                ],
+                [
+                  9.143157005310059,
+                  49.3480247140741
+                ],
+                [
+                  9.144144058227539,
+                  49.348388163438194
+                ],
+                [
+                  9.144830703735352,
+                  49.34889139658667
+                ],
+                [
+                  9.145174026489258,
+                  49.34939462458769
+                ],
+                [
+                  9.144916534423828,
+                  49.349813977323116
+                ],
+                [
+                  9.14435863494873,
+                  49.35012150039054
+                ],
+                [
+                  9.143414497375488,
+                  49.349925804115514
+                ],
+                [
+                  9.142642021179197,
+                  49.349618279824746
+                ],
+                [
+                  9.142084121704102,
+                  49.34925483954818
                 ]
               ]
             ]
           }
         }
       ]
-    }
-    //var coordinates = this.geoJsonObject.features[1].geometry.coordinates;
-    //console.log(coordinates);
+    }}
     
-    }
   
 
   loadParking(){
@@ -516,73 +961,21 @@ export class MapComponent implements OnInit {
   onSelectImage(evt: any) {
     this.uploadedFile = evt[0];
  }
+
+ getDirection($event) {
+
+  if (this.selectedMarker != null) { 
+  this.dir = {
+    origin: { lat: this.currLocRouteLat, lng: this.currLocRouteLng },
+    destination: {lat: this.selectedMarker.latitude, lng: this.selectedMarker.longitude }
+  } 
+  }
+  else {
+    Swal.fire('Wählen Sie zuerst eine Marker aus.');
+  }
+  // this.origin = 'Taipei Main Station';
+  // this.destination = 'Taiwan Presidential Office';
+  }
 }
-
-// function initAutocomplete() {
-//   var map = new google.maps.Map(document.getElementById('map'), {
-//     center: {lat: -33.8688, lng: 151.2195},
-//     zoom: 13,
-//     mapTypeId: 'roadmap'
-//   });
-
-//   // Create the search box and link it to the UI element.
-//   var input = document.getElementById('pac-input');
-//   var searchBox = new google.maps.places.SearchBox(input);
-//   map.controls[google.maps.ControlPosition.TOP_LEFT].push(input);
-
-//   // Bias the SearchBox results towards current map's viewport.
-//   map.addListener('bounds_changed', function() {
-//     searchBox.setBounds(map.getBounds());
-//   });
-
-//   var markers = [];
-//   // Listen for the event fired when the user selects a prediction and retrieve
-//   // more details for that place.
-//   searchBox.addListener('places_changed', function() {
-//     var places = searchBox.getPlaces();
-
-//     if (places.length == 0) {
-//       return;
-//     }
-
-//     // Clear out the old markers.
-//     markers.forEach(function(marker) {
-//       marker.setMap(null);
-//     });
-//     markers = [];
-
-//     // For each place, get the icon, name and location.
-//     var bounds = new google.maps.LatLngBounds();
-//     places.forEach(function(place) {
-//       if (!place.geometry) {
-//         console.log("Returned place contains no geometry");
-//         return;
-//       }
-//       var icon = {
-//         url: place.icon,
-//         size: new google.maps.Size(71, 71),
-//         origin: new google.maps.Point(0, 0),
-//         anchor: new google.maps.Point(17, 34),
-//         scaledSize: new google.maps.Size(25, 25)
-//       };
-
-//       // Create a marker for each place.
-//       markers.push(new google.maps.Marker({
-//         map: map,
-//         icon: icon,
-//         title: place.name,
-//         position: place.geometry.location
-//       }));
-
-//       if (place.geometry.viewport) {
-//         // Only geocodes have viewport.
-//         bounds.union(place.geometry.viewport);
-//       } else {
-//         bounds.extend(place.geometry.location);
-//       }
-//     });
-//     map.fitBounds(bounds);
-//   });
-// } 
 
 

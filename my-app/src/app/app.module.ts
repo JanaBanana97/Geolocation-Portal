@@ -30,6 +30,7 @@ import { RestApi } from './RestApi/RestApi';
 import { LoginComponent } from './login/login.component';
 import { CookieService } from 'ngx-cookie-service';
 import { LogoutComponent } from './logout/logout.component';
+import { AgmDirectionModule } from 'agm-direction';
 
 
 @NgModule({
@@ -46,6 +47,7 @@ import { LogoutComponent } from './logout/logout.component';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
+    AgmDirectionModule,
     HttpClientModule,
     [SweetAlert2Module.forRoot()],
     FormsModule,
@@ -60,7 +62,8 @@ import { LogoutComponent } from './logout/logout.component';
     PanelModule, 
     ToolbarModule,   
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyDwL3gnt_96YgFTDLp9mW8LpYGGEaZowC8'}),
+      //apiKey: 'AIzaSyDwL3gnt_96YgFTDLp9mW8LpYGGEaZowC8'}),
+      apiKey: 'AIzaSyDRhchsYWfmrP19D8vqm1hIWa_CwEeZcM4'}),
     RouterModule.forRoot([
       {path: 'data', component: DataComponent},
       {path: 'map', component: MapComponent},
