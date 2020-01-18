@@ -238,11 +238,7 @@ export class DataComponent implements OnInit {
         this.politik = g as Politik[];
       });
     this.colsPol = [
-<<<<<<< HEAD
       { field: 'politikId', header: 'PolitikID', width: '9em' },
-=======
-      { field: 'politikId', header: 'ID', width: '9em' },
->>>>>>> 427fff3adf6703463eddd24cb0630c8d97034c64
       { field: 'typ', header: 'Typ', width: '9em' },
       { field: 'beschreibung', header: 'Beschreibung', width: '9em' },
       { field: 'oertlichkeitenId', header: 'ÖrtlichkeitID', width: '9em' },

@@ -37,21 +37,18 @@
         <agm-data-layer 
           [geoJson]="geoJsonObject" (layerClick)="clicked($event)" [style]="styleFunc">Testeintrag 
         </agm-data-layer> 
-<<<<<<< HEAD
         <agm-info-window 
           *ngFor="let marker of markers"
           [disableAutoPan]="true"
           [zIndex]="marker.id">
           Hi, this is the content of the <strong>info window</strong>
         </agm-info-window>
-=======
         <agm-direction 
           *ngIf="dir" [origin]="dir.origin" [destination]="dir.destination">
         </agm-direction>
->>>>>>> 427fff3adf6703463eddd24cb0630c8d97034c64
       </agm-map>
       <p-panel>
-        <p *ngFor="let marker of selectedMarker">
+        <p *ngFor="let marker of infos">
           Adresse: {{marker.strasse}} {{marker.hausnummer}} {{marker.plz}} {{marker.ort}}
           Infos:{{marker.typ}}  {{marker.beschreibung}} {{marker.oeffnungszeiten}} {{marker.kosten}}
           Lat: {{ marker.lat }} Lng: {{ marker.lng }}

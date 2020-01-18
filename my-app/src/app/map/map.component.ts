@@ -66,8 +66,10 @@ export class MapComponent implements OnInit {
   display: boolean = false;
   displayMangel: boolean = false;
 
-  selectedMarker = [];
+  selectedMarker: Oertlichkeiten;
   selectedKat: Kategorien;
+
+  infos = [];
 
   markers = [];
   objects = [];
@@ -137,10 +139,10 @@ export class MapComponent implements OnInit {
   }
 
   selectMarker(katId: number, id: number) {
-    this.selectedMarker = [];
+    this.infos = [];
     for (let marker of this.oertlichkeiten.entries()) {
       if (marker["1"].oertlichkeitenId == id){
-      this.selectedMarker.push({ 
+      this.infos.push({ 
           oertlichkeitenId: marker["1"].oertlichkeitenId,
           strasse: marker["1"].strasse,
           hausnummer: marker["1"].hausnummer,
@@ -155,13 +157,13 @@ export class MapComponent implements OnInit {
 
     switch(katId) { 
       case 1: { 
-        this.selectedMarker=[];
+        this.infos=[];
         this.restApi.getParkplaetze()
           .subscribe( p => {
             this.parken = p as Parkplaetze[];
             for (let marker of this.parken.entries()) {
               if (marker["1"].oertlichkeitenId == id){
-              this.selectedMarker.push({ 
+              this.infos.push({ 
                   parkplaetzeId: marker["1"].parkplaetzeId,
                   oeffnungszeiten: marker["1"].oeffnungszeiten,
                   kosten: marker["1"].kosten,
@@ -181,13 +183,13 @@ export class MapComponent implements OnInit {
          break; 
       } 
       case 2: { 
-        this.selectedMarker=[];
+        this.infos=[];
         this.restApi.getSchulen()
           .subscribe( p => {
             this.schulen = p as Schulen[];
             for (let marker of this.schulen.entries()) {
               if (marker["1"].oertlichkeitenId == id){
-              this.selectedMarker.push({ 
+              this.infos.push({ 
                   schulenId: marker["1"].schulenId,
                   oeffnungszeiten: marker["1"].typ,
                   beschreibung: marker["1"].beschreibung,
@@ -206,13 +208,13 @@ export class MapComponent implements OnInit {
          break;
       } 
       case 3: { 
-        this.selectedMarker=[];
+        this.infos=[];
         this.restApi.getGesundheit()
           .subscribe( p => {
             this.gesundheit = p as Gesundheit[];
             for (let marker of this.gesundheit.entries()) {
               if (marker["1"].oertlichkeitenId == id){
-              this.selectedMarker.push({ 
+              this.infos.push({ 
                   gesundheitId: marker["1"].gesundheitId,
                   typ: marker["1"].typ,
                   beschreibung: marker["1"].beschreibung,
@@ -231,13 +233,13 @@ export class MapComponent implements OnInit {
         break;
      } 
       case 4: { 
-        this.selectedMarker=[];
+        this.infos=[];
         this.restApi.getPolitik()
           .subscribe( p => {
             this.politik = p as Politik[];
             for (let marker of this.politik.entries()) {
               if (marker["1"].oertlichkeitenId == id){
-              this.selectedMarker.push({ 
+              this.infos.push({ 
                   politikId: marker["1"].politikId,
                   typ: marker["1"].typ,
                   beschreibung: marker["1"].beschreibung,
@@ -256,9 +258,10 @@ export class MapComponent implements OnInit {
         break;
       } 
       default: { 
+        this.infos = [];
         for (let marker of this.oertlichkeiten.entries()) {
           if (marker["1"].oertlichkeitenId == id){
-          this.selectedMarker.push({ 
+          this.infos.push({ 
               oertlichkeitenId: marker["1"].oertlichkeitenId,
               strasse: marker["1"].strasse,
               hausnummer: marker["1"].hausnummer,
