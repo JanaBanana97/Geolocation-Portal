@@ -22,34 +22,27 @@
           </button>
         </table>
         <p-button label="Mangel melden" (onClick)="openMaengelMelder($event)" styleClass="ui-button-info"></p-button>
+        <p-button label="Route anzeigen" (onClick)="getDirection($event)" styleClass="ui-button-info"></p-button>
       </div>
     </div>
 
-    <div class="p-col-10 p-align-center" style="margin-left: 200px; margin-top: 40px">
-      <div class="form-group">
-      <label>Enter address</label>
-      <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
-    </div>
+    <div class="p-col-10 p-align-center" style="margin-left: 220px">
       <agm-map [latitude]='latitude' [longitude]='longitude' [zoom]="14"
         [mapTypeId]='mapType' (mapClick)="placeMarker($event.coords.lat, $event.coords.lng)">
         <agm-marker
           *ngFor="let marker of markers"
           [latitude]="marker.lat"
           [longitude]="marker.lng"
-          (markerClick)="selectMarker(marker.katId, marker.id)">
+          (markerClick)="selectMarker(marker.katId, marker.id)"
+          (dragEnd)="markerDragEnd($event)">
         </agm-marker>
         <agm-data-layer 
           [geoJson]="geoJsonObject" (layerClick)="clicked($event)" [style]="styleFunc">Testeintrag 
         </agm-data-layer> 
-        <agm-info-window 
-          *ngFor="let marker of markers"
-          [disableAutoPan]="true"
-          [zIndex]="marker.id">
-          Hi, this is the content of the <strong>info window</strong>
-        </agm-info-window>
         <agm-direction 
           *ngIf="dir" [origin]="dir.origin" [destination]="dir.destination">
         </agm-direction>
+        <agm-kml-layer [url]="''"> </agm-kml-layer>
       </agm-map>
       <p-panel>
         <p *ngFor="let marker of infos">
@@ -59,7 +52,6 @@
           <br/>
           Lat: {{ marker.lat }} Lng: {{ marker.lng }}
         </p>
-        <p-button label="Route anzeigen" (onClick)="getDirection($event)" styleClass="ui-button-info"></p-button>
       </p-panel>
     </div>
   </div>

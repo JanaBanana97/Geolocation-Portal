@@ -126,63 +126,16 @@ export class MapComponent implements OnInit {
         this.currLocRouteLat = +pos.coords.latitude;
       });
     }
-
-    //load Places Autocomplete
-    this.mapsAPILoader.load().then(() => {
-      this.setLocation();
-      this.geoCoder = new google.maps.Geocoder;
-
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-        types: ["address"]
-      });
-      autocomplete.addListener("place_changed", () => {
-        this.ngZone.run(() => {
-          //get the place result
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
-
-          //verify result
-          if (place.geometry === undefined || place.geometry === null) {
-            return;
-          }
-        });
-      });
-    });
   }
 
-  // setLocation($event){
-  //   if (navigator)
-  //   {
-  //   navigator.geolocation.getCurrentPosition( pos => {
-  //       this.currLng = +pos.coords.longitude;
-  //       this.currLat = +pos.coords.latitude;
-  //     });
-  //   }
-  // }
-
-  // Get Current Location Coordinates
-  private setLocation() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.getAddress(this.latitude, this.longitude);
+  setLocation($event){
+    if (navigator)
+    {
+    navigator.geolocation.getCurrentPosition( pos => {
+        this.currLng = +pos.coords.longitude;
+        this.currLat = +pos.coords.latitude;
       });
     }
-  }
-
-  getAddress(latitude, longitude) {
-    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
-      console.log(results);
-      console.log(status);
-      if (status === 'OK') {
-        if (results[0]) {
-          this.address = results[0].formatted_address;
-        } else {
-          window.alert('No results found');
-        }
-      } else {
-        window.alert('Geocoder failed due to: ' + status);
-      }
-
-    });
   }
 
   openMaengelMelder($event){
