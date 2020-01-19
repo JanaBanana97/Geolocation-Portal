@@ -115,17 +115,7 @@ export class MapComponent implements OnInit {
     }
   }
 
-<<<<<<< HEAD
-  placeMarker(lat: number, lng: number){
-    this.currLng = lng;
-    this.currLat = lat;
-    this.display = true;
-  }
-
   setLocation(){
-=======
-  setLocation($event){
->>>>>>> 5f7c323c26276f8ad65e0d7e535a311d58786caf
     if (navigator)
     {
     navigator.geolocation.getCurrentPosition( pos => {
