@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, NgZone } from '@angular/core';
+import { MapsAPILoader, MouseEvent } from '@agm/core';
 import { Oertlichkeiten } from '../Models/Oertlichkeiten';
 import { Kategorien } from '../Models/Kategorien';
 import { Gesundheit } from '../Models/Gesundheit';
@@ -9,18 +10,30 @@ import { RestApi } from '../RestApi/RestApi';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Politik } from '../Models/Politik';
+<<<<<<< HEAD
+=======
+
+import { AgmDirectionModule } from 'agm-direction';
+
+>>>>>>> 7638ad42144979541a61c42f63ebae9d2e4730b4
 // import { google } from '@agm/core/services/google-maps-types';
 
+declare const google: any;
 
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.css']
 })
+
 export class MapComponent implements OnInit {
   mapType = 'roadmap';
   latitude = 49.3527796;
   longitude = 9.1455235;
+  private geoCoder;
+
+  //@ViewChild('search')
+  public searchElementRef: ElementRef;
 
   oertlichkeiten: Oertlichkeiten[];
   kategorien: Kategorien[];
@@ -82,7 +95,12 @@ export class MapComponent implements OnInit {
   currLocRouteLat: number;
   currLocRouteLng: number;
 
+<<<<<<< HEAD
   constructor( public restApi:RestApi ) { }
+=======
+  constructor( public restApi:RestApi, private route: ActivatedRoute, private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone ) { }
+>>>>>>> 7638ad42144979541a61c42f63ebae9d2e4730b4
 
   ngOnInit(): void {
     this.oertlichkeiten = []
@@ -113,19 +131,79 @@ export class MapComponent implements OnInit {
         this.currLocRouteLat = +pos.coords.latitude;
       });
     }
+
+    //load Places Autocomplete
+    this.mapsAPILoader.load().then(() => {
+      this.setLocation();
+      this.geoCoder = new google.maps.Geocoder;
+
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+        types: ["address"]
+      });
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          //get the place result
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+
+          //verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+        });
+      });
+    });
   }
 
+<<<<<<< HEAD
   setLocation(){
     if (navigator)
     {
     navigator.geolocation.getCurrentPosition( pos => {
         this.currLng = +pos.coords.longitude;
         this.currLat = +pos.coords.latitude;
+=======
+  // setLocation($event){
+  //   if (navigator)
+  //   {
+  //   navigator.geolocation.getCurrentPosition( pos => {
+  //       this.currLng = +pos.coords.longitude;
+  //       this.currLat = +pos.coords.latitude;
+  //     });
+  //   }
+  // }
+
+  // Get Current Location Coordinates
+  private setLocation() {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition((position) => {
+        this.getAddress(this.latitude, this.longitude);
+>>>>>>> 7638ad42144979541a61c42f63ebae9d2e4730b4
       });
     }
   }
 
+<<<<<<< HEAD
   openMaengelMelder(){
+=======
+  getAddress(latitude, longitude) {
+    this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+      console.log(results);
+      console.log(status);
+      if (status === 'OK') {
+        if (results[0]) {
+          this.address = results[0].formatted_address;
+        } else {
+          window.alert('No results found');
+        }
+      } else {
+        window.alert('Geocoder failed due to: ' + status);
+      }
+
+    });
+  }
+
+  openMaengelMelder($event){
+>>>>>>> 7638ad42144979541a61c42f63ebae9d2e4730b4
     this.displayMangel = true;
   } 
   
@@ -152,6 +230,8 @@ export class MapComponent implements OnInit {
         this.selectedMarker = marker["1"];
       }
     }
+
+    
 
     switch(katId) { 
       case 1: { 
@@ -902,8 +982,6 @@ export class MapComponent implements OnInit {
         }
       ]
     }}
-    
-  
 
   loadParking(){
     this.geoJsonObject = null;
