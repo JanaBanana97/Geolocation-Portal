@@ -92,15 +92,15 @@ export class DataComponent implements OnInit {
         this.oertlichkeiten = o as Oertlichkeiten[];
       });
     this.colsOer = [
-      { field: 'oertlichkeitenId', header: 'ID', width: '9em' },
+      { field: 'oertlichkeitenId', header: 'ID' },
       { field: 'bezeichnung', header: 'Bezeichnung', width: '9em' },
       { field: 'longitude', header: 'Long', width: '9em' },
       { field: 'latitude', header: 'Lat', width: '9em' },
       { field: 'strasse', header: 'Straße', width: '9em' },
-      { field: 'hausnummer', header: 'Hausnr', width: '9em' },
+      { field: 'hausnummer', header: 'Hausnr', width: '3em' },
       { field: 'postleitzahl', header: 'PLZ', width: '9em' },
       { field: 'ort', header: 'Ort', width: '9em' },
-      { field: 'kategorienId', header: 'Kategorie', width: '9em' },
+      { field: 'kategorienId', header: 'Kategorie', width: '3em' },
     ]  
   }
 

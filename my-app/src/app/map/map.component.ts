@@ -25,6 +25,8 @@ export class MapComponent implements OnInit {
   longitude = 9.1455235;
   zoom: number;
   private geoCoder;
+  private placeSearch;
+  autocomplete;
 
   @ViewChild('search', {static:false})
   public searchElementRef: ElementRef;
@@ -89,62 +91,81 @@ export class MapComponent implements OnInit {
   currLocRouteLat: number;
   currLocRouteLng: number;
 
+  componentForm = {
+    street_number: 'short_name',
+    route: 'long_name',
+    locality: 'long_name',
+    administrative_area_level_1: 'short_name',
+    country: 'long_name',
+    postal_code: 'short_name'
+  };
+
  
   constructor( public restApi:RestApi, private route: ActivatedRoute, private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone ) { }
 
-  ngOnInit(): void {
-    this.oertlichkeiten = []
-    this.restApi.getOertlichkeiten()
-      .subscribe(o => {
-        console.log(o);
-        this.oertlichkeiten = o as Oertlichkeiten[];
-          for (let marker of this.oertlichkeiten.entries()) {
-            this.markers.push({ id: marker["1"].oertlichkeitenId, lat: marker["1"].latitude, lng: marker["1"].longitude, katId: marker["1"].kategorienId})
-          }
-      });
+    ngOnInit(): void {
+      this.oertlichkeiten = []
+      this.restApi.getOertlichkeiten()
+        .subscribe(o => {
+          console.log(o);
+          this.oertlichkeiten = o as Oertlichkeiten[];
+            for (let marker of this.oertlichkeiten.entries()) {
+              this.markers.push({ id: marker["1"].oertlichkeitenId, lat: marker["1"].latitude, lng: marker["1"].longitude, katId: marker["1"].kategorienId})
+            }
+        });
 
-    this.restApi.getKategorien()
-      .subscribe(k => {
-        this.kategorien = k as Kategorien[];
-      });
+      this.restApi.getKategorien()
+        .subscribe(k => {
+          this.kategorien = k as Kategorien[];
+        });
 
-    this.restApi.getMaengel()
-      .subscribe(m => {
-        this.maengel = m as Maengel[];
-    });
-    this.loadAll();
-
-    if (navigator)
-    {
-    navigator.geolocation.getCurrentPosition( pos => {
-        this.currLocRouteLng = +pos.coords.longitude;
-        this.currLocRouteLat = +pos.coords.latitude;
+      this.restApi.getMaengel()
+        .subscribe(m => {
+          this.maengel = m as Maengel[];
       });
-    }
-    //load Places Autocomplete
-    this.mapsAPILoader.load().then(() => {
-      this.setCurrentLocation();
-      this.geoCoder = new google.maps.Geocoder;
- 
-      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-        types: ["address"]
-      });
-      
-      autocomplete.addListener("place_changed", () => {
-        this.ngZone.run(() => {
-          //get the place result
-          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
- 
-          //verify result
-          if (place.geometry === undefined || place.geometry === null) {
-            return;
-          }
+      this.loadAll();
 
+      if (navigator)
+      {
+      navigator.geolocation.getCurrentPosition( pos => {
+          this.currLocRouteLng = +pos.coords.longitude;
+          this.currLocRouteLat = +pos.coords.latitude;
+        });
+      }
+      //load Places Autocomplete
+      this.mapsAPILoader.load().then(() => {
+        this.geoCoder = new google.maps.Geocoder;
+  
+        this.autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+          types: ["address"]
+        });
+
+        this. autocomplete.addListener("place_changed", () => {
+          this.ngZone.run(() => {
+            //get the place result
+            let place: google.maps.places.PlaceResult = this.autocomplete.getPlace();
+  
+            //verify result
+            if (place.geometry === undefined || place.geometry === null) {
+              
+              return;
+            }
+            this.latitude = place.geometry.location.lat();
+            this.longitude = place.geometry.location.lng();
+            this.zoom = 12;
+
+            this.showMarker(event)
+
+          });
         });
       });
-    });
-  }
+    }
+
+    showMarker($event){
+      console.log($event.coords.lat);
+      console.log($event.coords.lng);
+    }
 
       // Get Current Location Coordinates
       private setCurrentLocation() {
@@ -152,18 +173,9 @@ export class MapComponent implements OnInit {
           navigator.geolocation.getCurrentPosition((position) => {
             this.latitude = position.coords.latitude;
             this.longitude = position.coords.longitude;
-            // this.zoom = 8;
-            this.getAddress(this.latitude, this.longitude);
+            this.zoom = 8;
           });
         }
-      }
-     
-     
-      markerDragEnd($event: MouseEvent) {
-        console.log($event);
-        this.latitude = $event.coords.lat;
-        this.longitude = $event.coords.lng;
-        this.getAddress(this.latitude, this.longitude);
       }
      
       getAddress(latitude, longitude) {
@@ -175,6 +187,11 @@ export class MapComponent implements OnInit {
               this.zoom = 12;
               this.address = results[0].formatted_address;
               console.log(this.address);
+              this.strasse = results[0].address_components[1].long_name;
+              this.hausnr = results[0].address_components[0].long_name;
+        
+              this.plz = results[0].address_components[7].long_name;
+              this.ort = results[0].address_components[2].long_name;
             } else {
               window.alert('No results found');
             }
@@ -186,12 +203,12 @@ export class MapComponent implements OnInit {
       }
 
   setLocation($event){
-    if (navigator)
-    {
-    navigator.geolocation.getCurrentPosition( pos => {
+    if (navigator){
+      navigator.geolocation.getCurrentPosition( pos => {
         this.currLng = +pos.coords.longitude;
         this.currLat = +pos.coords.latitude;
       });
+      this.getAddress(this.currLat, this.currLng);
     }
   }
 
