@@ -8,8 +8,6 @@ import { Schulen } from '../Models/Schulen';
 import { Maengel } from '../Models/Meangel';
 import { RestApi } from '../RestApi/RestApi';
 import { ActivatedRoute } from '@angular/router';
-import { CookieService } from 'ngx-cookie-service';
-import { from } from 'rxjs';
 import Swal from 'sweetalert2';
 import { Politik } from '../Models/Politik';
 
@@ -91,9 +89,10 @@ export class MapComponent implements OnInit {
   currLocRouteLat: number;
   currLocRouteLng: number;
 
+ 
   constructor( public restApi:RestApi, private route: ActivatedRoute, private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone ) { }
-  
+
   ngOnInit(): void {
     this.oertlichkeiten = []
     this.restApi.getOertlichkeiten()
@@ -350,7 +349,7 @@ export class MapComponent implements OnInit {
     }
   }
 
-  save($event){
+  save(){
      this.newOertlichkeit = new Oertlichkeiten();
      //this.newOertlichkeit.longitude = $event.coord.lng;
      //this.newOertlichkeit.latitude = $event.coord.lat;
@@ -490,9 +489,9 @@ export class MapComponent implements OnInit {
     });
   }
   
-  clicked(clickEvent) {
+  clicked() {
 
-
+    
     Swal.fire('Hier könnten die Wahlergebnisse oder Vogelarten stehen');
     }
     
@@ -1010,7 +1009,7 @@ export class MapComponent implements OnInit {
     }
   } 
 
-  saveMangel(event) {
+  saveMangel() {
     console.log("Lat:" + this.currLat);
     console.log("Lng:" + this.currLng);
     var newMangel = new Maengel();
