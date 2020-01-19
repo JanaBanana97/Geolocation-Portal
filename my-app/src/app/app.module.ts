@@ -16,7 +16,7 @@ import { InputTextModule } from 'primeng/inputtext';
 import { PanelModule } from 'primeng/panel';
 import { DropdownModule } from 'primeng/dropdown';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
-import {ToolbarModule} from 'primeng/toolbar';
+import { ToolbarModule } from 'primeng/toolbar';
 
 import { AppComponent } from './app.component';
 import { LandingpageComponent } from './landingpage/landingpage.component';
@@ -62,8 +62,9 @@ import { AgmDirectionModule } from 'agm-direction';
     PanelModule, 
     ToolbarModule,   
     AgmCoreModule.forRoot({
-      //apiKey: 'AIzaSyDwL3gnt_96YgFTDLp9mW8LpYGGEaZowC8'}),
-      apiKey: 'AIzaSyDRhchsYWfmrP19D8vqm1hIWa_CwEeZcM4'}),
+      //apiKey: 'AIzaSyDwL3gnt_96YgFTDLp9mW8LpYGGEaZowC8',
+      apiKey: 'AIzaSyDRhchsYWfmrP19D8vqm1hIWa_CwEeZcM4',
+      libraries: ['geometry','places']}),
     RouterModule.forRoot([
       {path: 'data', component: DataComponent},
       {path: 'map', component: MapComponent},

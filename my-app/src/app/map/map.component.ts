@@ -15,10 +15,6 @@ import { Politik } from '../Models/Politik';
 
 import { AgmDirectionModule } from 'agm-direction';
 
-// import { google } from '@agm/core/services/google-maps-types';
-
-declare const google: any;
-
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -29,9 +25,10 @@ export class MapComponent implements OnInit {
   mapType = 'roadmap';
   latitude = 49.3527796;
   longitude = 9.1455235;
+  zoom: number;
   private geoCoder;
 
-  //@ViewChild('search')
+  @ViewChild('search', {static:false})
   public searchElementRef: ElementRef;
 
   oertlichkeiten: Oertlichkeiten[];
@@ -96,7 +93,7 @@ export class MapComponent implements OnInit {
 
   constructor( public restApi:RestApi, private route: ActivatedRoute, private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone ) { }
-
+  
   ngOnInit(): void {
     this.oertlichkeiten = []
     this.restApi.getOertlichkeiten()
@@ -126,7 +123,68 @@ export class MapComponent implements OnInit {
         this.currLocRouteLat = +pos.coords.latitude;
       });
     }
+    //load Places Autocomplete
+    this.mapsAPILoader.load().then(() => {
+      this.setCurrentLocation();
+      this.geoCoder = new google.maps.Geocoder;
+ 
+      let autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
+        types: ["address"]
+      });
+      
+      autocomplete.addListener("place_changed", () => {
+        this.ngZone.run(() => {
+          //get the place result
+          let place: google.maps.places.PlaceResult = autocomplete.getPlace();
+ 
+          //verify result
+          if (place.geometry === undefined || place.geometry === null) {
+            return;
+          }
+
+        });
+      });
+    });
   }
+
+      // Get Current Location Coordinates
+      private setCurrentLocation() {
+        if ('geolocation' in navigator) { 
+          navigator.geolocation.getCurrentPosition((position) => {
+            this.latitude = position.coords.latitude;
+            this.longitude = position.coords.longitude;
+            // this.zoom = 8;
+            this.getAddress(this.latitude, this.longitude);
+          });
+        }
+      }
+     
+     
+      markerDragEnd($event: MouseEvent) {
+        console.log($event);
+        this.latitude = $event.coords.lat;
+        this.longitude = $event.coords.lng;
+        this.getAddress(this.latitude, this.longitude);
+      }
+     
+      getAddress(latitude, longitude) {
+        this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
+          console.log(results);
+          console.log(status);
+          if (status === 'OK') {
+            if (results[0]) {
+              this.zoom = 12;
+              this.address = results[0].formatted_address;
+              console.log(this.address);
+            } else {
+              window.alert('No results found');
+            }
+          } else {
+            window.alert('Geocoder failed due to: ' + status);
+          }
+     
+        });
+      }
 
   setLocation($event){
     if (navigator)
@@ -145,6 +203,7 @@ export class MapComponent implements OnInit {
   placeMarker(lat: number, lng: number){
     this.currLng = lng;
     this.currLat = lat;
+    this.getAddress(lat, lng);
     this.display = true;
   }
 
@@ -983,13 +1042,13 @@ export class MapComponent implements OnInit {
     origin: { lat: this.currLocRouteLat, lng: this.currLocRouteLng },
     destination: {lat: this.selectedMarker.latitude, lng: this.selectedMarker.longitude }
   } 
-  }
-  else {
-    Swal.fire('Wählen Sie zuerst eine Marker aus.');
-  }
-  // this.origin = 'Taipei Main Station';
-  // this.destination = 'Taiwan Presidential Office';
-  }
 }
 
-
+//   else {
+//     Swal.fire('Wählen Sie zuerst eine Marker aus.');
+//   }
+//   // this.origin = 'Taipei Main Station';
+//   // this.destination = 'Taiwan Presidential Office';
+//   }
+// }
+}}

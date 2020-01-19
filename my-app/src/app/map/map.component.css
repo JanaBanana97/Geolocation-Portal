@@ -1,5 +1,6 @@
-agm-map { 
-  height: 450px;/* height is required */ 
+
+agm-map {
+    height: 450px;
 }
 
 #map{ height: 600px; }
