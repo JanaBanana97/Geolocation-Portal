@@ -1,4 +1,4 @@
-  <div class="p-grid">
+<div class="p-grid">
     <div class="p-col-2">
       <div class="w3-sidebar w3-light-grey w3-bar-block">
       <table class="table table-hover">
@@ -22,48 +22,46 @@
           </button>
         </table>
         <p-button label="Mangel melden" (onClick)="openMaengelMelder($event)" styleClass="ui-button-info"></p-button>
-        
+        <p-button label="Route anzeigen" (onClick)="getDirection($event)" styleClass="ui-button-info"></p-button>
+
       </div>
     </div>
-
-    <div class="p-col-10 p-align-center" style="margin-left: 200px; margin-top: 40px">
+    
+    <div class="p-col-10 p-align-center" style="margin-left: 220px">
       <div class="form-group">
-      <label>Enter address</label>
-      <input type="text" class="form-control" (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
-    </div>
+        <input type="text" class="form-control" (keydown.enter)="markerDragEnd($event)" placeholder="Adresssuche" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" #search>
+      </div>
+<div class="form-group">
       <agm-map [latitude]='latitude' [longitude]='longitude' [zoom]="14"
         [mapTypeId]='mapType' (mapClick)="placeMarker($event.coords.lat, $event.coords.lng)">
         <agm-marker
           *ngFor="let marker of markers"
           [latitude]="marker.lat"
           [longitude]="marker.lng"
-          (markerClick)="selectMarker(marker.katId, marker.id)">
+          (markerClick)="selectMarker(marker.katId, marker.id)"
+          (dragEnd)="markerDragEnd($event)">
         </agm-marker>
         <agm-data-layer 
           [geoJson]="geoJsonObject" (layerClick)="clicked($event)" [style]="styleFunc">Testeintrag 
         </agm-data-layer> 
-        <agm-info-window 
-          *ngFor="let marker of markers"
-          [disableAutoPan]="true"
-          [zIndex]="marker.id">
-          Hi, this is the content of the <strong>info window</strong>
-        </agm-info-window>
         <agm-direction 
           *ngIf="dir" [origin]="dir.origin" [destination]="dir.destination">
         </agm-direction>
+        <agm-kml-layer [url]="''"> </agm-kml-layer>
       </agm-map>
+      </div>
       <p-panel>
         <p *ngFor="let marker of infos">
           Adresse: {{marker.strasse}} {{marker.hausnummer}} {{marker.plz}} {{marker.ort}}
           <br/>
           Infos: {{marker.typ}}  {{marker.beschreibung}} {{marker.oeffnungszeiten}} {{marker.kosten}}
           <br/>
-          Lat: {{ marker.lat }} Lng: {{ marker.lng }}
+          Lat: {{ marker.lat }} Lng: {{ marker.lng }}<br/>
         </p>
-        <p-button label="Route anzeigen" (onClick)="getDirection($event)" styleClass="ui-button-info"></p-button>
-      </p-panel>
+      </p-panel>  
+      
     </div>
-  </div>
+</div>
 
 <p-dialog [(visible)]="display" [modal]="true" [style]="{width: '800px', height: '2000px'}" >
   <p-header>
@@ -82,12 +80,11 @@
     <p>Straße</p>
       <input type="text" [(ngModel)]="strasse" pInputText class="form-control input" />
     <p>Hausnummer</p>
-      <input type="text" [(ngModel)]="hausnr" pInputText class="form-control input" />
+      <input type="text" [(ngModel)]="hausnr" value="{{address}}" pInputText class="form-control input" />
     <p>Postleitzahl</p>
       <input type="text" [(ngModel)]="plz" pInputText class="form-control input" />
     <p>Ort</p>
       <input type="text" [(ngModel)]="ort" pInputText class="form-control input" /><hr/> 
-
     <p>Beschreibung</p>
       <textarea name="beschreibung" [(ngModel)]="beschreibung" mdInput rows="3" class="form-control input" ></textarea>
     <p>Typ</p>
@@ -116,9 +113,8 @@
    <!--<p> Lade ein erkennbares Foto hoch </p>
       <p-fileUpload name="myfile[]" url="./upload.php" multiple="false"
         accept="image/*" [auto]="true" (onSelect)="onSelectImage($event.files)">
-      </p-fileUpload>  <hr/>--> 
+      </p-fileUpload>  <hr/>!-->
     <p-footer>
         <p-button label="Speichern" (onClick)="saveMangel($event)" styleClass="dialog-button"></p-button>
     </p-footer>
 </p-dialog>
-      

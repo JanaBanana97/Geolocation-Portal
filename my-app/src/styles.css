@@ -2,8 +2,9 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import "~bootstrap/dist/css/bootstrap.min.css";
 
-.navbar{
-  position: fixed;
+
+.pac-container {
+  z-index: 1052 !important;
 }
 
 div.card-header {
