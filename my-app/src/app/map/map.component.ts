@@ -10,12 +10,9 @@ import { RestApi } from '../RestApi/RestApi';
 import { ActivatedRoute } from '@angular/router';
 import Swal from 'sweetalert2';
 import { Politik } from '../Models/Politik';
-<<<<<<< HEAD
-=======
 
 import { AgmDirectionModule } from 'agm-direction';
 
->>>>>>> 7638ad42144979541a61c42f63ebae9d2e4730b4
 // import { google } from '@agm/core/services/google-maps-types';
 
 declare const google: any;
@@ -95,12 +92,10 @@ export class MapComponent implements OnInit {
   currLocRouteLat: number;
   currLocRouteLng: number;
 
-<<<<<<< HEAD
-  constructor( public restApi:RestApi ) { }
-=======
+ 
   constructor( public restApi:RestApi, private route: ActivatedRoute, private mapsAPILoader: MapsAPILoader,
     private ngZone: NgZone ) { }
->>>>>>> 7638ad42144979541a61c42f63ebae9d2e4730b4
+
 
   ngOnInit(): void {
     this.oertlichkeiten = []
@@ -154,14 +149,6 @@ export class MapComponent implements OnInit {
     });
   }
 
-<<<<<<< HEAD
-  setLocation(){
-    if (navigator)
-    {
-    navigator.geolocation.getCurrentPosition( pos => {
-        this.currLng = +pos.coords.longitude;
-        this.currLat = +pos.coords.latitude;
-=======
   // setLocation($event){
   //   if (navigator)
   //   {
@@ -177,14 +164,10 @@ export class MapComponent implements OnInit {
     if ('geolocation' in navigator) {
       navigator.geolocation.getCurrentPosition((position) => {
         this.getAddress(this.latitude, this.longitude);
->>>>>>> 7638ad42144979541a61c42f63ebae9d2e4730b4
       });
     }
   }
 
-<<<<<<< HEAD
-  openMaengelMelder(){
-=======
   getAddress(latitude, longitude) {
     this.geoCoder.geocode({ 'location': { lat: latitude, lng: longitude } }, (results, status) => {
       console.log(results);
@@ -203,7 +186,6 @@ export class MapComponent implements OnInit {
   }
 
   openMaengelMelder($event){
->>>>>>> 7638ad42144979541a61c42f63ebae9d2e4730b4
     this.displayMangel = true;
   } 
   
