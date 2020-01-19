@@ -3,28 +3,22 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <!------ Include the above in your HEAD tag ---------->
 
-<div class="simple-login-container">
-    <h2>Login</h2>
-    <form (submit)="loginUser($event)">
-    <div class="row">
-        <div class="col-md-12 form-group">
-          <input type="text" id="email" class="form-control" name="email" placeholder="email" [(ngModel)]="email">
-      
-        </div>
-    </div>
-    <div class="row">
-      
-        <div class="col-md-12 form-group">
-          <input type="password" id="password" class="form-control" name="password" placeholder="password" [(ngModel)]="password">
-      
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12 form-group">
-          <input type="submit" class="btn btn-block btn-login" value="Log In">
+<div class="wrapper fadeInDown">
+  <div id="formContent">
+    <!-- Tabs Titles -->
 
-        </div>
+    <!-- Icon -->
+    <div class="fadeIn first">
+      <img src="https://www.stickpng.com/assets/images/585e4bf3cb11b227491c339a.png" id="icon" alt="User Icon" />
     </div>
-  </form>
-    
+
+    <!-- Login Form -->
+    <form (submit)="loginUser($event)">
+    <input type="text" id="email" class="fadeIn second" name="email" placeholder="email" [(ngModel)]="email">
+    <input type="password" id="password" class="fadeIn third" name="password" placeholder="password" [(ngModel)]="password">
+    <input type="submit" class="fadeIn fourth" value="Log In">
+    </form>
+  
+
+  </div>
 </div>
