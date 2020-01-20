@@ -102,7 +102,7 @@ export class MapComponent implements OnInit {
 
  
   constructor( public restApi:RestApi, private route: ActivatedRoute, private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone ) { }
+    private ngZone: NgZone ) { }q
 
     ngOnInit(): void {
       this.oertlichkeiten = []
@@ -110,9 +110,6 @@ export class MapComponent implements OnInit {
         .subscribe(o => {
           console.log(o);
           this.oertlichkeiten = o as Oertlichkeiten[];
-            for (let marker of this.oertlichkeiten.entries()) {
-              this.markers.push({ id: marker["1"].oertlichkeitenId, lat: marker["1"].latitude, lng: marker["1"].longitude, katId: marker["1"].kategorienId})
-            }
         });
 
       this.restApi.getKategorien()
@@ -123,6 +120,9 @@ export class MapComponent implements OnInit {
       this.restApi.getMaengel()
         .subscribe(m => {
           this.maengel = m as Maengel[];
+          for (let marker of this.maengel.entries()) {
+            this.markers.push({id: marker["1"].maengelID, lat: marker["1"].latitude, lng: marker["1"].longitude})
+          }
       });
       this.loadAll();
 
@@ -347,17 +347,14 @@ export class MapComponent implements OnInit {
       } 
       default: { 
         this.infos = [];
-        for (let marker of this.oertlichkeiten.entries()) {
-          if (marker["1"].oertlichkeitenId == id){
+        for (let marker of this.maengel.entries()) {
+          if (marker["1"].maengelID == id){
           this.infos.push({ 
-              oertlichkeitenId: marker["1"].oertlichkeitenId,
-              strasse: marker["1"].strasse,
-              hausnummer: marker["1"].hausnummer,
-              postleitzahl: marker["1"].postleitzahl,
-              ort: marker["1"].ort,
+              mangelId: marker["1"].maengelID,
+              beschreibung: marker["1"].beschreibung,
               lat: marker["1"].latitude, 
               lng: marker["1"].longitude,
-              kategorienId: marker["1"].kategorienId,        
+              status: marker["1"].status,        
             })
           }
           break; 
@@ -461,14 +458,15 @@ export class MapComponent implements OnInit {
 
   loadAll(){
     this.geoJsonObject = null;
+    this.latitude = 49.3527796;
+    this.longitude = 9.1455235;
     this.markers = [];
-    for (let marker of this.oertlichkeiten.entries()) {
-      this.markers.push({ id: marker["1"].oertlichkeitenId, lat: marker["1"].latitude, lng: marker["1"].longitude, katId: marker["1"].kategorienId})
-    }
   }
 
   loadSchools() {
     this.geoJsonObject = null;
+    this.latitude = 49.3527796;
+    this.longitude = 9.1455235;
     this.markers = [];
     for (let marker of this.oertlichkeiten.entries()) {
       if (marker["1"].kategorienId == 2){
@@ -484,6 +482,8 @@ export class MapComponent implements OnInit {
 
   loadHealth(){
     this.geoJsonObject = null;
+    this.latitude = 49.3527796;
+    this.longitude = 9.1455235;
     this.markers = [];
     for (let marker of this.oertlichkeiten.entries()) {
       if (marker["1"].kategorienId == 3){
@@ -507,13 +507,13 @@ export class MapComponent implements OnInit {
   }
   
   clicked() {
-
-    
     Swal.fire('Hier könnten die Wahlergebnisse oder Vogelarten stehen');
     }
     
 
   loadPolitics(){
+    this.latitude = 49.3527796;
+    this.longitude = 9.1455235;
     this.markers = [];
     for (let marker of this.oertlichkeiten.entries()) {
       if (marker["1"].kategorienId == 4){
@@ -994,6 +994,8 @@ export class MapComponent implements OnInit {
     }}
 
   loadParking(){
+    this.latitude = 49.3527796;
+    this.longitude = 9.1455235;
     this.geoJsonObject = null;
     this.markers = [];
     for (let marker of this.oertlichkeiten.entries()) {
@@ -1019,6 +1021,8 @@ export class MapComponent implements OnInit {
   }
   
   loadDefect(){
+    this.latitude = 49.3527796;
+    this.longitude = 9.1455235;
     this.geoJsonObject = null;
     this.markers = [];
     for (let marker of this.maengel.entries()) {

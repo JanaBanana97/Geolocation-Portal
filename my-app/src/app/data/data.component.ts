@@ -84,7 +84,8 @@ export class DataComponent implements OnInit {
   }
 
   loadOertlichkeiten(){
-    this.ngOnInit();    
+    this.ngOnInit(); 
+    this.removeElement();
     this.displayAll=true;
     this.restApi.getOertlichkeiten()
       .subscribe(o => {
@@ -120,12 +121,12 @@ export class DataComponent implements OnInit {
         console.log(o);
         this.oertlichkeiten = o as Oertlichkeiten[];
         new  AngularCsv(this.oertlichkeiten, "Alle Örtlichkeiten", this.csvOptions);
-      });
-      
+      });  
   }
 
   loadCategory(){
     this.ngOnInit();
+    this.removeElement();
     this.displayCategory = true;
     this.restApi.getKategorien()
       .subscribe(k => {
@@ -160,6 +161,7 @@ export class DataComponent implements OnInit {
 
   loadSchools(){
     this.ngOnInit();
+    this.removeElement();
     this.displaySchool = true;
     this.restApi.getSchulen()
       .subscribe(s => {
@@ -194,6 +196,7 @@ export class DataComponent implements OnInit {
   }
 
   loadHealth(){
+    this.removeElement();
     this.ngOnInit();
     this.displayHealth = true;
     this.restApi.getGesundheit()
@@ -231,6 +234,7 @@ export class DataComponent implements OnInit {
 
   loadPolitics(){
     this.ngOnInit();
+    this.removeElement();
     this.displayPolitic = true;
     this.restApi.getPolitik()
       .subscribe(g => {
@@ -259,6 +263,7 @@ export class DataComponent implements OnInit {
 
   loadParking(){
     this.ngOnInit();
+    this.removeElement();
     this.displayParking = true;
     this.restApi.getParkplaetze()
       .subscribe(p => {
@@ -295,6 +300,7 @@ export class DataComponent implements OnInit {
 
   loadDefect(){
     this.ngOnInit();
+    this.removeElement();
     this.displayDefect = true;
     this.restApi.getMaengel()
       .subscribe(m => {
@@ -317,6 +323,20 @@ export class DataComponent implements OnInit {
         dt.reset;
       });
   }
-
   
+  FilterUtils;['custom'] = (value, filter): boolean => {
+      if (filter === undefined || filter === null || filter.trim() === '') {
+          return true;
+      }
+
+      if (value === undefined || value === null) {
+          return false;
+      }
+      
+      return parseInt(filter) > value;
+  }
+
+  removeElement() {
+    document.getElementById("image").style.display = "none";
+  }  
 }

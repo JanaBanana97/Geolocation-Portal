@@ -51,10 +51,11 @@
       </div>
       <p-panel>
         <p *ngFor="let marker of infos">
-          Adresse: {{marker.strasse}} {{marker.hausnummer}} {{marker.plz}} {{marker.ort}}
+          Adresse/Status: {{marker.strasse}} {{marker.hausnummer}} {{marker.plz}} {{marker.ort}} {{marker.status}}
           <br/>
           Infos: {{marker.typ}}  {{marker.beschreibung}} {{marker.oeffnungszeiten}} {{marker.kosten}}
           <br/>
+
           Lat: {{ marker.lat }} Lng: {{ marker.lng }}<br/>
         </p>
       </p-panel>  

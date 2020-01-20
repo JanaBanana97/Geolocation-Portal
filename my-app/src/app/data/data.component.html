@@ -1,4 +1,4 @@
-   <div>
+<div>
     <div class="p-grid">
         <div class="p-col-2">
             <div class="w3-sidebar w3-light-grey w3-bar-block">
@@ -28,20 +28,27 @@
             </div>
         </div>
 
-        <!--<div visible="displayImg" class='p-col-10'  style="margin-left: 200px">
-            <img src="./assets/Logo2.png" alt="DAtenverwaltung" style="float:inherit;width:600px;height:600px;">
-        </div>!-->
+        <div id="image" >
+            <img class='image' src="./assets/Logo2.png" alt="Datenverwaltung">
+        </div>
 
-
-        <div visible="displayAll" class='p-col-10'  style="margin-left: 200px; margin-top: 50px">
-            <p-button label="Speichern" (onClick)="saveOrt(dt)" styleClass="dialog-button" *ngIf="this.displayAll"></p-button>
-            <p-button label="Download" (onClick)="downloadOertlichkeiten($event)" styleClass="dialog-button" *ngIf="this.displayAll"></p-button>
-            
+        <div visible="displayAll" class='p-col-10'>
+            <p-toolbar *ngIf="this.displayAll">
+                <p-button label="Speichern" (onClick)="saveOrt(dt)" *ngIf="this.displayAll"></p-button>
+                <p-button label="Download" (onClick)="downloadOertlichkeiten($event)" *ngIf="this.displayAll"></p-button>
+            </p-toolbar>
             <p-table #dt [columns]="cols" [value]="oertlichkeiten">
-                <ng-template pTemplate="header" let columns>
+                <ng-template pTemplate="caption" *ngIf="this.displayAll">
+                    <div style="text-align: right">        
+                     <i class="fa fa-search" style="margin:4px 4px 0 0"></i>
+                     <input type="text" pInputText size="50" placeholder="Global Filter" (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                    </div>
+                </ng-template>
+                <ng-template pTemplate="header" let colsOer>
                     <tr>
-                        <th *ngFor="let col of colsOer">
+                        <th *ngFor="let col of colsOer" [pSortableColumn]="col.field">
                             {{col.header}}
+                            <p-sortIcon [field]="col.field"></p-sortIcon>
                         </th>
                     </tr>
                 </ng-template>
@@ -69,7 +76,7 @@
                         <td pEditableColumn>
                             <p-cellEditor>
                                 <ng-template pTemplate="input">
-                                    <input pInputText type="text" [(ngModel)]="itemO.strasse">
+                                    <input pInputText type="text" [(ngModel)]="item.strasse">
                                 </ng-template>
                                 <ng-template pTemplate="output">
                                     {{item.strasse}}
@@ -122,9 +129,10 @@
         </div>
 
         <div visible="displayCategory" class='p-col-10' style="margin-left: 200px">
-            <p-button label="Speichern" (onClick)="saveCategory(dt)" styleClass="dialog-button" *ngIf="this.displayCategory"></p-button>
-            <p-button label="Download" (onClick)="downloadCategory($event)" styleClass="dialog-button" *ngIf="this.displayCategory"></p-button>
-            
+            <p-toolbar *ngIf="this.displayCategory">
+                <p-button label="Speichern" (onClick)="saveCategory(dt)" styleClass="dialog-button" *ngIf="this.displayCategory"></p-button>
+                <p-button label="Download" (onClick)="downloadCategory($event)" styleClass="dialog-button" *ngIf="this.displayCategory"></p-button>
+            </p-toolbar>    
             <p-table #dt [columns]="cols" [value]="kategorien">
                 <ng-template pTemplate="header" let columns>
                     <tr>
