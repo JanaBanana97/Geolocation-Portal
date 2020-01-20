@@ -7,7 +7,7 @@ import com.sun.jersey.api.core.DefaultResourceConfig;
 import com.sun.net.httpserver.HttpServer;
 
 
-public class StartServer {
+public class StartServer {		//Kommentar für Jana
 	
 	public static void main(String[] args) throws IllegalArgumentException, IOException {
 		//Filter für CORS setzen
