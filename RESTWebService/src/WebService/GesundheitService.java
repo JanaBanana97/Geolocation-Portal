@@ -19,10 +19,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.xml.ws.BindingType;
 
 import entities.Gesundheit;
-import entities.Oertlichkeiten;
 
 @Path("GesundheitService")
 public class GesundheitService {

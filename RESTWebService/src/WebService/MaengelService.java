@@ -1,8 +1,5 @@
 package WebService;
 
-import java.beans.Visibility;
-import java.io.InputStream;
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -18,19 +15,11 @@ import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import org.codehaus.jackson.map.ObjectMapper;
-
-import com.sun.jersey.core.header.FormDataContentDisposition;
-import com.sun.jersey.core.util.Base64;
-import com.sun.jersey.multipart.FormDataParam;
-
 import entities.Maengel;
-import entities.Schulen;
 
 @Path("MaengelService")
 public class MaengelService {
