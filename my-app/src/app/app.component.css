@@ -1,10 +1,12 @@
 .nav-link {
     font-size: large;
     cursor: pointer;
+    position: sticky;
   }
   
   .navbar-light .navbar-nav .nav-link.active {
-    color: #007ACC
+    color: #007ACC;
+    
   }
   
   .container-fluid {
@@ -45,4 +47,4 @@
       }
   }
 
-  
+ 
