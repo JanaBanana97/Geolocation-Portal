@@ -96,10 +96,13 @@ export class RestApi{
     }
 
     putMaengel(items: Maengel[]): Observable<Maengel[]>{
-        
+        if (this.cookie.check('email') == true){
         let url = this.apiUrl + "/MaengelService/updateMangel";
         Swal.fire('Wuhuuu', 'Datensatz erfolgreich angelegt', 'success');
-        return this.http.put<Maengel[]>(url, items);
+        return this.http.put<Maengel[]>(url, items);}
+        else{
+            Swal.fire('Mission failed', 'Sie müssen eingeloggt sein, um dies ausführen zu können', 'error');
+        }
     }
 
     postMangel(item: Maengel): Observable<Maengel>{  
