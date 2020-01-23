@@ -1,23 +1,44 @@
-<!-- Full Page Intro -->
-  <div class="view" style="background-image: url('./assets/Mosbach.jpg'); background-repeat: no-repeat; background-size: cover; background-position: center center;">
-    <!-- Mask & flexbox options-->
-    <div class="mask rgba-purple-slight d-flex justify-content-center align-items-center">
-      <!-- Content -->
-      <div class="container">
-        <!--Grid row-->
-        <div class="row wow fadeIn">
-          <!--Grid column-->
-          <div class="col-md-12 text-center">
-            <h1 class="display-4 font-weight-bold mb-0 pt-md-5 pt-5 wow fadeInUp">Geolocation Portal</h1>
-            <h5 class="pt-md-5 pt-sm-2 pt-5 pb-md-5 pb-sm-3 pb-5 wow fadeInUp" data-wow-delay="0.2s">Willkommen
-            zu Mosbachs Open Data Portal</h5>
-          </div>
-          <!--Grid column-->
-        </div>
-        <!--Grid row-->
-      </div>
-      <!-- Content -->
+
+<ngb-carousel #carousel interval="2000" [pauseOnHover]="pauseOnHover" (slide)="onSlide($event)">  
+  <ng-template ngbSlide>
+    <a href="" target="_blank" rel="nofollow noopener noreferrer">  
+    <div class="picsum-img-wrapper">
+      <img src="../assets/Images/Mosbach.jpg" alt="Mosbach" class="d-block w-100">  
     </div>
-    <!-- Mask & flexbox options-->
-  </div>
-  <!-- Full Page Intro -->
+    </a>
+      <div class="carousel-caption">  
+          <h3 style="color: rgb(255, 255, 255)">Historische Altstadt</h3>  
+      </div>  
+  </ng-template>  
+  <ng-template ngbSlide>
+    <a href="" target="_blank" rel="nofollow noopener noreferrer">  
+    <div class="picsum-img-wrapper">
+      <img src="../assets/Images/m2.jpg" alt="Mosbach" class="d-block w-100">  
+    </div>
+    </a>
+      <div class="carousel-caption">  
+          <h3 style="color: rgb(255, 255, 255)">Wandern in und um Mosbach herum</h3>  
+      </div>  
+  </ng-template> 
+  <ng-template ngbSlide>
+    <a href="" target="_blank" rel="nofollow noopener noreferrer">  
+    <div class="picsum-img-wrapper">
+      <img src="https://immo-casa.de/wp-content/uploads/2019/08/Bauplatz-Stadtlengsfeld1.jpg" alt="Mosbach" class="d-block w-100">  
+    </div>
+    </a>
+      <div class="carousel-caption">  
+          <h3 style="color: rgb(255, 255, 255)">Bauplätze in Mosbach</h3>  
+      </div>  
+  </ng-template> 
+  <ng-template ngbSlide>
+    <a href="" target="_blank" rel="nofollow noopener noreferrer">  
+    <div class="picsum-img-wrapper">
+      <img src="http://digital-banking-studieren.de/wp-content/uploads/2018/04/img_1599-1280x643.jpg" alt="Mosbach" class="d-block w-100">  
+    </div>
+    </a>
+      <div class="carousel-caption">  
+          <h3 style="color: rgb(255, 255, 255)">Studieren in Mosbach</h3>  
+      </div>  
+  </ng-template> 
+   
+</ngb-carousel>  

@@ -457,7 +457,7 @@ export class MapComponent implements OnInit {
   }
 
   loadAll(){
-    this.geoJsonObject = null;
+    //this.geoJsonObject = null;
     this.latitude = 49.3527796;
     this.longitude = 9.1455235;
     this.markers = [];

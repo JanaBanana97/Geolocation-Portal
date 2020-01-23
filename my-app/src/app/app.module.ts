@@ -31,6 +31,7 @@ import { LoginComponent } from './login/login.component';
 import { CookieService } from 'ngx-cookie-service';
 import { LogoutComponent } from './logout/logout.component';
 import { AgmDirectionModule } from 'agm-direction';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -45,6 +46,7 @@ import { AgmDirectionModule } from 'agm-direction';
   ],
   imports: [
     BrowserModule,
+    NgbModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     AgmDirectionModule,
