@@ -41,7 +41,7 @@
           (markerClick)="selectMarker(marker.katId, marker.id)">
         </agm-marker>
         <agm-data-layer 
-          [geoJson]="geoJsonObject" (layerClick)="clicked($event)" [style]="styleFunc">Testeintrag 
+          [geoJson]="geoJsonObject" (layerClick)="clicked()" [style]="styleFunc">Testeintrag 
         </agm-data-layer> 
         <agm-direction 
           *ngIf="dir" [origin]="dir.origin" [destination]="dir.destination">

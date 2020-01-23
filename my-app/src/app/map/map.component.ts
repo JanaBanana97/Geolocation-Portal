@@ -12,6 +12,9 @@ import Swal from 'sweetalert2';
 import { Politik } from '../Models/Politik';
 
 import { AgmDirectionModule } from 'agm-direction';
+import { style } from '@angular/animations';
+import { analyzeAndValidateNgModules } from '@angular/compiler';
+import { FormArrayName } from '@angular/forms';
 
 @Component({
   selector: 'app-map',
@@ -91,6 +94,12 @@ export class MapComponent implements OnInit {
   currLocRouteLat: number;
   currLocRouteLng: number;
 
+  clickable: true;
+    fillColor: any;
+    strokeColor: "FF0000";
+    strokeWeight: 1;
+    cat: any;
+
   componentForm = {
     street_number: 'short_name',
     route: 'long_name',
@@ -99,6 +108,7 @@ export class MapComponent implements OnInit {
     country: 'long_name',
     postal_code: 'short_name'
   };
+  feature: any;
 
  
   constructor( public restApi:RestApi, private route: ActivatedRoute, private mapsAPILoader: MapsAPILoader,
@@ -461,6 +471,346 @@ export class MapComponent implements OnInit {
     this.latitude = 49.3527796;
     this.longitude = 9.1455235;
     this.markers = [];
+
+    this.geoJsonObject = {
+      "type": "FeatureCollection",
+      "features": [
+        {
+          "type": "Feature",
+          "properties": {
+            "color": "#F26666",
+            "cat": "bauplatz",
+          },
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  9.15783405303955,
+                  49.358018593272206
+                ],
+                [
+                  9.157297611236572,
+                  49.35750147731251
+                ],
+                [
+                  9.156181812286377,
+                  49.356341440651214
+                ],
+                [
+                  9.155452251434326,
+                  49.35460832285959
+                ],
+                [
+                  9.156696796417236,
+                  49.35369980929853
+                ],
+                [
+                  9.157876968383789,
+                  49.353448217960896
+                ],
+                [
+                  9.158434867858887,
+                  49.35328048968759
+                ],
+                [
+                  9.159078598022461,
+                  49.35291707646668
+                ],
+                [
+                  9.161374568939209,
+                  49.35361594566232
+                ],
+                [
+                  9.160623550415039,
+                  49.35403526241361
+                ],
+                [
+                  9.1605806350708,
+                  49.35472013875353
+                ],
+                [
+                  9.16036605834961,
+                  49.355474889388965
+                ],
+                [
+                  9.161181449890135,
+                  49.35666289933394
+                ],
+                [
+                  9.160923957824707,
+                  49.35748750113005
+                ],
+                [
+                  9.15987253189087,
+                  49.358060521354965
+                ],
+                [
+                  9.158906936645508,
+                  49.35832606504904
+                ],
+                [
+                  9.15860652923584,
+                  49.35842389657491
+                ],
+                [
+                  9.15783405303955,
+                  49.358018593272206
+                ]
+              ]
+            ]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "color": "#C5FA8C",
+            "cat": "bauplatz",
+          },
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  9.15560245513916,
+                  49.35013547866613
+                ],
+                [
+                  9.15530204772949,
+                  49.34978602058529
+                ],
+                [
+                  9.155344963073729,
+                  49.349352689117545
+                ],
+                [
+                  9.155409336090088,
+                  49.34875161011731
+                ],
+                [
+                  9.155945777893066,
+                  49.34868171673371
+                ],
+                [
+                  9.157147407531738,
+                  49.34858386582981
+                ],
+                [
+                  9.15761947631836,
+                  49.34841612097037
+                ],
+                [
+                  9.158391952514648,
+                  49.34837418466615
+                ],
+                [
+                  9.159035682678223,
+                  49.348472035987086
+                ],
+                [
+                  9.159808158874512,
+                  49.34854192966857
+                ],
+                [
+                  9.160430431365967,
+                  49.34876558878213
+                ],
+                [
+                  9.160881042480469,
+                  49.34884946068756
+                ],
+                [
+                  9.161825180053711,
+                  49.3489612896724
+                ],
+                [
+                  9.162704944610596,
+                  49.34901720406952
+                ],
+                [
+                  9.16332721710205,
+                  49.349101075545974
+                ],
+                [
+                  9.163262844085693,
+                  49.349436560022085
+                ],
+                [
+                  9.162983894348145,
+                  49.34975806383159
+                ],
+                [
+                  9.162425994873047,
+                  49.349855912400045
+                ],
+                [
+                  9.161481857299805,
+                  49.34989784744125
+                ],
+                [
+                  9.159743785858153,
+                  49.34988386909815
+                ],
+                [
+                  9.159057140350342,
+                  49.34999569573167
+                ],
+                [
+                  9.158048629760742,
+                  49.35014945693771
+                ],
+                [
+                  9.156653881072998,
+                  49.35031719588712
+                ],
+                [
+                  9.155817031860352,
+                  49.350219348236145
+                ],
+                [
+                  9.15560245513916,
+                  49.35013547866613
+                ]
+              ]
+            ]
+          }
+        },
+        {
+          "type": "Feature",
+          "properties": {
+            "color": "#F4A224",
+            "cat": "bauplatz",
+          },
+          "geometry": {
+            "type": "Polygon",
+            "coordinates": [
+              [
+                [
+                  9.148832559585571,
+                  49.348108587242585
+                ],
+                [
+                  9.148521423339842,
+                  49.347898904053274
+                ],
+                [
+                  9.148306846618652,
+                  49.34772416737953
+                ],
+                [
+                  9.147952795028687,
+                  49.34752147206047
+                ],
+                [
+                  9.147523641586304,
+                  49.347353723578706
+                ],
+                [
+                  9.147008657455444,
+                  49.34719995363467
+                ],
+                [
+                  9.14660096168518,
+                  49.34704618321001
+                ],
+                [
+                  9.146804809570312,
+                  49.34678057861727
+                ],
+                [
+                  9.146922826766968,
+                  49.3467106824335
+                ],
+                [
+                  9.147319793701172,
+                  49.346794557842124
+                ],
+                [
+                  9.147652387619019,
+                  49.34691338109288
+                ],
+                [
+                  9.14786696434021,
+                  49.34688542270674
+                ],
+                [
+                  9.148145914077759,
+                  49.34678756823019
+                ],
+                [
+                  9.14837121963501,
+                  49.34678057861727
+                ],
+                [
+                  9.14861798286438,
+                  49.34678057861727
+                ],
+                [
+                  9.148929119110107,
+                  49.346843485097786
+                ],
+                [
+                  9.149068593978882,
+                  49.346955318642294
+                ],
+                [
+                  9.149090051651001,
+                  49.3471020997837
+                ],
+                [
+                  9.149197340011597,
+                  49.347283828209164
+                ],
+                [
+                  9.149315357208252,
+                  49.34743060837052
+                ],
+                [
+                  9.149540662765503,
+                  49.34760534608687
+                ],
+                [
+                  9.149733781814575,
+                  49.347626314571144
+                ],
+                [
+                  9.149765968322754,
+                  49.34768223048546
+                ],
+                [
+                  9.149733781814575,
+                  49.3478429883852
+                ],
+                [
+                  9.149690866470337,
+                  49.347961809103886
+                ],
+                [
+                  9.149680137634277,
+                  49.34807364010642
+                ],
+                [
+                  9.14960503578186,
+                  49.348171492025095
+                ],
+                [
+                  9.149293899536133,
+                  49.34822041791147
+                ],
+                [
+                  9.148982763290405,
+                  49.348171492025095
+                ],
+                [
+                  9.148832559585571,
+                  49.348108587242585
+                ]
+              ]
+            ]
+          }
+        }
+      ]
+    }
   }
 
   loadSchools() {
@@ -496,20 +846,32 @@ export class MapComponent implements OnInit {
       });
       this.currentSelectedMarkers = "Health";
   }
-  styleFunc(feature) {
+  styleFunc(feature, event) {
+    console.log(feature.getProperty('cat'));
     
     return ({
+      
     clickable: true,
     fillColor: feature.getProperty('color'),
     strokeColor: "FF0000",
-    strokeWeight: 1
-    });
+    strokeWeight: 1,
+    cat: feature.getProperty('cat')
+    
+    })
+    
   }
   
   clicked() {
-    Swal.fire('Hier könnten die Wahlergebnisse oder Vogelarten stehen');
+    console.log(this.feature.getProperty('cat'));
+    if(this.feature.getProperty('cat') === 'bauplatz'){
+      Swal.fire("test");
+    }
+    else{
+      Swal.fire("nope");
     }
     
+  //////////////////////////////////////////////////////// was muss ich tun???
+  }
 
   loadPolitics(){
     this.latitude = 49.3527796;
@@ -531,6 +893,7 @@ export class MapComponent implements OnInit {
           "type": "Feature",
           "properties": {
             "color": "#F4A224",
+            "cat": "politik",
           },
           "geometry": {
             "type": "Polygon",
@@ -604,6 +967,7 @@ export class MapComponent implements OnInit {
           "type": "Feature",
           "properties": {
             "color": "#E8E2DA",
+            "cat": "politik",
           },
           "geometry": {
             "type": "Polygon",
@@ -669,6 +1033,7 @@ export class MapComponent implements OnInit {
           "type": "Feature",
           "properties": {
             "color": "#2FEBEE",
+            "cat": "politik",
           },
           "geometry": {
             "type": "Polygon",
@@ -738,6 +1103,7 @@ export class MapComponent implements OnInit {
           "type": "Feature",
           "properties": {
             "color": "#F23F70",
+            "cat": "politik",
           },
           "geometry": {
             "type": "Polygon",
@@ -815,6 +1181,7 @@ export class MapComponent implements OnInit {
           "type": "Feature",
           "properties": {
             "color": "#EFFE01",
+            "cat": "politik",
           },
           "geometry": {
             "type": "Polygon",
@@ -892,6 +1259,7 @@ export class MapComponent implements OnInit {
           "type": "Feature",
           "properties": {
             "color": "#E8E2DA",
+            "cat": "politik",
           },
           "geometry": {
             "type": "Polygon",
@@ -941,6 +1309,7 @@ export class MapComponent implements OnInit {
           "type": "Feature",
           "properties": {
             "color": "#E8E2DA",
+            "cat": "politik",
           },
           "geometry": {
             "type": "Polygon",
