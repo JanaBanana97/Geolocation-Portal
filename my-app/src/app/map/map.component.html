@@ -17,6 +17,9 @@
           <button class="w3-bar-item w3-button" (click)="loadParking()">
             Parkplätze
           </button>
+          <button class="w3-bar-item w3-button" (click)="loadBauplaetze()"> 
+            Bauplätze
+          </button>
           <button class="w3-bar-item w3-button" (click)="loadDefect()"> 
             Mängel
           </button>
@@ -41,7 +44,7 @@
           (markerClick)="selectMarker(marker.katId, marker.id)">
         </agm-marker>
         <agm-data-layer 
-          [geoJson]="geoJsonObject" (layerClick)="clicked()" [style]="styleFunc">Testeintrag 
+          [geoJson]="geoJsonObject" (layerClick)="clicked($event)" [style]="styleFunc"> 
         </agm-data-layer> 
         <agm-direction 
           *ngIf="dir" [origin]="dir.origin" [destination]="dir.destination">
