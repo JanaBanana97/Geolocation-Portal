@@ -88,7 +88,7 @@ export class MapComponent implements OnInit {
 
   file: File;
   uploadedFile: any[] = [];
-
+  
   geoJsonObject: any;
   dir: any;
   currLocRouteLat: number;
@@ -121,7 +121,7 @@ export class MapComponent implements OnInit {
           console.log(o);
           this.oertlichkeiten = o as Oertlichkeiten[];
         });
-
+        
       this.restApi.getKategorien()
         .subscribe(k => {
           this.kategorien = k as Kategorien[];
@@ -472,7 +472,127 @@ export class MapComponent implements OnInit {
     this.longitude = 9.1455235;
     this.markers = [];
 
-    this.geoJsonObject = {
+    
+  }
+
+  loadSchools() {
+    this.geoJsonObject = null;
+    this.latitude = 49.3527796;
+    this.longitude = 9.1455235;
+    this.markers = [];
+    for (let marker of this.oertlichkeiten.entries()) {
+      if (marker["1"].kategorienId == 2){
+       this.markers.push({ id: marker["1"].oertlichkeitenId, lat: marker["1"].latitude, lng: marker["1"].longitude, katId: marker["1"].kategorienId})
+      }
+    }
+    this.restApi.getSchulen()
+      .subscribe( s => {
+        this.schulen = s as Schulen[];
+      });
+      this.currentSelectedMarkers = "Schools";
+  }
+
+  loadHealth(){
+    this.geoJsonObject = null;
+    this.latitude = 49.3527796;
+    this.longitude = 9.1455235;
+    this.markers = [];
+    for (let marker of this.oertlichkeiten.entries()) {
+      if (marker["1"].kategorienId == 3){
+       this.markers.push({ id: marker["1"].oertlichkeitenId, lat: marker["1"].latitude, lng: marker["1"].longitude, katId: marker["1"].kategorienId})
+      }
+    }
+    this.restApi.getGesundheit()
+      .subscribe( g => {
+        this.gesundheit = g as Gesundheit[];
+      });
+      this.currentSelectedMarkers = "Health";
+  }
+  styleFunc(feature, event) {
+    console.log(feature.getProperty('cat'));
+    
+    return ({
+      
+    clickable: true,
+    fillColor: feature.getProperty('color'),
+    strokeColor: "FF0000",
+    strokeWeight: 1,
+    cat: feature.getProperty('cat')
+    
+    })
+    
+  }
+  
+  clicked(clickEvent: any): void {
+    console.log('Click Event Detected');
+        
+
+        console.log(clickEvent.feature.getId());
+        clickEvent.feature.forEachProperty(p =>{
+          console.log(p);
+        });
+        console.log(clickEvent.feature.getProperty("cat"));
+        console.log(clickEvent.feature.getProperty("color"));
+
+
+
+    if(clickEvent.feature.getProperty("cat") === 'bauplatz'){
+      Swal.fire({
+        icon: 'info',
+        html:
+          'Weitere Informationen zu Bauplätzen entnehmen Sie bitte dem ' +
+          '<a href="https://www.mosbach.de/Bauen_Wohnen-p-2161.html">Bürgerportal</a> ',  
+        
+        focusConfirm: true,
+        
+      })
+    }
+    else if(clickEvent.feature.getProperty("cat") === 'zone1'){
+      Swal.fire({
+        icon: 'info',
+        html:
+          'Weitere Informationen zu den Wahlen entnehmen Sie bitte dem ' +
+          '<a href="https://www.kommunalwahl-bw.de/uploads/tx_flexslider/VRS_Sitzverteilung_01.png">Bürgerportal</a> ',  
+        
+        focusConfirm: true,
+        
+      })
+
+    }
+    else if(clickEvent.feature.getProperty("cat") === 'zone2'){
+      Swal.fire({
+        icon: 'info',
+        imageUrl: 'https://www.rnz.de/cms_media/module_img/802/401109_1_org_KW_Mosbach_2.jpg',
+        html:
+          'Weitere Informationen zu den Wahlen entnehmen Sie bitte dem ' +
+          '<a href="https://wahlen.iteos.de/AGS225058/bilder/empty.gif">Bürgerportal</a> ',  
+        
+        focusConfirm: true,
+        
+      })
+
+    }
+    else{
+      Swal.fire({
+        icon: 'info',
+        imageUrl: 'https://www.rnz.de/cms_media/module_img/800/400111_1_org_KW_Kreistagswahl_NOK_Sitzverteilung.jpg',
+        html:
+          'Weitere Informationen zu den Wahlen entnehmen Sie bitte dem ' +
+          '<a href="https://www.mosbach.de/Wahlen.html">Bürgerportal</a> ',   
+        focusConfirm: true,
+        
+      })
+    }
+ 
+  }
+  loadBauplaetze(){
+    this.latitude = 49.3527796;
+    this.longitude = 9.1455235;
+    this.markers = [];
+    
+    
+      //this.geoJson;
+    this.geoJsonObject ={
       "type": "FeatureCollection",
       "features": [
         {
@@ -810,67 +930,7 @@ export class MapComponent implements OnInit {
           }
         }
       ]
-    }
-  }
-
-  loadSchools() {
-    this.geoJsonObject = null;
-    this.latitude = 49.3527796;
-    this.longitude = 9.1455235;
-    this.markers = [];
-    for (let marker of this.oertlichkeiten.entries()) {
-      if (marker["1"].kategorienId == 2){
-       this.markers.push({ id: marker["1"].oertlichkeitenId, lat: marker["1"].latitude, lng: marker["1"].longitude, katId: marker["1"].kategorienId})
-      }
-    }
-    this.restApi.getSchulen()
-      .subscribe( s => {
-        this.schulen = s as Schulen[];
-      });
-      this.currentSelectedMarkers = "Schools";
-  }
-
-  loadHealth(){
-    this.geoJsonObject = null;
-    this.latitude = 49.3527796;
-    this.longitude = 9.1455235;
-    this.markers = [];
-    for (let marker of this.oertlichkeiten.entries()) {
-      if (marker["1"].kategorienId == 3){
-       this.markers.push({ id: marker["1"].oertlichkeitenId, lat: marker["1"].latitude, lng: marker["1"].longitude, katId: marker["1"].kategorienId})
-      }
-    }
-    this.restApi.getGesundheit()
-      .subscribe( g => {
-        this.gesundheit = g as Gesundheit[];
-      });
-      this.currentSelectedMarkers = "Health";
-  }
-  styleFunc(feature, event) {
-    console.log(feature.getProperty('cat'));
-    
-    return ({
-      
-    clickable: true,
-    fillColor: feature.getProperty('color'),
-    strokeColor: "FF0000",
-    strokeWeight: 1,
-    cat: feature.getProperty('cat')
-    
-    })
-    
-  }
-  
-  clicked() {
-    console.log(this.feature.getProperty('cat'));
-    if(this.feature.getProperty('cat') === 'bauplatz'){
-      Swal.fire("test");
-    }
-    else{
-      Swal.fire("nope");
-    }
-    
-  //////////////////////////////////////////////////////// was muss ich tun???
+    };
   }
 
   loadPolitics(){
@@ -886,6 +946,7 @@ export class MapComponent implements OnInit {
       .subscribe( g => {
         this.politik = g as Politik[];
       });
+      //this.geoJson;
     this.geoJsonObject = {
       "type": "FeatureCollection",
       "features": [
@@ -893,7 +954,7 @@ export class MapComponent implements OnInit {
           "type": "Feature",
           "properties": {
             "color": "#F4A224",
-            "cat": "politik",
+            "cat": "zone1",
           },
           "geometry": {
             "type": "Polygon",
@@ -967,7 +1028,7 @@ export class MapComponent implements OnInit {
           "type": "Feature",
           "properties": {
             "color": "#E8E2DA",
-            "cat": "politik",
+            "cat": "zone1",
           },
           "geometry": {
             "type": "Polygon",
@@ -1033,7 +1094,7 @@ export class MapComponent implements OnInit {
           "type": "Feature",
           "properties": {
             "color": "#2FEBEE",
-            "cat": "politik",
+            "cat": "zone2",
           },
           "geometry": {
             "type": "Polygon",
@@ -1103,7 +1164,7 @@ export class MapComponent implements OnInit {
           "type": "Feature",
           "properties": {
             "color": "#F23F70",
-            "cat": "politik",
+            "cat": "zone3",
           },
           "geometry": {
             "type": "Polygon",
@@ -1181,7 +1242,7 @@ export class MapComponent implements OnInit {
           "type": "Feature",
           "properties": {
             "color": "#EFFE01",
-            "cat": "politik",
+            "cat": "zone4",
           },
           "geometry": {
             "type": "Polygon",
