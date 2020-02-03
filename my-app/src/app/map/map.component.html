@@ -41,6 +41,7 @@
           *ngFor="let marker of markers"
           [latitude]="marker.lat"
           [longitude]="marker.lng"
+          [iconUrl]="marker.url"
           (markerClick)="selectMarker(marker.katId, marker.id)">
         </agm-marker>
         <agm-data-layer 
@@ -52,21 +53,20 @@
         <agm-kml-layer [url]="''"> </agm-kml-layer>
       </agm-map>
       </div>
-      <p-panel>
+      <p-card>
         <p *ngFor="let marker of infos">
-          Adresse/Status: {{marker.strasse}} {{marker.hausnummer}} {{marker.plz}} {{marker.ort}} {{marker.status}}
+          Adresse: {{marker.strasse}} {{marker.hausnummer}} {{marker.plz}} {{marker.ort}} 
           <br/>
           Infos: {{marker.typ}}  {{marker.beschreibung}} {{marker.oeffnungszeiten}} {{marker.kosten}}
           <br/>
-
-          Lat: {{ marker.lat }} Lng: {{ marker.lng }}<br/>
+          Status: {{marker.status}}
         </p>
-      </p-panel>  
+      </p-card>  
       
     </div>
 </div>
 
-<p-dialog [(visible)]="display" [modal]="true" [style]="{width: '800px', height: '2000px'}" >
+<p-dialog [(visible)]="display" [modal]="true" styleClass="dialog">
   <p-header>
       Marker hinzufügen
   </p-header>
@@ -101,13 +101,12 @@
   </p-footer>  
 </p-dialog>
 
-<p-dialog [(visible)]="displayMangel" [modal]="true" [style]="{width: '800px', height: '2000px'}">
+<p-dialog [(visible)]="displayMangel" [modal]="true" styleClass="dialog">
     <p-header>
       Mangel melden
     </p-header>
-    <p> Koordinaten der gewählten Position sind: </p>
-    <p *ngIf="currLng, currLat"> Längengrad: {{currLng}} Breitengrad: {{currLat}}</p>  
     <p> Koordinaten auf aktuellen Standort setzen </p>
+    <p *ngIf="currLng, currLat"> Längengrad: {{currLng}} Breitengrad: {{currLat}}</p>  
     <p-button label="aktueller Standort" (onClick)="setLocation($event)" styleClass="ui-button-info"></p-button><hr/>
       
     <p> Beschreibung des Mangels </p>

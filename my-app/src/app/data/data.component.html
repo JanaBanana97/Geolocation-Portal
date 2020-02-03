@@ -155,9 +155,10 @@
         </div> 
 
         <div visible="displaySchool" class='p-col-10' style="margin-left: 200px">
-            <p-button label="Speichern" (onClick)="saveSchool(dt)" styleClass="dialog-button" *ngIf="this.displaySchool"></p-button>
-            <p-button label="Download" (onClick)="downloadSchool($event)" styleClass="dialog-button" *ngIf="this.displaySchool"></p-button>
-            
+            <p-toolbar *ngIf="displaySchool">
+                <p-button label="Speichern" (onClick)="saveSchool(dt)" styleClass="dialog-button" *ngIf="this.displaySchool"></p-button>
+                <p-button label="Download" (onClick)="downloadSchool($event)" styleClass="dialog-button" *ngIf="this.displaySchool"></p-button>
+            </p-toolbar>    
             <p-table #dt [columns]="cols" [value]="schulen">
                 <ng-template pTemplate="header" let columns>
                     <tr>
@@ -200,9 +201,10 @@
         </div> 
 
         <div visible="displayHealth" class='p-col-10' style="margin-left: 200px">
-            <p-button label="Speichern" (onClick)="saveGesundheit(dt)" styleClass="dialog-button" *ngIf="this.displayHealth"></p-button>
-            <p-button label="Download" (onClick)="downloadHealth($event)" styleClass="dialog-button" *ngIf="this.displayHealth"></p-button>
-            
+            <p-toolbar *ngIf="displayHealth">
+                <p-button label="Speichern" (onClick)="saveGesundheit(dt)" styleClass="dialog-button" *ngIf="this.displayHealth"></p-button>
+                <p-button label="Download" (onClick)="downloadHealth($event)" styleClass="dialog-button" *ngIf="this.displayHealth"></p-button>
+            </p-toolbar>
             <p-table #dt [columns]="cols" [value]="gesundheit">
                 <ng-template pTemplate="header" let columns>
                     <tr>
@@ -245,8 +247,10 @@
         </div> 
 
         <div visible="displayPolitic" class='p-col-10' style="margin-left: 200px">
-            <p-button label="Speichern" (onClick)="savePolitic(dt)" styleClass="dialog-button" *ngIf="this.displayPolitic"></p-button>
-            <p-button label="Download" (onClick)="downloadPolitics($event)" styleClass="dialog-button" *ngIf="this.displayPolitic"></p-button>
+            <p-toolbar *ngIf="displayPolitic">
+                <p-button label="Speichern" (onClick)="savePolitic(dt)" styleClass="dialog-button" *ngIf="this.displayPolitic"></p-button>
+                <p-button label="Download" (onClick)="downloadPolitics($event)" styleClass="dialog-button" *ngIf="this.displayPolitic"></p-button>
+            </p-toolbar>
         <div class="ui-table-wrapper">
             <p-table #dt [columns]="cols" [value]="politik">
                 <ng-template pTemplate="header" let columns>
@@ -291,9 +295,10 @@
         </div> 
 
         <div visible="displayParking" class='p-col-10' style="margin-left: 200px">
-            <p-button label="Speichern" (onClick)="savePark(dt)" styleClass="dialog-button" *ngIf="this.displayParking"></p-button>
-            <p-button label="Download" (onClick)="downloadParking($event)" styleClass="dialog-button" *ngIf="this.displayParking"></p-button>
-            
+            <p-toolbar *ngIf="displayParking">
+                <p-button label="Speichern" (onClick)="savePark(dt)" styleClass="dialog-button" *ngIf="this.displayParking"></p-button>
+                <p-button label="Download" (onClick)="downloadParking($event)" styleClass="dialog-button" *ngIf="this.displayParking"></p-button>
+            </p-toolbar>    
             <p-table #dt [columns]="cols" [value]="parken">
                 <ng-template pTemplate="header" let columns>
                     <tr>
@@ -346,8 +351,9 @@
         </div>     
 
         <div visible="displayDefect" class='p-col-10' style="margin-left: 200px">
-            <p-button label="Speichern" (onClick)="saveMangel(dt)" styleClass="dialog-button" *ngIf="this.displayDefect"></p-button>
-            
+            <p-toolbar *ngIf="displayDefect">
+                <p-button label="Speichern" (onClick)="saveMangel(dt)" styleClass="dialog-button" *ngIf="this.displayDefect"></p-button>
+            </p-toolbar>        
             <p-table #dt [columns]="cols" [value]="maengel">
                 <ng-template pTemplate="header" let columns>
                     <tr>

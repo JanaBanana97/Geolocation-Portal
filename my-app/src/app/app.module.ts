@@ -14,6 +14,7 @@ import { DialogModule } from 'primeng/dialog';
 import { FileUploadModule } from 'primeng/fileupload';
 import { InputTextModule } from 'primeng/inputtext';
 import { PanelModule } from 'primeng/panel';
+import { CardModule } from 'primeng/card';
 import { DropdownModule } from 'primeng/dropdown';
 import { SweetAlert2Module } from '@sweetalert2/ngx-sweetalert2';
 import { ToolbarModule } from 'primeng/toolbar';
@@ -32,6 +33,7 @@ import { CookieService } from 'ngx-cookie-service';
 import { LogoutComponent } from './logout/logout.component';
 import { AgmDirectionModule } from 'agm-direction';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { from } from 'rxjs';
 
 
 @NgModule({
@@ -62,6 +64,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     InputTextModule,
     DropdownModule,
     PanelModule, 
+    CardModule,
     ToolbarModule,   
     AgmCoreModule.forRoot({
       //apiKey: 'AIzaSyDwL3gnt_96YgFTDLp9mW8LpYGGEaZowC8',

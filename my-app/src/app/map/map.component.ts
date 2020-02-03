@@ -131,7 +131,8 @@ export class MapComponent implements OnInit {
         .subscribe(m => {
           this.maengel = m as Maengel[];
           for (let marker of this.maengel.entries()) {
-            this.markers.push({id: marker["1"].maengelID, lat: marker["1"].latitude, lng: marker["1"].longitude})
+            this.markers.push({id: marker["1"].maengelID, lat: marker["1"].latitude, lng: marker["1"].longitude, 
+            url: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'})
           }
       });
       this.loadAll();
@@ -482,7 +483,8 @@ export class MapComponent implements OnInit {
     this.markers = [];
     for (let marker of this.oertlichkeiten.entries()) {
       if (marker["1"].kategorienId == 2){
-       this.markers.push({ id: marker["1"].oertlichkeitenId, lat: marker["1"].latitude, lng: marker["1"].longitude, katId: marker["1"].kategorienId})
+       this.markers.push({ id: marker["1"].oertlichkeitenId, lat: marker["1"].latitude, lng: marker["1"].longitude, 
+       katId: marker["1"].kategorienId, url: 'http://maps.google.com/mapfiles/ms/icons/blue-dot.png'})
       }
     }
     this.restApi.getSchulen()
@@ -499,7 +501,8 @@ export class MapComponent implements OnInit {
     this.markers = [];
     for (let marker of this.oertlichkeiten.entries()) {
       if (marker["1"].kategorienId == 3){
-       this.markers.push({ id: marker["1"].oertlichkeitenId, lat: marker["1"].latitude, lng: marker["1"].longitude, katId: marker["1"].kategorienId})
+       this.markers.push({ id: marker["1"].oertlichkeitenId, lat: marker["1"].latitude, lng: marker["1"].longitude,
+       katId: marker["1"].kategorienId, url: 'http://maps.google.com/mapfiles/ms/icons/pink-dot.png'})
       }
     }
     this.restApi.getGesundheit()
@@ -939,7 +942,8 @@ export class MapComponent implements OnInit {
     this.markers = [];
     for (let marker of this.oertlichkeiten.entries()) {
       if (marker["1"].kategorienId == 4){
-       this.markers.push({ id: marker["1"].oertlichkeitenId, lat: marker["1"].latitude, lng: marker["1"].longitude, katId: marker["1"].kategorienId})
+       this.markers.push({ id: marker["1"].oertlichkeitenId, lat: marker["1"].latitude, lng: marker["1"].longitude, 
+       katId: marker["1"].kategorienId, url: 'http://maps.google.com/mapfiles/ms/icons/purple-dot.png'})
       }
     }
     this.restApi.getPolitik()
@@ -1430,7 +1434,8 @@ export class MapComponent implements OnInit {
     this.markers = [];
     for (let marker of this.oertlichkeiten.entries()) {
       if (marker["1"].kategorienId == 1){
-       this.markers.push({ id: marker["1"].oertlichkeitenId, lat: marker["1"].latitude, lng: marker["1"].longitude, katId: marker["1"].kategorienId})
+       this.markers.push({ id: marker["1"].oertlichkeitenId, lat: marker["1"].latitude, lng: marker["1"].longitude, 
+       katId: marker["1"].kategorienId, url: 'http://maps.google.com/mapfiles/ms/icons/yellow-dot.png'})
       }
     }
     this.restApi.getParkplaetze()
@@ -1456,7 +1461,8 @@ export class MapComponent implements OnInit {
     this.geoJsonObject = null;
     this.markers = [];
     for (let marker of this.maengel.entries()) {
-      this.markers.push({id: marker["1"].maengelID, lat: marker["1"].latitude, lng: marker["1"].longitude})
+      this.markers.push({id: marker["1"].maengelID, lat: marker["1"].latitude, lng: marker["1"].longitude,
+      url: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png'})
     }
   } 
 

@@ -2,7 +2,9 @@
 @import '~@angular/material/prebuilt-themes/deeppurple-amber.css';
 @import "~bootstrap/dist/css/bootstrap.min.css";
 
-
+.sticky-top {
+  position: inherit !important;
+}
 
 .pac-container {
   z-index: 1052 !important;
