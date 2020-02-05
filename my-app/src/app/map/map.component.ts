@@ -358,18 +358,22 @@ export class MapComponent implements OnInit {
       } 
       default: { 
         this.infos = [];
-        for (let marker of this.maengel.entries()) {
-          if (marker["1"].maengelID == id){
-          this.infos.push({ 
-              mangelId: marker["1"].maengelID,
-              beschreibung: marker["1"].beschreibung,
-              lat: marker["1"].latitude, 
-              lng: marker["1"].longitude,
-              status: marker["1"].status,        
-            })
-          }
+        this.restApi.getMaengel()
+          .subscribe( m => {
+            this.maengel = m as Maengel[];
+            for (let marker of this.maengel.entries()) {
+              if (marker["1"].maengelID == id){
+              this.infos.push({ 
+                  mangelId: marker["1"].maengelID,
+                  beschreibung: marker["1"].beschreibung,
+                  lat: marker["1"].latitude, 
+                  lng: marker["1"].longitude,
+                  status: marker["1"].status,        
+                })
+              }
+            }
+          });
           break; 
-        } 
       } 
     }
   }
